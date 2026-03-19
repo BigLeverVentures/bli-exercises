@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exercise 01 — Resume Tailorer · BLI</title>
+<style>
+:root{
+  --cream:#F7F4EE;--ink:#18180F;--ink2:#3A3A2A;--ink3:#7A7860;--ink4:#ADAB98;
+  --gold:#B87216;--gold2:#D88C28;--gold3:#F5C060;
+  --nvp:#534AB7;--nvp-light:#EEEDFE;--nvp-dark:#3C3489;
+  --surface:#FFFFFF;--surface2:#F3F1EB;--surface3:#EDEBE3;
+  --border:rgba(24,24,15,.1);--border2:rgba(24,24,15,.16);
+  --code-bg:#F0EDE5;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--ink);font-family:'Helvetica Neue',system-ui,-apple-system,sans-serif;font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased}
+
+/* ── LAYOUT ── */
+.page{max-width:720px;margin:0 auto;padding:32px 24px 60px}
+
+/* ── HERO ── */
+.hero{margin-bottom:28px}
+.meta-row{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.badge{font-size:9px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:3px 9px;border-radius:2px;white-space:nowrap}
+.b-num{background:var(--ink);color:var(--cream)}
+.b-mc{background:var(--nvp-light);color:var(--nvp-dark)}
+.b-skill{background:var(--surface3);color:var(--ink3);border:1px solid var(--border)}
+.b-time{background:var(--surface3);color:var(--ink4);border:1px solid var(--border)}
+h1{font-size:28px;font-weight:400;font-family:Georgia,serif;letter-spacing:-.02em;margin-bottom:10px;line-height:1.15}
+.hero-desc{font-size:14px;color:var(--ink2);line-height:1.75;margin-bottom:12px}
+.deliv-row{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:0 3px 3px 0;padding:10px 14px;display:flex;gap:10px;align-items:baseline}
+.deliv-label{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold2);white-space:nowrap}
+.deliv-val{font-size:13px;color:var(--ink2);line-height:1.5}
+
+/* ── DIVIDER ── */
+hr{border:none;border-top:1px solid var(--border);margin:24px 0}
+
+/* ── SECTION ── */
+.sec-label{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink4);margin-bottom:12px}
+
+/* ── BEFORE BEGIN BOX ── */
+.before-box{background:var(--ink);color:#e8e4ce;border-radius:4px;padding:20px 22px;font-family:'Courier New',Courier,monospace;font-size:11.5px;line-height:1.9;margin-bottom:24px}
+.bb-rule{color:#3e3d34;display:block;letter-spacing:.04em}
+.bb-head{color:#f0b040;font-weight:700;letter-spacing:.08em;display:block;margin-top:2px}
+.bb-body{color:#7a7860;display:block}
+.bb-req{color:#b0ad98;font-weight:700;display:block;margin-top:6px}
+.bb-indent{color:#7a7860;display:block;padding-left:16px}
+.bb-note{color:#3e3d34;font-style:italic;display:block;margin-top:4px}
+.bb-link{color:#8880D8;text-decoration:none}
+.bb-link:hover{text-decoration:underline}
+.bb-strong{color:#e8e4ce;font-weight:700}
+
+/* ── STEPS ── */
+.steps{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+.step{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;background:var(--surface);border:1px solid var(--border);border-radius:3px}
+.step-n{width:24px;height:24px;border-radius:50%;background:var(--surface3);border:1px solid var(--border2);font-size:10px;font-weight:700;color:var(--ink4);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-body{flex:1}
+.step-title{font-weight:600;font-size:13px;color:var(--ink);margin-bottom:3px}
+.step-desc{font-size:12px;color:var(--ink3);line-height:1.6}
+
+/* ── ACCORDIONS ── */
+.accordion{border:1px solid var(--border);border-radius:3px;overflow:hidden;margin-bottom:10px}
+.acc-trigger{width:100%;text-align:left;background:var(--surface2);border:none;padding:12px 16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:500;color:var(--ink);transition:background .12s}
+.acc-trigger:hover{background:var(--surface3)}
+.acc-trigger .chev{font-size:11px;color:var(--ink4);transition:transform .2s;flex-shrink:0}
+.acc-body{display:none;padding:16px;border-top:1px solid var(--border);background:var(--surface)}
+.accordion.open .acc-trigger .chev{transform:rotate(180deg)}
+.accordion.open .acc-body{display:block}
+.acc-note{font-size:12px;color:var(--ink3);line-height:1.65;background:var(--surface3);border-radius:3px;padding:10px 13px;margin-top:12px}
+.acc-note strong{color:var(--ink);font-weight:600}
+
+/* ── PROMPT BLOCKS ── */
+.prompt-block{margin-bottom:12px}
+.prompt-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}
+.prompt-header-label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink4)}
+.copy-btn{font-size:9px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:5px 14px;border:1px solid var(--border2);border-radius:2px;cursor:pointer;background:var(--surface);color:var(--ink3);transition:all .12s}
+.copy-btn:hover{border-color:var(--ink4);color:var(--ink)}
+.copy-btn.done{background:var(--surface3);color:var(--gold)}
+.prompt-text{background:var(--code-bg);border:1px solid var(--border);border-radius:3px;padding:16px;font-family:'Courier New',Courier,monospace;font-size:11.5px;line-height:1.8;color:var(--ink2);white-space:pre-wrap;word-break:break-word;max-height:380px;overflow-y:auto}
+.prompt-text::-webkit-scrollbar{width:4px}
+.prompt-text::-webkit-scrollbar-track{background:transparent}
+.prompt-text::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+
+/* ── USAGE CALLOUT ── */
+.callout{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--ink3);border-radius:0 3px 3px 0;padding:10px 14px;font-size:12px;color:var(--ink3);line-height:1.65;margin-bottom:12px}
+.callout strong{color:var(--ink);font-weight:600}
+.callout.gold{border-left-color:var(--gold)}
+.callout.nvp{border-left-color:var(--nvp)}
+
+/* ── EVOLUTION CHECKLIST ── */
+.evo-steps{display:flex;flex-direction:column;gap:8px}
+.evo-row{display:flex;gap:10px;align-items:flex-start}
+.evo-n{font-size:9px;font-weight:700;letter-spacing:.06em;color:var(--ink4);font-family:monospace;min-width:22px;padding-top:2px}
+.evo-text{font-size:12px;color:var(--ink2);line-height:1.55}
+.evo-text strong{font-weight:600;color:var(--ink)}
+
+/* ── FOOTER ── */
+.ex-footer{margin-top:32px;padding-top:20px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:gap}
+.footer-left{font-size:11px;color:var(--ink4);font-family:monospace;letter-spacing:.04em}
+.footer-right{font-size:11px;color:var(--ink4)}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="meta-row">
+    <span class="badge b-num">Exercise 01</span>
+    <span class="badge b-mc">MC1 — Working with Claude</span>
+    <span class="badge b-skill">Projects · custom instructions · document upload</span>
+    <span class="badge b-time">2–3 hrs · No experience needed</span>
+  </div>
+  <h1>Resume tailorer</h1>
+  <p class="hero-desc">Most people use Claude to generate a resume. This exercise teaches you to build a <em>system</em> that generates the right resume — every time, for any role, in your voice. The difference is a Claude Project with custom instructions and your source materials loaded in. Once it's set up, applying for a job takes one paste.</p>
+  <div class="deliv-row">
+    <span class="deliv-label">You'll have</span>
+    <span class="deliv-val">A working resume system: a configured Claude Project with custom instructions tuned to your voice and background, tested against a real job description and refined based on the output.</span>
+  </div>
+</div>
+
+<hr>
+
+<!-- BEFORE YOU BEGIN -->
+<div class="sec-label">Before you begin</div>
+<div class="before-box">
+<span class="bb-rule">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+<span class="bb-head">WHAT TO OPEN</span>
+<span class="bb-body">Open <span class="bb-strong">claude.ai</span> and create a new Project.
+Name it: <span class="bb-strong">My Resume System</span></span>
+<span class="bb-body">New to Claude? → <a class="bb-link" href="#">MC1: Working with Claude</a>
+Never set up a Project? → <a class="bb-link" href="#">Exercise 11: Context Document Builder</a></span>
+<span class="bb-rule">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+<span class="bb-head">WHAT TO UPLOAD TO YOUR PROJECT</span>
+<span class="bb-body">Before running the prompt below, upload your source
+materials to the Project. Claude will reference these
+across every future resume session.</span>
+<span class="bb-req">  REQUIRED</span>
+<span class="bb-indent">  → Your current resume (any version)</span>
+<span class="bb-req">  STRONGLY RECOMMENDED</span>
+<span class="bb-indent">  → LinkedIn profile text — paste your About section</span>
+<span class="bb-indent">    and job descriptions into a single document</span>
+<span class="bb-indent">  → A professional bio or profile if you have one</span>
+<span class="bb-indent">  → Past cover letters, even old or imperfect ones</span>
+<span class="bb-indent">    (they reveal your natural voice)</span>
+<span class="bb-req">  USEFUL IF YOU HAVE THEM</span>
+<span class="bb-indent">  → Performance reviews or recommendations</span>
+<span class="bb-indent">  → Case studies, project summaries, or portfolio links</span>
+<span class="bb-indent">  → A raw list of achievements you've never known</span>
+<span class="bb-indent">    how to phrase</span>
+<span class="bb-note">  The more source material you upload, the less Claude
+  has to infer. Inference is where resumes go generic.</span>
+<span class="bb-rule">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+<span class="bb-head">WHAT YOU'LL HAVE AT THE END</span>
+<span class="bb-body">A working resume system. Custom instructions tuned to
+your voice. Every future application takes one paste.</span>
+</div>
+
+<hr>
+
+<!-- HOW IT WORKS -->
+<div class="sec-label">How this exercise works</div>
+<div class="steps">
+  <div class="step">
+    <div class="step-n">1</div>
+    <div class="step-body">
+      <div class="step-title">Study a worked example</div>
+      <div class="step-desc">Read the anonymized instruction set below. This is what a well-designed resume system looks like. Understand it before building your own — notice how it tells Claude <em>how</em> to use each document, not just that they exist.</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-n">2</div>
+    <div class="step-body">
+      <div class="step-title">Build your instructions with Prompt A</div>
+      <div class="step-desc">Paste Prompt A into your new Project. Claude will interview you and draft your custom instruction set, then tell you where it's weaker than the example and why.</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-n">3</div>
+    <div class="step-body">
+      <div class="step-title">Save and test with Prompt B</div>
+      <div class="step-desc">Set your drafted instructions as the Project Instructions. Then paste a real job description using Prompt B — nothing else — and evaluate the output against the style checklist.</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-n">4</div>
+    <div class="step-body">
+      <div class="step-title">Refine and log</div>
+      <div class="step-desc">Edit your instructions based on what the first output got wrong. Run the JD again. The before-and-after is your prompt evolution log entry.</div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- WORKED EXAMPLE -->
+<div class="sec-label">Worked example — read this first</div>
+<div class="accordion" id="acc-example">
+  <button class="acc-trigger" onclick="tog('acc-example')">
+    Anonymized resume system instruction set
+    <span class="chev">▾</span>
+  </button>
+  <div class="acc-body">
+    <div class="prompt-block">
+      <div class="prompt-header">
+        <span class="prompt-header-label">Example instructions — study before building yours</span>
+        <button class="copy-btn" id="cb-ex" onclick="cp('cb-ex','pt-ex')">Copy</button>
+      </div>
+      <div class="prompt-text" id="pt-ex">## RESUME WRITER SYSTEM INSTRUCTIONS
+
+### Purpose
+For every job description provided, generate a customized
+resume and cover letter aligned to that specific role.
+Both should sound as if written from within the organization
+— mirroring tone, values, and priorities found in the posting
+— while authentically reflecting the professional's background
+as documented in the source materials.
+
+Source files loaded in this Project:
+  → Full experience document with case studies
+  → Primary resume (format and proof-driven style reference)
+  → Professional narrative and philosophy document
+
+─────────────────────────────────────────
+OUTPUT FORMAT
+─────────────────────────────────────────
+Deliver two outputs for every job description:
+  1. Tailored Resume (1–2 pages max)
+  2. Custom Cover Letter (single page, under 350 words)
+
+─────────────────────────────────────────
+GENERAL PRINCIPLES
+─────────────────────────────────────────
+1. MATCH THE EMPLOYER'S TONE
+   Use the same linguistic register, keywords, and
+   structure found in the job posting. Mirror whether
+   the employer writes in corporate, academic, or startup
+   language. Use the company's mission statements, verbs,
+   or recurring phrases to frame the narrative.
+
+2. PROOF-DRIVEN BULLETS
+   Every bullet must demonstrate a measurable action and
+   its outcome. Format:
+
+   Action + Context + Quantified Impact
+
+   Example:
+   "Reduced supplier lead times by 30% through AI-driven
+   forecasting, accelerating product launch by two months."
+
+3. PRIORITIZE ALIGNMENT
+   Only include achievements relevant to the posting's top
+   three themes. Reorder experiences to place the most
+   relevant role first, regardless of chronology. Use the
+   employer's keywords exactly where possible.
+
+4. MODERN RESUME STANDARDS
+   - Concise bullets (two lines max)
+   - No pronouns; lead with strong verbs
+   - White space; no dense blocks
+   - Quantifiable metrics in at least 70% of bullets
+
+5. TONE OF VOICE
+   Confident but not self-promotional. Clarity, precision,
+   and credibility over buzzwords.
+
+─────────────────────────────────────────
+STRUCTURE GUIDELINES
+─────────────────────────────────────────
+Resume sections (in this order):
+  1. Header
+  2. Executive Summary (3–4 lines tailored to the role)
+  3. Key Achievements / Highlights (3 bullets)
+  4. Professional Experience (relevance over chronology)
+  5. Education and Affiliations (condensed)
+  6. Selected Leadership or Advisory Roles (if applicable)
+
+Cover letter structure:
+  Opening — Establish immediate relevance. Mirror the role
+  title and the company's own language.
+  Example: "As a [descriptor matching the role], I was
+  immediately drawn to [Company]'s commitment to [specific
+  mission element from the posting]."
+
+  Middle — 2–3 proof points mapping to key job criteria.
+  Each quantified.
+
+  Closing — Alignment with company goals and a forward-
+  looking statement about contribution.
+
+─────────────────────────────────────────
+PROCESS FOR EACH JOB DESCRIPTION
+─────────────────────────────────────────
+When a job description is provided:
+  1. Identify the top 3–5 keywords and recurring themes
+  2. Determine the target persona (corporate executive,
+     startup builder, academic, etc.)
+  3. Select and adapt relevant proof points from
+     the source documents
+  4. Rewrite bullets to match the employer's diction
+  5. Produce the resume and cover letter
+  6. Verify each bullet follows Action → Result format
+
+─────────────────────────────────────────
+STYLE CHECKLIST
+─────────────────────────────────────────
+  ✓ Resume: 1–2 pages
+  ✓ Cover letter: 3–4 paragraphs, under 350 words
+  ✓ Strong verbs: built, led, scaled, reduced, increased,
+    architected, negotiated, launched
+  ✗ No filler: "responsible for," "helped with,"
+    "worked on," "assisted in"
+  ✓ Resume and letter sound like one person wrote both</div>
+    </div>
+    <div class="acc-note">
+      <strong>Two things to notice before you build your own:</strong><br>
+      "Sound as if written from within the organization" is the most important line. That framing produces qualitatively different output than "tailor this to the job." Find the equivalent in your voice.<br><br>
+      Each source document is named and described. Claude is told <em>how</em> to use each file — not just that they exist. That architecture is the lesson.
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- PROMPT A -->
+<div class="sec-label">Prompt A — build your instruction set</div>
+<div class="callout gold">
+  <strong>Where to paste this:</strong> Into your My Resume System Project — the one you just created with your documents uploaded. Claude will interview you, draft your instructions, and benchmark them against the example.
+</div>
+<div class="prompt-block">
+  <div class="prompt-header">
+    <span class="prompt-header-label">Prompt A — paste into your Project</span>
+    <button class="copy-btn" id="cb-a" onclick="cp('cb-a','pt-a')">Copy prompt</button>
+  </div>
+  <div class="prompt-text" id="pt-a">You are helping me write the Project Instructions for my
+personal Claude resume system — one I'll use every time
+I apply for a job.
+
+I've already uploaded my source materials to this Project.
+You have access to them. Read them before we begin.
+
+I'm also sharing a worked example of a well-designed
+instruction set from another professional. Study it
+carefully — we'll use it as our benchmark.
+
+[PASTE THE WORKED EXAMPLE INSTRUCTION SET HERE]
+
+Now interview me to build my version. Ask me these
+questions one at a time. Wait for my full answer before
+moving to the next question.
+
+─── QUESTION 1: YOUR BACKGROUND ───
+
+Describe your professional background in 3–4 sentences
+— the way you'd explain it at a dinner party, not a
+job interview.
+
+─── QUESTION 2: YOUR TARGET ROLES ───
+
+What kinds of roles are you typically targeting?
+Give me 2–3 specific examples — job titles, industries,
+or types of organizations.
+
+─── QUESTION 3: YOUR PROOF POINTS ───
+
+Give me your 3–5 strongest professional achievements.
+For each one, use this format:
+
+  Action + Context + Quantified Impact
+
+  Like this:
+  "Rebuilt the onboarding program for a 30-person sales
+  team, cutting ramp time from 12 weeks to 7 and
+  improving 90-day quota attainment by 22%."
+
+  If you can't quantify something yet, use a placeholder:
+  [$X], [N%], [N people] — we'll make it realistic.
+
+  Don't worry about polish. Rough is fine.
+  We'll sharpen it together.
+
+─── QUESTION 4: YOUR VOICE ───
+
+How would you describe your professional tone?
+Choose 2–3 that fit — or describe it in your own words:
+
+  direct / warm / formal / analytical /
+  entrepreneurial / academic / conversational /
+  precise / confident / understated
+
+─── QUESTION 5: YOUR PRIORITIES ───
+
+When choosing which experiences to include, what should
+I always prioritize? Examples: leadership impact,
+technical depth, client outcomes, building from zero,
+scale and growth.
+
+─── QUESTION 6: YOUR LIMITS ───
+
+Are there things you want me to never do?
+  - Phrasing or words to avoid
+  - Experiences to de-emphasize
+  - Tones or framings that feel wrong for you
+
+─── AFTER THE INTERVIEW ───
+
+Once I've answered all six questions, draft my Project
+Instructions in the same format as the example:
+Purpose · Output Format · General Principles ·
+Structure Guidelines · Process · Style Checklist.
+
+Adapt the structure where my situation differs.
+Use my actual words and proof points — not placeholders.
+
+Then tell me the 2–3 places where my instructions are
+weaker than the example and exactly why.</div>
+</div>
+
+<hr>
+
+<!-- PROMPT B -->
+<div class="sec-label">Prompt B — your permanent application prompt</div>
+<div class="callout nvp">
+  <strong>Once your Project Instructions are saved,</strong> this is the only prompt you'll ever need for any application. Paste a job description — nothing else. Your system does the rest. If the output isn't right, the fix is in your instructions, not in how you phrase the request.
+</div>
+<div class="prompt-block">
+  <div class="prompt-header">
+    <span class="prompt-header-label">Prompt B — use this for every future application</span>
+    <button class="copy-btn" id="cb-b" onclick="cp('cb-b','pt-b')">Copy prompt</button>
+  </div>
+  <div class="prompt-text" id="pt-b">[PASTE JOB DESCRIPTION HERE]</div>
+</div>
+<div class="callout" style="margin-top:8px">That's it. The work is in the system, not the prompt. A one-line input producing a tailored resume and cover letter is Claude Projects working as intended.</div>
+
+<hr>
+
+<!-- PROMPT EVOLUTION LOG -->
+<div class="sec-label">Your submission — prompt evolution log</div>
+<div class="accordion" id="acc-evo">
+  <button class="acc-trigger" onclick="tog('acc-evo')">
+    What to submit and how to build your log entry
+    <span class="chev">▾</span>
+  </button>
+  <div class="acc-body">
+    <div class="evo-steps">
+      <div class="evo-row">
+        <span class="evo-n">V1</span>
+        <span class="evo-text"><strong>Save your first draft</strong> of the Project Instructions — before testing against a real JD.</span>
+      </div>
+      <div class="evo-row">
+        <span class="evo-n">TEST</span>
+        <span class="evo-text"><strong>Paste a real job description</strong> you actually want to apply for. Evaluate the output against the Style Checklist in your instructions. Note what failed.</span>
+      </div>
+      <div class="evo-row">
+        <span class="evo-n">V2</span>
+        <span class="evo-text"><strong>Edit your instructions</strong> based on what failed. Note exactly what you changed and why — one paragraph is enough.</span>
+      </div>
+      <div class="evo-row">
+        <span class="evo-n">SUBMIT</span>
+        <span class="evo-text"><strong>Your submission is:</strong> V1 instructions · V2 instructions · one paragraph explaining what the test revealed and what you changed. That's your evolution log entry for Exercise 01.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="ex-footer">
+  <span class="footer-left">BLI · MC1 · Exercise 01</span>
+  <span class="footer-right">Next: <a href="#" style="color:var(--nvp);text-decoration:none">Exercise 02 — Interview Coach →</a></span>
+</div>
+
+</div>
+<script>
+function tog(id){
+  const el=document.getElementById(id);
+  el.classList.toggle('open');
+}
+function cp(btnId,srcId){
+  const text=document.getElementById(srcId).textContent;
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn=document.getElementById(btnId);
+    const orig=btn.textContent;
+    btn.textContent='Copied ✓';
+    btn.classList.add('done');
+    setTimeout(()=>{btn.textContent=orig;btn.classList.remove('done');},2200);
+  }).catch(()=>{
+    const btn=document.getElementById(btnId);
+    btn.textContent='Select & copy manually';
+    setTimeout(()=>{btn.textContent=orig;},2200);
+  });
+}
+</script>
+</body>
+</html>
