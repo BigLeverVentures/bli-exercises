@@ -5,108 +5,224 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Exercise 01 — Resume Tailorer · BLI</title>
 <style>
-:root{
-  --cream:#F7F4EE;--ink:#18180F;--ink2:#3A3A2A;--ink3:#7A7860;--ink4:#ADAB98;
-  --gold:#B87216;--gold2:#D88C28;--gold3:#F5C060;
-  --nvp:#534AB7;--nvp-light:#EEEDFE;--nvp-dark:#3C3489;
-  --surface:#FFFFFF;--surface2:#F3F1EB;--surface3:#EDEBE3;
-  --border:rgba(24,24,15,.1);--border2:rgba(24,24,15,.16);
-  --code-bg:#F0EDE5;
+:root {
+  --cream:      #F7F4EE;
+  --ink:        #18180F;
+  --ink2:       #3A3A2A;
+  --ink3:       #6A6858;
+  --ink4:       #A8A690;
+  --gold:       #B87216;
+  --gold2:      #D08820;
+  --gold-pale:  #FDF3DC;
+  --nvp:        #534AB7;
+  --nvp-light:  #EEEDFE;
+  --nvp-dark:   #3C3489;
+  --nvp-mid:    #D8D6F8;
+  --surface:    #FFFFFF;
+  --surface2:   #F0EDE4;
+  --surface3:   #E8E4D8;
+  --border:     rgba(24,24,15,.09);
+  --border2:    rgba(24,24,15,.16);
 }
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--cream);color:var(--ink);font-family:'Helvetica Neue',system-ui,-apple-system,sans-serif;font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased}
-
-/* ── LAYOUT ── */
-.page{max-width:720px;margin:0 auto;padding:32px 24px 60px}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'Helvetica Neue', system-ui, -apple-system, sans-serif;
+  font-size: 15px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+.page { max-width: 740px; margin: 0 auto; padding: 36px 28px 72px; }
 
 /* ── HERO ── */
-.hero{margin-bottom:28px}
-.meta-row{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
-.badge{font-size:9px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:3px 9px;border-radius:2px;white-space:nowrap}
-.b-num{background:var(--ink);color:var(--cream)}
-.b-mc{background:var(--nvp-light);color:var(--nvp-dark)}
-.b-skill{background:var(--surface3);color:var(--ink3);border:1px solid var(--border)}
-.b-time{background:var(--surface3);color:var(--ink4);border:1px solid var(--border)}
-h1{font-size:28px;font-weight:400;font-family:Georgia,serif;letter-spacing:-.02em;margin-bottom:10px;line-height:1.15}
-.hero-desc{font-size:14px;color:var(--ink2);line-height:1.75;margin-bottom:12px}
-.deliv-row{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:0 3px 3px 0;padding:10px 14px;display:flex;gap:10px;align-items:baseline}
-.deliv-label{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold2);white-space:nowrap}
-.deliv-val{font-size:13px;color:var(--ink2);line-height:1.5}
+.meta-row { display: flex; gap: 7px; align-items: center; flex-wrap: wrap; margin-bottom: 14px; }
+.badge {
+  font-size: 10px; font-weight: 700; letter-spacing: .06em;
+  text-transform: uppercase; padding: 3px 10px;
+  border-radius: 2px; white-space: nowrap; line-height: 1.4;
+}
+.b-num   { background: var(--ink); color: var(--cream); }
+.b-mc    { background: var(--nvp-light); color: var(--nvp-dark); }
+.b-skill { background: var(--surface3); color: var(--ink3); border: 1px solid var(--border2); }
+.b-time  { background: var(--surface3); color: var(--ink4); border: 1px solid var(--border); }
 
-/* ── DIVIDER ── */
-hr{border:none;border-top:1px solid var(--border);margin:24px 0}
+h1 {
+  font-size: 32px; font-weight: 400; font-family: Georgia, serif;
+  letter-spacing: -.02em; margin-bottom: 12px; line-height: 1.15;
+}
+.hero-desc { font-size: 15px; color: var(--ink2); line-height: 1.75; margin-bottom: 16px; }
 
-/* ── SECTION ── */
-.sec-label{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink4);margin-bottom:12px}
+.deliv-row {
+  background: var(--gold-pale);
+  border: 1px solid rgba(184,114,22,.2);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 4px 4px 0;
+  padding: 12px 16px;
+  display: flex; gap: 12px; align-items: baseline;
+}
+.deliv-label {
+  font-size: 10px; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--gold2);
+  white-space: nowrap; flex-shrink: 0;
+}
+.deliv-val { font-size: 14px; color: var(--ink2); line-height: 1.55; }
 
-/* ── BEFORE BEGIN BOX ── */
-.before-box{background:var(--ink);color:#e8e4ce;border-radius:4px;padding:20px 22px;font-family:'Courier New',Courier,monospace;font-size:11.5px;line-height:1.9;margin-bottom:24px}
-.bb-rule{color:#3e3d34;display:block;letter-spacing:.04em}
-.bb-head{color:#f0b040;font-weight:700;letter-spacing:.08em;display:block;margin-top:2px}
-.bb-body{color:#7a7860;display:block}
-.bb-req{color:#b0ad98;font-weight:700;display:block;margin-top:6px}
-.bb-indent{color:#7a7860;display:block;padding-left:16px}
-.bb-note{color:#3e3d34;font-style:italic;display:block;margin-top:4px}
-.bb-link{color:#8880D8;text-decoration:none}
-.bb-link:hover{text-decoration:underline}
-.bb-strong{color:#e8e4ce;font-weight:700}
+hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+
+.sec-label {
+  font-size: 10px; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--ink4); margin-bottom: 14px;
+}
+
+/* ── BEFORE YOU BEGIN ── */
+.before-box {
+  background: var(--surface3);
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  padding: 24px 26px;
+  margin-bottom: 28px;
+}
+.bb-block { margin-bottom: 18px; }
+.bb-block:last-child { margin-bottom: 0; }
+.bb-rule { display: block; height: 1px; background: var(--border2); margin: 18px 0; }
+.bb-head {
+  font-size: 10px; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--gold2); margin-bottom: 8px; display: block;
+}
+.bb-body { font-size: 14px; color: var(--ink2); line-height: 1.75; margin-bottom: 6px; }
+.bb-body a { color: var(--nvp); text-decoration: none; }
+.bb-body a:hover { text-decoration: underline; }
+.bb-body strong { color: var(--ink); font-weight: 600; }
+.bb-group { margin-top: 10px; }
+.bb-group-label {
+  font-size: 11px; font-weight: 700; letter-spacing: .05em;
+  text-transform: uppercase; color: var(--ink3); margin-bottom: 5px; display: block;
+}
+.bb-list { list-style: none; padding: 0; margin: 0; }
+.bb-list li {
+  font-size: 14px; color: var(--ink2); line-height: 1.7;
+  padding-left: 16px; position: relative;
+}
+.bb-list li::before { content: '→'; position: absolute; left: 0; color: var(--ink4); font-size: 12px; }
+.bb-note { font-size: 13px; color: var(--ink3); line-height: 1.65; margin-top: 10px; font-style: italic; }
 
 /* ── STEPS ── */
-.steps{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
-.step{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;background:var(--surface);border:1px solid var(--border);border-radius:3px}
-.step-n{width:24px;height:24px;border-radius:50%;background:var(--surface3);border:1px solid var(--border2);font-size:10px;font-weight:700;color:var(--ink4);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
-.step-body{flex:1}
-.step-title{font-weight:600;font-size:13px;color:var(--ink);margin-bottom:3px}
-.step-desc{font-size:12px;color:var(--ink3);line-height:1.6}
+.steps { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+.step {
+  display: flex; gap: 14px; align-items: flex-start;
+  padding: 14px 16px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 4px;
+}
+.step-n {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--surface3); border: 1px solid var(--border2);
+  font-size: 11px; font-weight: 700; color: var(--ink4);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 1px;
+}
+.step-title { font-weight: 600; font-size: 14px; color: var(--ink); margin-bottom: 4px; }
+.step-desc  { font-size: 13px; color: var(--ink3); line-height: 1.65; }
 
 /* ── ACCORDIONS ── */
-.accordion{border:1px solid var(--border);border-radius:3px;overflow:hidden;margin-bottom:10px}
-.acc-trigger{width:100%;text-align:left;background:var(--surface2);border:none;padding:12px 16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:500;color:var(--ink);transition:background .12s}
-.acc-trigger:hover{background:var(--surface3)}
-.acc-trigger .chev{font-size:11px;color:var(--ink4);transition:transform .2s;flex-shrink:0}
-.acc-body{display:none;padding:16px;border-top:1px solid var(--border);background:var(--surface)}
-.accordion.open .acc-trigger .chev{transform:rotate(180deg)}
-.accordion.open .acc-body{display:block}
-.acc-note{font-size:12px;color:var(--ink3);line-height:1.65;background:var(--surface3);border-radius:3px;padding:10px 13px;margin-top:12px}
-.acc-note strong{color:var(--ink);font-weight:600}
+.accordion { border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 10px; }
+.acc-trigger {
+  width: 100%; text-align: left; background: var(--surface2); border: none;
+  padding: 14px 18px; cursor: pointer;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 14px; font-weight: 500; color: var(--ink);
+  transition: background .12s; line-height: 1.4;
+}
+.acc-trigger:hover { background: var(--surface3); }
+.acc-trigger .chev { font-size: 12px; color: var(--ink4); transition: transform .2s; flex-shrink: 0; margin-left: 12px; }
+.acc-body { display: none; padding: 18px 20px; border-top: 1px solid var(--border); background: var(--surface); }
+.accordion.open .acc-trigger .chev { transform: rotate(180deg); }
+.accordion.open .acc-body { display: block; }
+.acc-note {
+  font-size: 13px; color: var(--ink3); line-height: 1.7;
+  background: var(--surface2); border-radius: 4px;
+  padding: 12px 15px; margin-top: 14px;
+  border-left: 3px solid var(--border2);
+}
+.acc-note strong { color: var(--ink); font-weight: 600; }
 
-/* ── PROMPT BLOCKS ── */
-.prompt-block{margin-bottom:12px}
-.prompt-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}
-.prompt-header-label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink4)}
-.copy-btn{font-size:9px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:5px 14px;border:1px solid var(--border2);border-radius:2px;cursor:pointer;background:var(--surface);color:var(--ink3);transition:all .12s}
-.copy-btn:hover{border-color:var(--ink4);color:var(--ink)}
-.copy-btn.done{background:var(--surface3);color:var(--gold)}
-.prompt-text{background:var(--code-bg);border:1px solid var(--border);border-radius:3px;padding:16px;font-family:'Courier New',Courier,monospace;font-size:11.5px;line-height:1.8;color:var(--ink2);white-space:pre-wrap;word-break:break-word;max-height:380px;overflow-y:auto}
-.prompt-text::-webkit-scrollbar{width:4px}
-.prompt-text::-webkit-scrollbar-track{background:transparent}
-.prompt-text::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+/* ── PROMPT LABEL (plain, no box) ── */
+.prompt-section { margin-bottom: 24px; }
+.prompt-intro { font-size: 14px; color: var(--ink2); line-height: 1.7; margin-bottom: 12px; }
+.prompt-intro strong { color: var(--ink); font-weight: 600; }
 
-/* ── USAGE CALLOUT ── */
-.callout{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--ink3);border-radius:0 3px 3px 0;padding:10px 14px;font-size:12px;color:var(--ink3);line-height:1.65;margin-bottom:12px}
-.callout strong{color:var(--ink);font-weight:600}
-.callout.gold{border-left-color:var(--gold)}
-.callout.nvp{border-left-color:var(--nvp)}
+/* ── PROMPT BLOCK ── */
+.prompt-wrap { margin-bottom: 4px; }
+.prompt-header {
+  display: flex; justify-content: space-between; align-items: center;
+  background: var(--nvp); border-radius: 4px 4px 0 0;
+  padding: 10px 16px;
+}
+.prompt-header-label {
+  font-size: 10px; font-weight: 700; letter-spacing: .09em;
+  text-transform: uppercase; color: rgba(255,255,255,.7);
+}
+.copy-btn {
+  font-size: 10px; font-weight: 700; letter-spacing: .06em;
+  text-transform: uppercase; padding: 5px 14px;
+  border: 1px solid rgba(255,255,255,.3); border-radius: 2px;
+  cursor: pointer; background: transparent; color: rgba(255,255,255,.85);
+  transition: all .12s;
+}
+.copy-btn:hover { background: rgba(255,255,255,.15); border-color: rgba(255,255,255,.6); }
+.copy-btn.done { background: rgba(255,255,255,.2); color: #fff; border-color: rgba(255,255,255,.5); }
+.prompt-text {
+  background: var(--nvp-light);
+  border: 1px solid var(--nvp-mid); border-top: none;
+  border-radius: 0 0 4px 4px;
+  padding: 18px 20px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 13px; line-height: 1.85; color: var(--ink2);
+  white-space: pre-wrap; word-break: break-word;
+  max-height: 420px; overflow-y: auto;
+}
+.prompt-text::-webkit-scrollbar { width: 5px; }
+.prompt-text::-webkit-scrollbar-track { background: transparent; }
+.prompt-text::-webkit-scrollbar-thumb { background: var(--nvp-mid); border-radius: 3px; }
 
-/* ── EVOLUTION CHECKLIST ── */
-.evo-steps{display:flex;flex-direction:column;gap:8px}
-.evo-row{display:flex;gap:10px;align-items:flex-start}
-.evo-n{font-size:9px;font-weight:700;letter-spacing:.06em;color:var(--ink4);font-family:monospace;min-width:22px;padding-top:2px}
-.evo-text{font-size:12px;color:var(--ink2);line-height:1.55}
-.evo-text strong{font-weight:600;color:var(--ink)}
+/* ── WHERE TO GO NEXT ── */
+.next-section { margin-top: 36px; }
+.next-grid { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+.next-card {
+  display: flex; gap: 14px; align-items: flex-start;
+  padding: 14px 16px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 4px;
+  text-decoration: none; transition: border-color .12s;
+}
+.next-card:hover { border-color: var(--border2); }
+.next-icon {
+  font-size: 13px; color: var(--ink4); min-width: 18px;
+  padding-top: 2px; font-family: 'Courier New', monospace;
+}
+.next-body { flex: 1; }
+.next-title { font-size: 14px; font-weight: 500; color: var(--nvp); margin-bottom: 3px; }
+.next-desc  { font-size: 13px; color: var(--ink3); line-height: 1.55; }
+.next-tag {
+  font-size: 9px; font-weight: 700; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--ink4);
+  padding-top: 3px; white-space: nowrap; flex-shrink: 0;
+}
 
 /* ── FOOTER ── */
-.ex-footer{margin-top:32px;padding-top:20px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:gap}
-.footer-left{font-size:11px;color:var(--ink4);font-family:monospace;letter-spacing:.04em}
-.footer-right{font-size:11px;color:var(--ink4)}
+.ex-footer {
+  margin-top: 36px; padding-top: 20px; border-top: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 8px;
+}
+.footer-sig { font-size: 11px; color: var(--ink4); font-family: 'Courier New', monospace; letter-spacing: .04em; }
 </style>
 </head>
 <body>
 <div class="page">
 
 <!-- HERO -->
-<div class="hero">
+<div style="margin-bottom:32px">
   <div class="meta-row">
     <span class="badge b-num">Exercise 01</span>
     <span class="badge b-mc">MC1 — Working with Claude</span>
@@ -126,36 +242,43 @@ hr{border:none;border-top:1px solid var(--border);margin:24px 0}
 <!-- BEFORE YOU BEGIN -->
 <div class="sec-label">Before you begin</div>
 <div class="before-box">
-<span class="bb-rule">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
-<span class="bb-head">WHAT TO OPEN</span>
-<span class="bb-body">Open <span class="bb-strong">claude.ai</span> and create a new Project.
-Name it: <span class="bb-strong">My Resume System</span></span>
-<span class="bb-body">New to Claude? → <a class="bb-link" href="#">MC1: Working with Claude</a>
-Never set up a Project? → <a class="bb-link" href="#">Exercise 11: Context Document Builder</a></span>
-<span class="bb-rule">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
-<span class="bb-head">WHAT TO UPLOAD TO YOUR PROJECT</span>
-<span class="bb-body">Before running the prompt below, upload your source
-materials to the Project. Claude will reference these
-across every future resume session.</span>
-<span class="bb-req">  REQUIRED</span>
-<span class="bb-indent">  → Your current resume (any version)</span>
-<span class="bb-req">  STRONGLY RECOMMENDED</span>
-<span class="bb-indent">  → LinkedIn profile text — paste your About section</span>
-<span class="bb-indent">    and job descriptions into a single document</span>
-<span class="bb-indent">  → A professional bio or profile if you have one</span>
-<span class="bb-indent">  → Past cover letters, even old or imperfect ones</span>
-<span class="bb-indent">    (they reveal your natural voice)</span>
-<span class="bb-req">  USEFUL IF YOU HAVE THEM</span>
-<span class="bb-indent">  → Performance reviews or recommendations</span>
-<span class="bb-indent">  → Case studies, project summaries, or portfolio links</span>
-<span class="bb-indent">  → A raw list of achievements you've never known</span>
-<span class="bb-indent">    how to phrase</span>
-<span class="bb-note">  The more source material you upload, the less Claude
-  has to infer. Inference is where resumes go generic.</span>
-<span class="bb-rule">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
-<span class="bb-head">WHAT YOU'LL HAVE AT THE END</span>
-<span class="bb-body">A working resume system. Custom instructions tuned to
-your voice. Every future application takes one paste.</span>
+  <div class="bb-block">
+    <span class="bb-head">What to open</span>
+    <p class="bb-body">Open <strong>claude.ai</strong> and create a new Project named <strong>My Resume System</strong>.</p>
+    <p class="bb-body">New to Claude? → <a href="https://[username].github.io/bli-minicourses/mc1-working-with-claude.html">MC1: Working with Claude</a><br>
+    Never set up a Project? → <a href="https://[username].github.io/bli-exercises/ex11-context-document-builder.html">Exercise 11: Context Document Builder</a></p>
+  </div>
+  <span class="bb-rule"></span>
+  <div class="bb-block">
+    <span class="bb-head">What to upload to your Project</span>
+    <p class="bb-body">Before running the prompt below, add your source materials to the Project. Claude will reference these across every future resume session.</p>
+    <div class="bb-group">
+      <span class="bb-group-label">Required</span>
+      <ul class="bb-list"><li>Your current resume (any version)</li></ul>
+    </div>
+    <div class="bb-group">
+      <span class="bb-group-label">Strongly recommended</span>
+      <ul class="bb-list">
+        <li>LinkedIn profile text — paste your About section and job descriptions into a single document</li>
+        <li>A professional bio or profile if you have one</li>
+        <li>Past cover letters, even old or imperfect ones (they reveal your natural voice)</li>
+      </ul>
+    </div>
+    <div class="bb-group">
+      <span class="bb-group-label">Useful if you have them</span>
+      <ul class="bb-list">
+        <li>Performance reviews or recommendations</li>
+        <li>Case studies, project summaries, or portfolio links</li>
+        <li>A raw list of achievements you've never known how to phrase</li>
+      </ul>
+    </div>
+    <p class="bb-note">The more source material you upload, the less Claude has to infer. Inference is where resumes go generic.</p>
+  </div>
+  <span class="bb-rule"></span>
+  <div class="bb-block">
+    <span class="bb-head">What you'll have at the end</span>
+    <p class="bb-body">A working resume system. Custom instructions tuned to your voice. Every future application takes one paste.</p>
+  </div>
 </div>
 
 <hr>
@@ -165,30 +288,30 @@ your voice. Every future application takes one paste.</span>
 <div class="steps">
   <div class="step">
     <div class="step-n">1</div>
-    <div class="step-body">
+    <div>
       <div class="step-title">Study a worked example</div>
-      <div class="step-desc">Read the anonymized instruction set below. This is what a well-designed resume system looks like. Understand it before building your own — notice how it tells Claude <em>how</em> to use each document, not just that they exist.</div>
+      <div class="step-desc">Read the anonymized instruction set below. This is what a well-designed resume system looks like. Notice how it tells Claude <em>how</em> to use each document — not just that they exist. Understand it before building your own.</div>
     </div>
   </div>
   <div class="step">
     <div class="step-n">2</div>
-    <div class="step-body">
+    <div>
       <div class="step-title">Build your instructions with Prompt A</div>
       <div class="step-desc">Paste Prompt A into your new Project. Claude will interview you and draft your custom instruction set, then tell you where it's weaker than the example and why.</div>
     </div>
   </div>
   <div class="step">
     <div class="step-n">3</div>
-    <div class="step-body">
+    <div>
       <div class="step-title">Save and test with Prompt B</div>
-      <div class="step-desc">Set your drafted instructions as the Project Instructions. Then paste a real job description using Prompt B — nothing else — and evaluate the output against the style checklist.</div>
+      <div class="step-desc">Set your drafted instructions as the Project Instructions. Paste a real job description using Prompt B — nothing else — and evaluate the output against the style checklist.</div>
     </div>
   </div>
   <div class="step">
     <div class="step-n">4</div>
-    <div class="step-body">
-      <div class="step-title">Refine and log</div>
-      <div class="step-desc">Edit your instructions based on what the first output got wrong. Run the JD again. The before-and-after is your prompt evolution log entry.</div>
+    <div>
+      <div class="step-title">Refine</div>
+      <div class="step-desc">Edit your instructions based on what the first output got wrong. Run the job description again. You're done when the output meets your standard.</div>
     </div>
   </div>
 </div>
@@ -203,9 +326,9 @@ your voice. Every future application takes one paste.</span>
     <span class="chev">▾</span>
   </button>
   <div class="acc-body">
-    <div class="prompt-block">
+    <div class="prompt-wrap">
       <div class="prompt-header">
-        <span class="prompt-header-label">Example instructions — study before building yours</span>
+        <span class="prompt-header-label">Example instructions</span>
         <button class="copy-btn" id="cb-ex" onclick="cp('cb-ex','pt-ex')">Copy</button>
       </div>
       <div class="prompt-text" id="pt-ex">## RESUME WRITER SYSTEM INSTRUCTIONS
@@ -315,9 +438,9 @@ STYLE CHECKLIST
   ✓ Resume and letter sound like one person wrote both</div>
     </div>
     <div class="acc-note">
-      <strong>Two things to notice before you build your own:</strong><br>
-      "Sound as if written from within the organization" is the most important line. That framing produces qualitatively different output than "tailor this to the job." Find the equivalent in your voice.<br><br>
-      Each source document is named and described. Claude is told <em>how</em> to use each file — not just that they exist. That architecture is the lesson.
+      <strong>Two things to notice before you build your own.</strong><br><br>
+      "Sound as if written from within the organization" is the most important line. That framing produces qualitatively different output than "tailor this to the job." Find your equivalent.<br><br>
+      Each source document is named and its purpose described. Claude is told <em>how</em> to use each file — not just that they exist. That architecture is the lesson.
     </div>
   </div>
 </div>
@@ -326,10 +449,8 @@ STYLE CHECKLIST
 
 <!-- PROMPT A -->
 <div class="sec-label">Prompt A — build your instruction set</div>
-<div class="callout gold">
-  <strong>Where to paste this:</strong> Into your My Resume System Project — the one you just created with your documents uploaded. Claude will interview you, draft your instructions, and benchmark them against the example.
-</div>
-<div class="prompt-block">
+<p class="prompt-intro" style="margin-bottom:12px">Paste this into your My Resume System Project — the one you created with your documents uploaded. Claude will interview you, draft your custom instructions, and benchmark them against the example above.</p>
+<div class="prompt-wrap">
   <div class="prompt-header">
     <span class="prompt-header-label">Prompt A — paste into your Project</span>
     <button class="copy-btn" id="cb-a" onclick="cp('cb-a','pt-a')">Copy prompt</button>
@@ -422,73 +543,73 @@ weaker than the example and exactly why.</div>
 
 <!-- PROMPT B -->
 <div class="sec-label">Prompt B — your permanent application prompt</div>
-<div class="callout nvp">
-  <strong>Once your Project Instructions are saved,</strong> this is the only prompt you'll ever need for any application. Paste a job description — nothing else. Your system does the rest. If the output isn't right, the fix is in your instructions, not in how you phrase the request.
-</div>
-<div class="prompt-block">
+<p class="prompt-intro" style="margin-bottom:12px">Once your Project Instructions are saved, this is the only prompt you'll ever need. Paste a job description — nothing else. Your system does the rest. If the output isn't right, the fix is in your instructions, not in how you phrased the request.</p>
+<div class="prompt-wrap">
   <div class="prompt-header">
-    <span class="prompt-header-label">Prompt B — use this for every future application</span>
+    <span class="prompt-header-label">Prompt B — paste a job description to begin</span>
     <button class="copy-btn" id="cb-b" onclick="cp('cb-b','pt-b')">Copy prompt</button>
   </div>
   <div class="prompt-text" id="pt-b">[PASTE JOB DESCRIPTION HERE]</div>
 </div>
-<div class="callout" style="margin-top:8px">That's it. The work is in the system, not the prompt. A one-line input producing a tailored resume and cover letter is Claude Projects working as intended.</div>
+<p style="font-size:13px;color:var(--ink3);margin-top:10px;line-height:1.65">That's it. The work is in the system, not the prompt. A one-line input producing a tailored resume and cover letter is Claude Projects working as intended.</p>
 
 <hr>
 
-<!-- PROMPT EVOLUTION LOG -->
-<div class="sec-label">Your submission — prompt evolution log</div>
-<div class="accordion" id="acc-evo">
-  <button class="acc-trigger" onclick="tog('acc-evo')">
-    What to submit and how to build your log entry
-    <span class="chev">▾</span>
-  </button>
-  <div class="acc-body">
-    <div class="evo-steps">
-      <div class="evo-row">
-        <span class="evo-n">V1</span>
-        <span class="evo-text"><strong>Save your first draft</strong> of the Project Instructions — before testing against a real JD.</span>
+<!-- WHERE TO GO NEXT -->
+<div class="next-section">
+  <div class="sec-label">Where to go next</div>
+  <p style="font-size:14px;color:var(--ink3);line-height:1.7;margin-bottom:14px">This exercise taught you <strong style="color:var(--ink)">Projects, custom instructions, and document upload</strong> — the foundation for sustained Claude work. Where you go next depends on what you're building toward.</p>
+  <div class="next-grid">
+
+    <a class="next-card" href="https://[username].github.io/bli-exercises/ex11-context-document-builder.html">
+      <span class="next-icon">→</span>
+      <div class="next-body">
+        <div class="next-title">Exercise 11 — Context Document Builder</div>
+        <div class="next-desc">Deepen the Projects skill you just used. Build a reusable context document that orients any Claude session in 30 seconds — the exercise that makes every other exercise work better.</div>
       </div>
-      <div class="evo-row">
-        <span class="evo-n">TEST</span>
-        <span class="evo-text"><strong>Paste a real job description</strong> you actually want to apply for. Evaluate the output against the Style Checklist in your instructions. Note what failed.</span>
+      <span class="next-tag">Deepen the skill</span>
+    </a>
+
+    <a class="next-card" href="https://[username].github.io/bli-exercises/ex02-interview-coach.html">
+      <span class="next-icon">→</span>
+      <div class="next-body">
+        <div class="next-title">Exercise 02 — Interview Coach</div>
+        <div class="next-desc">Build a second Project-based system — this time for interview practice. Applies the same architecture to a different high-stakes personal need.</div>
       </div>
-      <div class="evo-row">
-        <span class="evo-n">V2</span>
-        <span class="evo-text"><strong>Edit your instructions</strong> based on what failed. Note exactly what you changed and why — one paragraph is enough.</span>
+      <span class="next-tag">Apply the pattern</span>
+    </a>
+
+    <a class="next-card" href="https://[username].github.io/bli-exercises/ex12-venture-sketch.html">
+      <span class="next-icon">→</span>
+      <div class="next-body">
+        <div class="next-title">Exercise 12 — Venture Sketch</div>
+        <div class="next-desc">Headed toward New Venture Planning? This is where Projects and document upload pay off for your business idea — your first BMC, PMF hypothesis, and TAM estimate, all in one session.</div>
       </div>
-      <div class="evo-row">
-        <span class="evo-n">SUBMIT</span>
-        <span class="evo-text"><strong>Your submission is:</strong> V1 instructions · V2 instructions · one paragraph explaining what the test revealed and what you changed. That's your evolution log entry for Exercise 01.</span>
-      </div>
-    </div>
+      <span class="next-tag">NVP track</span>
+    </a>
+
   </div>
 </div>
 
 <!-- FOOTER -->
 <div class="ex-footer">
-  <span class="footer-left">BLI · MC1 · Exercise 01</span>
-  <span class="footer-right">Next: <a href="#" style="color:var(--nvp);text-decoration:none">Exercise 02 — Interview Coach →</a></span>
+  <span class="footer-sig">BLI · MC1 · Exercise 01</span>
+  <span style="font-size:11px;color:var(--ink4)">All exercises → <a href="https://[username].github.io/bli-exercises/" style="color:var(--nvp);text-decoration:none;font-weight:500">bli-exercises index</a></span>
 </div>
 
 </div>
 <script>
-function tog(id){
-  const el=document.getElementById(id);
-  el.classList.toggle('open');
-}
-function cp(btnId,srcId){
-  const text=document.getElementById(srcId).textContent;
-  navigator.clipboard.writeText(text).then(()=>{
-    const btn=document.getElementById(btnId);
-    const orig=btn.textContent;
-    btn.textContent='Copied ✓';
-    btn.classList.add('done');
-    setTimeout(()=>{btn.textContent=orig;btn.classList.remove('done');},2200);
-  }).catch(()=>{
-    const btn=document.getElementById(btnId);
-    btn.textContent='Select & copy manually';
-    setTimeout(()=>{btn.textContent=orig;},2200);
+function tog(id) { document.getElementById(id).classList.toggle('open'); }
+function cp(btnId, srcId) {
+  const text = document.getElementById(srcId).textContent;
+  const btn  = document.getElementById(btnId);
+  const orig = btn.textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied ✓'; btn.classList.add('done');
+    setTimeout(() => { btn.textContent = orig; btn.classList.remove('done'); }, 2200);
+  }).catch(() => {
+    btn.textContent = 'Select & copy manually';
+    setTimeout(() => { btn.textContent = orig; }, 2200);
   });
 }
 </script>
