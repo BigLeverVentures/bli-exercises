@@ -3,615 +3,575 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Exercise 01 — Resume Tailorer · BLI</title>
+<title>Exercise 01 — Resume Tailorer | Big Lever Institute</title>
 <style>
-:root {
-  --cream:      #F7F4EE;
-  --ink:        #18180F;
-  --ink2:       #3A3A2A;
-  --ink3:       #6A6858;
-  --ink4:       #A8A690;
-  --gold:       #B87216;
-  --gold2:      #D08820;
-  --gold-pale:  #FDF3DC;
-  --nvp:        #534AB7;
-  --nvp-light:  #EEEDFE;
-  --nvp-dark:   #3C3489;
-  --nvp-mid:    #D8D6F8;
-  --surface:    #FFFFFF;
-  --surface2:   #F0EDE4;
-  --surface3:   #E8E4D8;
-  --border:     rgba(24,24,15,.09);
-  --border2:    rgba(24,24,15,.16);
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body {
-  background: var(--cream);
-  color: var(--ink);
-  font-family: 'Helvetica Neue', system-ui, -apple-system, sans-serif;
-  font-size: 15px;
-  line-height: 1.65;
-  -webkit-font-smoothing: antialiased;
-}
-.page { max-width: 740px; margin: 0 auto; padding: 36px 28px 72px; }
+  :root {
+    --cream: #F7F4EE;
+    --surface: #FFFFFF;
+    --text: #2B2420;
+    --muted: #6B6560;
+    --border: #E8E0D4;
+    --gold: #B8924F;
+    --gold-bg: #F5EDD4;
+    --gold-border: #D9BE85;
+    --purple: #5D4E8B;
+    --purple-bg: #ECE8F2;
+    --purple-border: #C0B5D8;
+    --success: #3B7A3B;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--cream);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--purple); }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px 80px; }
 
-/* ── HERO ── */
-.meta-row { display: flex; gap: 7px; align-items: center; flex-wrap: wrap; margin-bottom: 14px; }
-.badge {
-  font-size: 10px; font-weight: 700; letter-spacing: .06em;
-  text-transform: uppercase; padding: 3px 10px;
-  border-radius: 2px; white-space: nowrap; line-height: 1.4;
-}
-.b-num   { background: var(--ink); color: var(--cream); }
-.b-mc    { background: var(--nvp-light); color: var(--nvp-dark); }
-.b-skill { background: var(--surface3); color: var(--ink3); border: 1px solid var(--border2); }
-.b-time  { background: var(--surface3); color: var(--ink4); border: 1px solid var(--border); }
+  /* Sticky progress */
+  .sticky-bar {
+    position: sticky;
+    top: 0;
+    background: var(--cream);
+    z-index: 10;
+    padding: 14px 20px 10px;
+    border-bottom: 1px solid var(--border);
+    margin: 0 -20px 24px;
+  }
+  .progress-track { display: flex; gap: 4px; height: 6px; }
+  .progress-seg {
+    flex: 1;
+    background: var(--border);
+    border-radius: 3px;
+    transition: background 0.2s;
+  }
+  .progress-seg.active { background: var(--gold); }
+  .progress-label {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 6px;
+    display: flex;
+    justify-content: space-between;
+  }
 
-h1 {
-  font-size: 32px; font-weight: 400; font-family: Georgia, serif;
-  letter-spacing: -.02em; margin-bottom: 12px; line-height: 1.15;
-}
-.hero-desc { font-size: 15px; color: var(--ink2); line-height: 1.75; margin-bottom: 16px; }
+  header.hero { padding: 16px 0 24px; border-bottom: 1px solid var(--border); margin-bottom: 32px; }
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 12px;
+    color: var(--muted);
+    margin: 0 0 8px;
+  }
+  h1 { font-size: 28px; line-height: 1.25; margin: 0 0 14px; font-weight: 700; }
+  .lede { font-size: 17px; color: var(--muted); margin: 0; }
 
-.deliv-row {
-  background: var(--gold-pale);
-  border: 1px solid rgba(184,114,22,.2);
-  border-left: 3px solid var(--gold);
-  border-radius: 0 4px 4px 0;
-  padding: 12px 16px;
-  display: flex; gap: 12px; align-items: baseline;
-}
-.deliv-label {
-  font-size: 10px; font-weight: 700; letter-spacing: .1em;
-  text-transform: uppercase; color: var(--gold2);
-  white-space: nowrap; flex-shrink: 0;
-}
-.deliv-val { font-size: 14px; color: var(--ink2); line-height: 1.55; }
+  section.step { margin: 40px 0; }
+  .step-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 4px;
+    flex-wrap: wrap;
+  }
+  .step-num {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .step h2 { font-size: 22px; margin: 6px 0 12px; line-height: 1.3; font-weight: 700; }
+  .step p { margin: 12px 0; }
+  .step ol, .step ul { padding-left: 22px; }
+  .step li { margin: 6px 0; }
 
-hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+  .optional-badge {
+    display: inline-block;
+    background: var(--border);
+    color: var(--muted);
+    font-size: 11px;
+    padding: 2px 10px;
+    border-radius: 10px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
 
-.sec-label {
-  font-size: 10px; font-weight: 700; letter-spacing: .14em;
-  text-transform: uppercase; color: var(--ink4); margin-bottom: 14px;
-}
+  /* Purple prompt surface */
+  .prompt {
+    background: var(--purple-bg);
+    border: 1px solid var(--purple-border);
+    border-radius: 8px;
+    padding: 14px 16px 60px;
+    margin: 16px 0;
+    position: relative;
+  }
+  .prompt-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--purple);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+  }
+  .prompt pre {
+    margin: 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--text);
+    background: transparent;
+    border: none;
+    padding: 0;
+  }
+  .copy-btn {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    background: var(--purple);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s;
+  }
+  .copy-btn:hover { background: #4D4075; }
+  .copy-btn.copied { background: var(--success); }
 
-/* ── BEFORE YOU BEGIN ── */
-.before-box {
-  background: var(--surface3);
-  border: 1px solid var(--border2);
-  border-radius: 6px;
-  padding: 24px 26px;
-  margin-bottom: 28px;
-}
-.bb-block { margin-bottom: 18px; }
-.bb-block:last-child { margin-bottom: 0; }
-.bb-rule { display: block; height: 1px; background: var(--border2); margin: 18px 0; }
-.bb-head {
-  font-size: 10px; font-weight: 700; letter-spacing: .12em;
-  text-transform: uppercase; color: var(--gold2); margin-bottom: 8px; display: block;
-}
-.bb-body { font-size: 14px; color: var(--ink2); line-height: 1.75; margin-bottom: 6px; }
-.bb-body a { color: var(--nvp); text-decoration: none; }
-.bb-body a:hover { text-decoration: underline; }
-.bb-body strong { color: var(--ink); font-weight: 600; }
-.bb-group { margin-top: 10px; }
-.bb-group-label {
-  font-size: 11px; font-weight: 700; letter-spacing: .05em;
-  text-transform: uppercase; color: var(--ink3); margin-bottom: 5px; display: block;
-}
-.bb-list { list-style: none; padding: 0; margin: 0; }
-.bb-list li {
-  font-size: 14px; color: var(--ink2); line-height: 1.7;
-  padding-left: 16px; position: relative;
-}
-.bb-list li::before { content: '→'; position: absolute; left: 0; color: var(--ink4); font-size: 12px; }
-.bb-note { font-size: 13px; color: var(--ink3); line-height: 1.65; margin-top: 10px; font-style: italic; }
+  /* Gold deliverable card */
+  .gold-card {
+    background: var(--gold-bg);
+    border: 1px solid var(--gold-border);
+    border-radius: 8px;
+    padding: 20px 22px;
+    margin: 18px 0;
+  }
+  .gold-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+  .gold-card h3 { margin: 4px 0 10px; font-size: 17px; font-weight: 700; }
+  .gold-card ol { padding-left: 22px; margin: 8px 0; }
+  .gold-card li { margin: 8px 0; }
+  .gold-card ul { padding-left: 22px; margin: 4px 0 8px; }
+  .gold-card p { margin: 8px 0; }
+  .gold-card p:last-child { margin-bottom: 0; }
 
-/* ── STEPS ── */
-.steps { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
-.step {
-  display: flex; gap: 14px; align-items: flex-start;
-  padding: 14px 16px;
-  background: var(--surface); border: 1px solid var(--border); border-radius: 4px;
-}
-.step-n {
-  width: 26px; height: 26px; border-radius: 50%;
-  background: var(--surface3); border: 1px solid var(--border2);
-  font-size: 11px; font-weight: 700; color: var(--ink4);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; margin-top: 1px;
-}
-.step-title { font-weight: 600; font-size: 14px; color: var(--ink); margin-bottom: 4px; }
-.step-desc  { font-size: 13px; color: var(--ink3); line-height: 1.65; }
+  /* Reveal — 3-layer visual */
+  .reveal .layer {
+    border-left: 3px solid var(--gold);
+    padding: 4px 0 4px 14px;
+    margin: 14px 0;
+  }
+  .reveal .layer strong {
+    display: block;
+    font-size: 15px;
+    margin-bottom: 4px;
+    color: var(--text);
+  }
 
-/* ── ACCORDIONS ── */
-.accordion { border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 10px; }
-.acc-trigger {
-  width: 100%; text-align: left; background: var(--surface2); border: none;
-  padding: 14px 18px; cursor: pointer;
-  display: flex; justify-content: space-between; align-items: center;
-  font-size: 14px; font-weight: 500; color: var(--ink);
-  transition: background .12s; line-height: 1.4;
-}
-.acc-trigger:hover { background: var(--surface3); }
-.acc-trigger .chev { font-size: 12px; color: var(--ink4); transition: transform .2s; flex-shrink: 0; margin-left: 12px; }
-.acc-body { display: none; padding: 18px 20px; border-top: 1px solid var(--border); background: var(--surface); }
-.accordion.open .acc-trigger .chev { transform: rotate(180deg); }
-.accordion.open .acc-body { display: block; }
-.acc-note {
-  font-size: 13px; color: var(--ink3); line-height: 1.7;
-  background: var(--surface2); border-radius: 4px;
-  padding: 12px 15px; margin-top: 14px;
-  border-left: 3px solid var(--border2);
-}
-.acc-note strong { color: var(--ink); font-weight: 600; }
+  /* Next card */
+  .next-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 22px;
+    margin-top: 8px;
+  }
+  .next-card h3 { margin: 0 0 6px; font-size: 16px; font-weight: 700; }
+  .next-card h3:not(:first-child) { margin-top: 18px; }
+  .next-card p { margin: 4px 0 0; color: var(--muted); }
 
-/* ── PROMPT LABEL (plain, no box) ── */
-.prompt-section { margin-bottom: 24px; }
-.prompt-intro { font-size: 14px; color: var(--ink2); line-height: 1.7; margin-bottom: 12px; }
-.prompt-intro strong { color: var(--ink); font-weight: 600; }
+  footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--muted);
+  }
 
-/* ── PROMPT BLOCK ── */
-.prompt-wrap { margin-bottom: 4px; }
-.prompt-header {
-  display: flex; justify-content: space-between; align-items: center;
-  background: var(--nvp); border-radius: 4px 4px 0 0;
-  padding: 10px 16px;
-}
-.prompt-header-label {
-  font-size: 10px; font-weight: 700; letter-spacing: .09em;
-  text-transform: uppercase; color: rgba(255,255,255,.7);
-}
-.copy-btn {
-  font-size: 10px; font-weight: 700; letter-spacing: .06em;
-  text-transform: uppercase; padding: 5px 14px;
-  border: 1px solid rgba(255,255,255,.3); border-radius: 2px;
-  cursor: pointer; background: transparent; color: rgba(255,255,255,.85);
-  transition: all .12s;
-}
-.copy-btn:hover { background: rgba(255,255,255,.15); border-color: rgba(255,255,255,.6); }
-.copy-btn.done { background: rgba(255,255,255,.2); color: #fff; border-color: rgba(255,255,255,.5); }
-.prompt-text {
-  background: var(--nvp-light);
-  border: 1px solid var(--nvp-mid); border-top: none;
-  border-radius: 0 0 4px 4px;
-  padding: 18px 20px;
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 13px; line-height: 1.85; color: var(--ink2);
-  white-space: pre-wrap; word-break: break-word;
-  max-height: 420px; overflow-y: auto;
-}
-.prompt-text::-webkit-scrollbar { width: 5px; }
-.prompt-text::-webkit-scrollbar-track { background: transparent; }
-.prompt-text::-webkit-scrollbar-thumb { background: var(--nvp-mid); border-radius: 3px; }
-
-/* ── WHERE TO GO NEXT ── */
-.next-section { margin-top: 36px; }
-.next-grid { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
-.next-card {
-  display: flex; gap: 14px; align-items: flex-start;
-  padding: 14px 16px;
-  background: var(--surface); border: 1px solid var(--border); border-radius: 4px;
-  text-decoration: none; transition: border-color .12s;
-}
-.next-card:hover { border-color: var(--border2); }
-.next-icon {
-  font-size: 13px; color: var(--ink4); min-width: 18px;
-  padding-top: 2px; font-family: 'Courier New', monospace;
-}
-.next-body { flex: 1; }
-.next-title { font-size: 14px; font-weight: 500; color: var(--nvp); margin-bottom: 3px; }
-.next-desc  { font-size: 13px; color: var(--ink3); line-height: 1.55; }
-.next-tag {
-  font-size: 9px; font-weight: 700; letter-spacing: .06em;
-  text-transform: uppercase; color: var(--ink4);
-  padding-top: 3px; white-space: nowrap; flex-shrink: 0;
-}
-
-/* ── FOOTER ── */
-.ex-footer {
-  margin-top: 36px; padding-top: 20px; border-top: 1px solid var(--border);
-  display: flex; justify-content: space-between; align-items: center;
-  flex-wrap: wrap; gap: 8px;
-}
-.footer-sig { font-size: 11px; color: var(--ink4); font-family: 'Courier New', monospace; letter-spacing: .04em; }
+  @media (max-width: 480px) {
+    body { font-size: 15px; }
+    h1 { font-size: 22px; }
+    .lede { font-size: 15px; }
+    .step h2 { font-size: 19px; }
+    .wrap { padding: 0 14px 60px; }
+    .sticky-bar { padding: 12px 14px 8px; margin: 0 -14px 20px; }
+    .prompt { padding: 12px 14px 56px; }
+    .prompt pre { font-size: 12.5px; }
+    .gold-card { padding: 16px 18px; }
+  }
 </style>
 </head>
 <body>
-<div class="page">
+<div class="wrap">
 
-<!-- HERO -->
-<div style="margin-bottom:32px">
-  <div class="meta-row">
-    <span class="badge b-num">Exercise 01</span>
-    <span class="badge b-mc">MC1 — Working with Claude</span>
-    <span class="badge b-skill">Projects · custom instructions · document upload</span>
-    <span class="badge b-time">2–3 hrs · No experience needed</span>
-  </div>
-  <h1>Resume tailorer</h1>
-  <p class="hero-desc">Most people use Claude to generate a resume. This exercise teaches you to build a <em>system</em> that generates the right resume — every time, for any role, in your voice. The difference is a Claude Project with custom instructions and your source materials loaded in. Once it's set up, applying for a job takes one paste.</p>
-  <div class="deliv-row">
-    <span class="deliv-label">You'll have</span>
-    <span class="deliv-val">A working resume system: a configured Claude Project with custom instructions tuned to your voice and background, tested against a real job description and refined based on the output.</span>
-  </div>
+<div class="sticky-bar" aria-hidden="true">
+  <div class="progress-track" id="progress"></div>
+  <div class="progress-label"><span id="step-current">Start</span><span id="step-total">8 steps</span></div>
 </div>
 
-<hr>
+<header class="hero">
+  <p class="eyebrow">Big Lever Institute · Exercise 01</p>
+  <h1>Resume Tailorer — build a reusable Claude Project for any JD</h1>
+  <p class="lede">In the next 25–45 minutes you'll go from "paste a resume into Claude" to a permanent Claude Project that tailors a resume and cover letter to any job description in about 30 seconds per run. What you'll actually learn is the 3-layer architecture under it — usable for any repetitive task you do.</p>
+</header>
 
-<!-- BEFORE YOU BEGIN -->
-<div class="sec-label">Before you begin</div>
-<div class="before-box">
-  <div class="bb-block">
-    <span class="bb-head">What to open</span>
-    <p class="bb-body">Open <strong>claude.ai</strong> and create a new Project named <strong>My Resume System</strong>.</p>
-    <p class="bb-body">New to Claude? → <a href="https://[username].github.io/bli-minicourses/mc1-working-with-claude.html">MC1: Working with Claude</a><br>
-    Never set up a Project? → <a href="https://[username].github.io/bli-exercises/ex11-context-document-builder.html">Exercise 11: Context Document Builder</a></p>
+<!-- STEP 0 -->
+<section class="step" id="step-0">
+  <div class="step-header"><span class="step-num">Step 0</span></div>
+  <h2>Before you start</h2>
+  <p>Have two things ready:</p>
+  <ol>
+    <li><strong>Your current resume</strong> — text or a document you can paste from.</li>
+    <li><strong>A target job description</strong> — ideally a role you'd actually apply for. The more real, the better the output.</li>
+  </ol>
+  <p>You'll also need a Claude account (free tier works). Other LLMs work, but we default to Claude for consistency. Estimated time: 25–45 minutes.</p>
+</section>
+
+<!-- STEP 1 -->
+<section class="step" id="step-1">
+  <div class="step-header"><span class="step-num">Step 1 · Show</span></div>
+  <h2>Produce your first tailored output</h2>
+  <p>Open <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a> in a new tab and start a new chat. Copy the prompt below, paste it into Claude, replace the two bracketed sections with your resume and the target JD, then send.</p>
+
+  <div class="prompt">
+    <div class="prompt-label">Starter prompt — copy, paste, fill in brackets, send</div>
+    <pre id="p1">I'm building a personalized resume-tailoring system, starting with a first real tailored output for a specific job.
+
+**My current resume:**
+[PASTE YOUR RESUME HERE]
+
+**The target job description:**
+[PASTE THE JD HERE]
+
+Using my resume above and the JD above, produce two outputs — a tailored resume (1–2 pages) and a matching cover letter (≤350 words). Apply all of the following rules.
+
+**General principles**
+
+1. **Match the employer's tone.** Use the same linguistic register, keywords, and recurring phrases found in the JD. Mirror whether the employer writes in corporate, academic, or startup language. Use the company's mission statements or recurring verbs to frame the narrative — as if the resume and letter were written from within the organization.
+2. **Prioritize alignment.** Only include achievements relevant to the JD's top 3 themes. Re-order experience by relevance, not chronology — most relevant role first. Use the employer's exact keyword phrasing wherever credible (for ATS matching).
+3. **Proof-driven bullets.** Every bullet = **Action + Context + Quantified Impact**. Example: "Reduced supplier lead times by 30% through AI-driven forecasting, accelerating product launch by two months." At least 70% of bullets must include a specific number, percentage, timeline, or scope marker. If you need to estimate a metric, flag it with [est.] so I can verify later.
+4. **Modern resume standards.** Bullets concise (maximum 2 lines each). **No pronouns**; lead every bullet with a strong verb. Preferred verbs: built, led, scaled, negotiated, architected, reduced, increased, launched, shipped, delivered. White space, not dense blocks. **No filler phrases** — no "responsible for," "helped with," "duties included."
+5. **Voice.** Confident but not self-promotional. Clarity and credibility over buzzwords. Replace buzzwords with demonstrable proof of results.
+
+**Resume structure (1–2 pages total)**
+
+1. **Header** — Name, target title, location, contact, LinkedIn.
+2. **Executive Summary** — 3–4 lines tailored to this specific role.
+3. **Key Achievements** — 3 concise bullets most relevant to the JD's top themes.
+4. **Professional Experience** — ordered by relevance to this role, not chronology.
+5. **Education & Affiliations** — condensed.
+6. **Selected Mentorship / Leadership Roles** — if applicable.
+
+**Cover letter structure (≤350 words, 3–4 paragraphs)**
+
+- **Opening** — establish immediate relevance by mirroring the role title and the company's mission or value language from the posting.
+- **Middle (1–2 paragraphs)** — 2–3 proof points that directly map to the JD's top themes; each quantified.
+- **Closing** — alignment with company goals and cultural tone; brief forward-looking contribution statement.
+
+**Process (follow these 6 steps before producing output)**
+
+1. Identify the top 3–5 keywords, required skills, or recurring themes in the JD.
+2. Determine the target persona — corporate executive, startup builder, academic innovator, or hybrid.
+3. Select relevant proof points from my resume.
+4. Rewrite phrasing to match the employer's diction and rhythm.
+5. Produce the tailored resume and matching cover letter.
+6. **Verify before delivering:** every bullet follows Action + Context + Quantified Impact; ≥70% of bullets include a quantified metric; no pronouns; no filler phrases; bullets ≤2 lines; resume ≤2 pages; cover letter ≤350 words; tone matches the JD; JD keywords appear verbatim where credible.
+
+Present the tailored resume first, then the cover letter. Label each clearly.</pre>
+    <button class="copy-btn" data-copy="p1" type="button">Copy</button>
   </div>
-  <span class="bb-rule"></span>
-  <div class="bb-block">
-    <span class="bb-head">What to upload to your Project</span>
-    <p class="bb-body">Before running the prompt below, add your source materials to the Project. Claude will reference these across every future resume session.</p>
-    <div class="bb-group">
-      <span class="bb-group-label">Required</span>
-      <ul class="bb-list"><li>Your current resume (any version)</li></ul>
-    </div>
-    <div class="bb-group">
-      <span class="bb-group-label">Strongly recommended</span>
-      <ul class="bb-list">
-        <li>LinkedIn profile text — paste your About section and job descriptions into a single document</li>
-        <li>A professional bio or profile if you have one</li>
-        <li>Past cover letters, even old or imperfect ones (they reveal your natural voice)</li>
-      </ul>
-    </div>
-    <div class="bb-group">
-      <span class="bb-group-label">Useful if you have them</span>
-      <ul class="bb-list">
-        <li>Performance reviews or recommendations</li>
-        <li>Case studies, project summaries, or portfolio links</li>
-        <li>A raw list of achievements you've never known how to phrase</li>
-      </ul>
-    </div>
-    <p class="bb-note">The more source material you upload, the less Claude has to infer. Inference is where resumes go generic.</p>
+
+  <p>Wait for the output. Read the resume and cover letter end-to-end. The first pass should be close to something you could actually send — if it's not, Step 2 will sharpen it.</p>
+</section>
+
+<!-- STEP 2 -->
+<section class="step" id="step-2">
+  <div class="step-header"><span class="step-num">Step 2 · Show (refine)</span></div>
+  <h2>Sharpen the first pass</h2>
+  <p>Most first passes need one round of sharpening. Pick whichever of these two most closely matches what's off, copy it, and run it in the same Claude chat.</p>
+
+  <div class="prompt">
+    <div class="prompt-label">Option A — Sharpen themes &amp; keyword alignment</div>
+    <pre id="p2a">Looking at the JD again, what are the top 3 themes the employer emphasizes? For each theme, tell me which of my bullets best proves it, and flag which JD keywords appear verbatim in my resume and which don't. Then rewrite the resume to foreground those bullets first and trim lower-relevance items. Adjust the cover letter's middle paragraphs to mirror the same three themes.</pre>
+    <button class="copy-btn" data-copy="p2a" type="button">Copy</button>
   </div>
-  <span class="bb-rule"></span>
-  <div class="bb-block">
-    <span class="bb-head">What you'll have at the end</span>
-    <p class="bb-body">A working resume system. Custom instructions tuned to your voice. Every future application takes one paste.</p>
+
+  <div class="prompt">
+    <div class="prompt-label">Option B — Adjust the voice register</div>
+    <pre id="p2b">The current resume and letter read [too formal / too casual / too generic — pick the one that applies]. Rewrite both to sound as if written from inside a [startup / corporate / academic / hybrid] organization — using their diction, verbs, and framing — without adding any claims I can't substantiate from the material I gave you.</pre>
+    <button class="copy-btn" data-copy="p2b" type="button">Copy</button>
   </div>
+
+  <p>Iterate once — twice if needed. When you have a version you're satisfied with, continue.</p>
+</section>
+
+<!-- STEP 3 -->
+<section class="step" id="step-3">
+  <div class="step-header"><span class="step-num">Step 3 · Give (encapsulate)</span></div>
+  <h2>Convert what worked into a reusable Protocol</h2>
+  <p>In the same Claude chat, run the prompt below. Claude will write the Custom Instructions you'll install in the next step.</p>
+
+  <div class="prompt">
+    <div class="prompt-label">Encapsulation prompt — copy, paste, send</div>
+    <pre id="p3">Now let's convert what we just did into a reusable system.
+
+Draft a complete set of **Custom Instructions** I can paste into a new Claude Project. The Project will be named "Resume Writer." The Custom Instructions should encode:
+
+1. **Purpose** — for every new JD I provide, generate a tailored resume (1–2 pages) + cover letter (≤350 words) as if written from inside the organization.
+2. **Source files** — reference two files uploaded to the Project: my master resume, and an optional narrative/voice document.
+3. **Five principles** —
+   (a) match the employer's tone, keywords, and phrasing;
+   (b) proof-driven bullets in Action + Context + Quantified Impact format;
+   (c) prioritize alignment to the JD's top 3 themes; use employer keywords exactly where credible (for ATS);
+   (d) modern resume standards — concise bullets, strong verbs, 70%+ quantified, re-order by relevance not chronology, white space;
+   (e) confident tone, not self-promotional; clarity and credibility over buzzwords.
+4. **Resume structure** — Header; 3–4 line Executive Summary; Key Achievements (3 bullets relevant to job); Professional Experience (relevance-ordered); condensed Education & Affiliations; Selected Mentorship/Leadership (if applicable).
+5. **Cover letter structure** — Opening mirroring role title + company mission; Middle with 2–3 quantified proof points; Closing with alignment + forward-looking contribution statement.
+6. **Per-instance process** — six steps: (i) identify top 3–5 JD keywords/themes; (ii) determine target persona; (iii) select proof points from source docs; (iv) rewrite phrasing to match employer diction; (v) produce resume + cover letter; (vi) verify Action→Result and quantified bullets.
+7. **Style checklist** — resume 1–2 pages; cover letter ≤350 words; proof-driven verbs (built, led, scaled, negotiated, architected, reduced, increased); no filler ("responsible for," "helped with").
+
+Format the output as **one continuous block of Custom Instructions text, ready to paste directly** into a Claude Project's Custom Instructions field. Do not include commentary before or after the block.</pre>
+    <button class="copy-btn" data-copy="p3" type="button">Copy</button>
+  </div>
+
+  <p>Claude will produce a block of text. Keep it visible — you'll paste it in the next step.</p>
+</section>
+
+<!-- STEP 4 -->
+<section class="step" id="step-4">
+  <div class="step-header"><span class="step-num">Step 4 · Give (install)</span></div>
+  <h2>Install your Protocol as a Claude Project</h2>
+  <p>You now have a reusable Protocol. Install it so you never have to repeat Steps 1–3 again.</p>
+
+  <div class="gold-card">
+    <div class="gold-label">Deliverable — your permanent Resume Writer</div>
+    <ol>
+      <li>Go to <strong>claude.ai → Projects → New Project</strong>.</li>
+      <li>Name it <strong>Resume Writer</strong>.</li>
+      <li>Under <strong>Custom Instructions</strong>, paste the block Claude just produced. Save.</li>
+      <li>Under <strong>Project Knowledge</strong>, upload:
+        <ul>
+          <li>Your master resume (text file or document)</li>
+          <li>Any narrative/voice document you want Claude to draw from (optional)</li>
+        </ul>
+      </li>
+      <li>Start a <strong>new chat inside the Project</strong>.</li>
+      <li>Paste the invoking prompt below, then paste any JD beneath it.</li>
+    </ol>
+  </div>
+
+  <div class="prompt">
+    <div class="prompt-label">Invoking prompt — your new one-sentence command</div>
+    <pre id="p4">Using my Resume Writer Protocol, generate a tailored resume and cover letter for the job description below:
+
+[PASTE JD]</pre>
+    <button class="copy-btn" data-copy="p4" type="button">Copy</button>
+  </div>
+
+  <p>Test it on a real JD now. Compare this output to the one you got in Step 1. What changed — and what's the same? That's the signal that the pattern works.</p>
+</section>
+
+<!-- STEP 5 -->
+<section class="step reveal" id="step-5">
+  <div class="step-header"><span class="step-num">Step 5 · Tell</span></div>
+  <h2>How this actually works</h2>
+  <p>What you just built follows a simple architecture. It works for any task where you repeat similar work with varying inputs.</p>
+
+  <div class="layer">
+    <strong>Layer 1 — Stable System: your Custom Instructions.</strong>
+    The rules of the game. Tone, format, structure, style. These rarely change. When they do, you edit the Protocol directly in the Project's Custom Instructions.
+  </div>
+  <div class="layer">
+    <strong>Layer 2 — Stable Context: your source docs.</strong>
+    The facts Claude can cite. Your career, your voice, your achievements. These change only when your life changes.
+  </div>
+  <div class="layer">
+    <strong>Layer 3 — Volatile Input: each new JD.</strong>
+    The only thing that varies per run. You paste it; the system does the rest.
+  </div>
+
+  <p>This is why one paste produces a tailored output in about 30 seconds: Claude isn't guessing your background, your voice, or the rules. All three are already loaded. You're pasting one variable into a configured machine.</p>
+
+  <p><strong>Two implications:</strong></p>
+  <ul>
+    <li><strong>Update your Protocol when your career shifts,</strong> not when small details change. Edit it directly in the Project's Custom Instructions. Log the reason in a comment at the top — your future self will want to know.</li>
+    <li><strong>Any recurring task that varies case-by-case is a candidate for this same 3-layer pattern.</strong></li>
+  </ul>
+</section>
+
+<!-- STEP 6 -->
+<section class="step" id="step-6">
+  <div class="step-header"><span class="step-num">Step 6 · Extend</span><span class="optional-badge">Optional · ~15 min</span></div>
+  <h2>Apply this to one more task</h2>
+  <p>Let's prove the pattern by applying it somewhere else. Here's a worked example, then a prompt you can run to build your own second Protocol.</p>
+
+  <div class="gold-card">
+    <div class="gold-label">Worked example — Outreach Tailor</div>
+    <h3>Customize cold and networking outreach per recipient.</h3>
+    <ul>
+      <li><strong>Stable system (rules):</strong> keep under 5 sentences; open with a specific connection, not a pleasantry; include one piece of evidence you did your homework on the recipient; end with exactly one specific ask; no hype verbs ("amazing," "excited," "passionate").</li>
+      <li><strong>Stable context (about you):</strong> short bio, the roles/opportunities you're targeting, your top three proof points.</li>
+      <li><strong>Volatile input (per message):</strong> the recipient's profile + what prompted your reach-out.</li>
+      <li><strong>Output:</strong> a 5-sentence outreach message tuned to them.</li>
+    </ul>
+    <p>Same three layers, different domain. Once installed, sending 20 well-tailored outreach messages takes about as long as sending 3 generic ones — and pulls far better reply rates.</p>
+  </div>
+
+  <p>Now pick a task of your own — investor updates, weekly team updates, thank-you notes, proposals — and run this prompt in a fresh Claude chat.</p>
+
+  <div class="prompt">
+    <div class="prompt-label">Generator prompt — build your second Protocol</div>
+    <pre id="p6">I'd like to build a reusable Protocol like my Resume Writer, but for a different task. Here's the task: [describe one repetitive task you do that varies case-by-case — for example, networking outreach, weekly team updates, thank-you notes after interviews, proposals, investor updates].
+
+Using the same 3-layer architecture (stable rules, stable context, volatile input), propose a full set of Custom Instructions I could paste into a new Claude Project.
+
+**Ask me any clarifying questions first** — about the audience, output format, tone, length, must-include elements, things to avoid. Do not guess; ask.
+
+After I answer, produce the Custom Instructions as one continuous block ready to paste directly into a Claude Project. Also suggest what I should upload as source docs and propose a name for the Project.</pre>
+    <button class="copy-btn" data-copy="p6" type="button">Copy</button>
+  </div>
+
+  <p>This is what prompt engineering actually is — writing stable rules that turn a variable input into a consistent, high-quality output. Every Custom Instructions document you build is added leverage.</p>
+</section>
+
+<!-- STEP 7 -->
+<section class="step" id="step-7">
+  <div class="step-header"><span class="step-num">Step 7</span></div>
+  <h2>Where to go next</h2>
+  <div class="next-card">
+    <h3>Go deeper on prompt architecture</h3>
+    <p>MC6 — Prompt Engineering Mastery (libraries, chaining, multi-agent orchestration, meta-prompting).</p>
+    <h3>Next atomic exercise</h3>
+    <p><em>[TBD: Exercise 02 pointer once specified]</em></p>
+  </div>
+</section>
+
+<footer>
+  <p>© Big Lever Institute · Exercise 01 · v2.1 · 2026-04-23 · Governed by BLI-ADR-001</p>
+</footer>
+
 </div>
 
-<hr>
-
-<!-- HOW IT WORKS -->
-<div class="sec-label">How this exercise works</div>
-<div class="steps">
-  <div class="step">
-    <div class="step-n">1</div>
-    <div>
-      <div class="step-title">Study a worked example</div>
-      <div class="step-desc">Read the anonymized instruction set below. This is what a well-designed resume system looks like. Notice how it tells Claude <em>how</em> to use each document — not just that they exist. Understand it before building your own.</div>
-    </div>
-  </div>
-  <div class="step">
-    <div class="step-n">2</div>
-    <div>
-      <div class="step-title">Build your instructions with Prompt A</div>
-      <div class="step-desc">Paste Prompt A into your new Project. Claude will interview you and draft your custom instruction set, then tell you where it's weaker than the example and why.</div>
-    </div>
-  </div>
-  <div class="step">
-    <div class="step-n">3</div>
-    <div>
-      <div class="step-title">Save and test with Prompt B</div>
-      <div class="step-desc">Set your drafted instructions as the Project Instructions. Paste a real job description using Prompt B — nothing else — and evaluate the output against the style checklist.</div>
-    </div>
-  </div>
-  <div class="step">
-    <div class="step-n">4</div>
-    <div>
-      <div class="step-title">Refine</div>
-      <div class="step-desc">Edit your instructions based on what the first output got wrong. Run the job description again. You're done when the output meets your standard.</div>
-    </div>
-  </div>
-</div>
-
-<hr>
-
-<!-- WORKED EXAMPLE -->
-<div class="sec-label">Worked example — read this first</div>
-<div class="accordion" id="acc-example">
-  <button class="acc-trigger" onclick="tog('acc-example')">
-    Anonymized resume system instruction set
-    <span class="chev">▾</span>
-  </button>
-  <div class="acc-body">
-    <div class="prompt-wrap">
-      <div class="prompt-header">
-        <span class="prompt-header-label">Example instructions</span>
-        <button class="copy-btn" id="cb-ex" onclick="cp('cb-ex','pt-ex')">Copy</button>
-      </div>
-      <div class="prompt-text" id="pt-ex">## RESUME WRITER SYSTEM INSTRUCTIONS
-
-### Purpose
-For every job description provided, generate a customized
-resume and cover letter aligned to that specific role.
-Both should sound as if written from within the organization
-— mirroring tone, values, and priorities found in the posting
-— while authentically reflecting the professional's background
-as documented in the source materials.
-
-Source files loaded in this Project:
-  → Full experience document with case studies
-  → Primary resume (format and proof-driven style reference)
-  → Professional narrative and philosophy document
-
-─────────────────────────────────────────
-OUTPUT FORMAT
-─────────────────────────────────────────
-Deliver two outputs for every job description:
-  1. Tailored Resume (1–2 pages max)
-  2. Custom Cover Letter (single page, under 350 words)
-
-─────────────────────────────────────────
-GENERAL PRINCIPLES
-─────────────────────────────────────────
-1. MATCH THE EMPLOYER'S TONE
-   Use the same linguistic register, keywords, and
-   structure found in the job posting. Mirror whether
-   the employer writes in corporate, academic, or startup
-   language. Use the company's mission statements, verbs,
-   or recurring phrases to frame the narrative.
-
-2. PROOF-DRIVEN BULLETS
-   Every bullet must demonstrate a measurable action and
-   its outcome. Format:
-
-   Action + Context + Quantified Impact
-
-   Example:
-   "Reduced supplier lead times by 30% through AI-driven
-   forecasting, accelerating product launch by two months."
-
-3. PRIORITIZE ALIGNMENT
-   Only include achievements relevant to the posting's top
-   three themes. Reorder experiences to place the most
-   relevant role first, regardless of chronology. Use the
-   employer's keywords exactly where possible.
-
-4. MODERN RESUME STANDARDS
-   - Concise bullets (two lines max)
-   - No pronouns; lead with strong verbs
-   - White space; no dense blocks
-   - Quantifiable metrics in at least 70% of bullets
-
-5. TONE OF VOICE
-   Confident but not self-promotional. Clarity, precision,
-   and credibility over buzzwords.
-
-─────────────────────────────────────────
-STRUCTURE GUIDELINES
-─────────────────────────────────────────
-Resume sections (in this order):
-  1. Header
-  2. Executive Summary (3–4 lines tailored to the role)
-  3. Key Achievements / Highlights (3 bullets)
-  4. Professional Experience (relevance over chronology)
-  5. Education and Affiliations (condensed)
-  6. Selected Leadership or Advisory Roles (if applicable)
-
-Cover letter structure:
-  Opening — Establish immediate relevance. Mirror the role
-  title and the company's own language.
-  Example: "As a [descriptor matching the role], I was
-  immediately drawn to [Company]'s commitment to [specific
-  mission element from the posting]."
-
-  Middle — 2–3 proof points mapping to key job criteria.
-  Each quantified.
-
-  Closing — Alignment with company goals and a forward-
-  looking statement about contribution.
-
-─────────────────────────────────────────
-PROCESS FOR EACH JOB DESCRIPTION
-─────────────────────────────────────────
-When a job description is provided:
-  1. Identify the top 3–5 keywords and recurring themes
-  2. Determine the target persona (corporate executive,
-     startup builder, academic, etc.)
-  3. Select and adapt relevant proof points from
-     the source documents
-  4. Rewrite bullets to match the employer's diction
-  5. Produce the resume and cover letter
-  6. Verify each bullet follows Action → Result format
-
-─────────────────────────────────────────
-STYLE CHECKLIST
-─────────────────────────────────────────
-  ✓ Resume: 1–2 pages
-  ✓ Cover letter: 3–4 paragraphs, under 350 words
-  ✓ Strong verbs: built, led, scaled, reduced, increased,
-    architected, negotiated, launched
-  ✗ No filler: "responsible for," "helped with,"
-    "worked on," "assisted in"
-  ✓ Resume and letter sound like one person wrote both</div>
-    </div>
-    <div class="acc-note">
-      <strong>Two things to notice before you build your own.</strong><br><br>
-      "Sound as if written from within the organization" is the most important line. That framing produces qualitatively different output than "tailor this to the job." Find your equivalent.<br><br>
-      Each source document is named and its purpose described. Claude is told <em>how</em> to use each file — not just that they exist. That architecture is the lesson.
-    </div>
-  </div>
-</div>
-
-<hr>
-
-<!-- PROMPT A -->
-<div class="sec-label">Prompt A — build your instruction set</div>
-<p class="prompt-intro" style="margin-bottom:12px">Paste this into your My Resume System Project — the one you created with your documents uploaded. Claude will interview you, draft your custom instructions, and benchmark them against the example above.</p>
-<div class="prompt-wrap">
-  <div class="prompt-header">
-    <span class="prompt-header-label">Prompt A — paste into your Project</span>
-    <button class="copy-btn" id="cb-a" onclick="cp('cb-a','pt-a')">Copy prompt</button>
-  </div>
-  <div class="prompt-text" id="pt-a">You are helping me write the Project Instructions for my
-personal Claude resume system — one I'll use every time
-I apply for a job.
-
-I've already uploaded my source materials to this Project.
-You have access to them. Read them before we begin.
-
-I'm also sharing a worked example of a well-designed
-instruction set from another professional. Study it
-carefully — we'll use it as our benchmark.
-
-[PASTE THE WORKED EXAMPLE INSTRUCTION SET HERE]
-
-Now interview me to build my version. Ask me these
-questions one at a time. Wait for my full answer before
-moving to the next question.
-
-─── QUESTION 1: YOUR BACKGROUND ───
-
-Describe your professional background in 3–4 sentences
-— the way you'd explain it at a dinner party, not a
-job interview.
-
-─── QUESTION 2: YOUR TARGET ROLES ───
-
-What kinds of roles are you typically targeting?
-Give me 2–3 specific examples — job titles, industries,
-or types of organizations.
-
-─── QUESTION 3: YOUR PROOF POINTS ───
-
-Give me your 3–5 strongest professional achievements.
-For each one, use this format:
-
-  Action + Context + Quantified Impact
-
-  Like this:
-  "Rebuilt the onboarding program for a 30-person sales
-  team, cutting ramp time from 12 weeks to 7 and
-  improving 90-day quota attainment by 22%."
-
-  If you can't quantify something yet, use a placeholder:
-  [$X], [N%], [N people] — we'll make it realistic.
-
-  Don't worry about polish. Rough is fine.
-  We'll sharpen it together.
-
-─── QUESTION 4: YOUR VOICE ───
-
-How would you describe your professional tone?
-Choose 2–3 that fit — or describe it in your own words:
-
-  direct / warm / formal / analytical /
-  entrepreneurial / academic / conversational /
-  precise / confident / understated
-
-─── QUESTION 5: YOUR PRIORITIES ───
-
-When choosing which experiences to include, what should
-I always prioritize? Examples: leadership impact,
-technical depth, client outcomes, building from zero,
-scale and growth.
-
-─── QUESTION 6: YOUR LIMITS ───
-
-Are there things you want me to never do?
-  - Phrasing or words to avoid
-  - Experiences to de-emphasize
-  - Tones or framings that feel wrong for you
-
-─── AFTER THE INTERVIEW ───
-
-Once I've answered all six questions, draft my Project
-Instructions in the same format as the example:
-Purpose · Output Format · General Principles ·
-Structure Guidelines · Process · Style Checklist.
-
-Adapt the structure where my situation differs.
-Use my actual words and proof points — not placeholders.
-
-Then tell me the 2–3 places where my instructions are
-weaker than the example and exactly why.</div>
-</div>
-
-<hr>
-
-<!-- PROMPT B -->
-<div class="sec-label">Prompt B — your permanent application prompt</div>
-<p class="prompt-intro" style="margin-bottom:12px">Once your Project Instructions are saved, this is the only prompt you'll ever need. Paste a job description — nothing else. Your system does the rest. If the output isn't right, the fix is in your instructions, not in how you phrased the request.</p>
-<div class="prompt-wrap">
-  <div class="prompt-header">
-    <span class="prompt-header-label">Prompt B — paste a job description to begin</span>
-    <button class="copy-btn" id="cb-b" onclick="cp('cb-b','pt-b')">Copy prompt</button>
-  </div>
-  <div class="prompt-text" id="pt-b">[PASTE JOB DESCRIPTION HERE]</div>
-</div>
-<p style="font-size:13px;color:var(--ink3);margin-top:10px;line-height:1.65">That's it. The work is in the system, not the prompt. A one-line input producing a tailored resume and cover letter is Claude Projects working as intended.</p>
-
-<hr>
-
-<!-- WHERE TO GO NEXT -->
-<div class="next-section">
-  <div class="sec-label">Where to go next</div>
-  <p style="font-size:14px;color:var(--ink3);line-height:1.7;margin-bottom:14px">This exercise taught you <strong style="color:var(--ink)">Projects, custom instructions, and document upload</strong> — the foundation for sustained Claude work. Where you go next depends on what you're building toward.</p>
-  <div class="next-grid">
-
-    <a class="next-card" href="https://[username].github.io/bli-exercises/ex11-context-document-builder.html">
-      <span class="next-icon">→</span>
-      <div class="next-body">
-        <div class="next-title">Exercise 11 — Context Document Builder</div>
-        <div class="next-desc">Deepen the Projects skill you just used. Build a reusable context document that orients any Claude session in 30 seconds — the exercise that makes every other exercise work better.</div>
-      </div>
-      <span class="next-tag">Deepen the skill</span>
-    </a>
-
-    <a class="next-card" href="https://[username].github.io/bli-exercises/ex02-interview-coach.html">
-      <span class="next-icon">→</span>
-      <div class="next-body">
-        <div class="next-title">Exercise 02 — Interview Coach</div>
-        <div class="next-desc">Build a second Project-based system — this time for interview practice. Applies the same architecture to a different high-stakes personal need.</div>
-      </div>
-      <span class="next-tag">Apply the pattern</span>
-    </a>
-
-    <a class="next-card" href="https://[username].github.io/bli-exercises/ex12-venture-sketch.html">
-      <span class="next-icon">→</span>
-      <div class="next-body">
-        <div class="next-title">Exercise 12 — Venture Sketch</div>
-        <div class="next-desc">Headed toward New Venture Planning? This is where Projects and document upload pay off for your business idea — your first BMC, PMF hypothesis, and TAM estimate, all in one session.</div>
-      </div>
-      <span class="next-tag">NVP track</span>
-    </a>
-
-  </div>
-</div>
-
-<!-- FOOTER -->
-<div class="ex-footer">
-  <span class="footer-sig">BLI · MC1 · Exercise 01</span>
-  <span style="font-size:11px;color:var(--ink4)">All exercises → <a href="https://[username].github.io/bli-exercises/" style="color:var(--nvp);text-decoration:none;font-weight:500">bli-exercises index</a></span>
-</div>
-
-</div>
 <script>
-function tog(id) { document.getElementById(id).classList.toggle('open'); }
-function cp(btnId, srcId) {
-  const text = document.getElementById(srcId).textContent;
-  const btn  = document.getElementById(btnId);
-  const orig = btn.textContent;
-  navigator.clipboard.writeText(text).then(() => {
-    btn.textContent = 'Copied ✓'; btn.classList.add('done');
-    setTimeout(() => { btn.textContent = orig; btn.classList.remove('done'); }, 2200);
-  }).catch(() => {
-    btn.textContent = 'Select & copy manually';
-    setTimeout(() => { btn.textContent = orig; }, 2200);
+(function() {
+  // ----- Copy-to-clipboard with iframe-safe fallback -----
+  function copyText(text, btn) {
+    var done = function() {
+      var original = btn.dataset.original || btn.textContent;
+      btn.dataset.original = original;
+      btn.textContent = 'Copied ✓';
+      btn.classList.add('copied');
+      setTimeout(function() {
+        btn.textContent = original;
+        btn.classList.remove('copied');
+      }, 1800);
+    };
+    var fail = function() {
+      btn.textContent = 'Press Ctrl/⌘+C';
+      setTimeout(function() { btn.textContent = 'Copy'; }, 2500);
+    };
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(done).catch(function() { fallback(text, done, fail); });
+    } else {
+      fallback(text, done, fail);
+    }
+  }
+  function fallback(text, done, fail) {
+    try {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.top = '0';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, text.length);
+      var ok = document.execCommand('copy');
+      document.body.removeChild(ta);
+      if (ok) { done(); } else { fail(); }
+    } catch (e) { fail(); }
+  }
+
+  document.querySelectorAll('.copy-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var targetId = btn.getAttribute('data-copy');
+      var el = document.getElementById(targetId);
+      if (!el) return;
+      copyText(el.innerText, btn);
+      var stepSection = btn.closest('.step');
+      if (stepSection) {
+        var n = parseInt(stepSection.id.replace('step-', ''), 10);
+        if (!isNaN(n) && n > getCurrentStep()) setCurrentStep(n);
+      }
+    });
   });
-}
+
+  // ----- Progress indicator + step bookmark -----
+  var TOTAL = 8; // steps 0–7
+  var track = document.getElementById('progress');
+  var current = document.getElementById('step-current');
+  var totalEl = document.getElementById('step-total');
+  totalEl.textContent = TOTAL + ' steps';
+  for (var i = 0; i < TOTAL; i++) {
+    var seg = document.createElement('div');
+    seg.className = 'progress-seg';
+    seg.dataset.step = i;
+    track.appendChild(seg);
+  }
+  function getCurrentStep() {
+    try {
+      var v = localStorage.getItem('bli_ex01_step');
+      return v ? parseInt(v, 10) : 0;
+    } catch (e) { return 0; }
+  }
+  function setCurrentStep(n) {
+    try { localStorage.setItem('bli_ex01_step', String(n)); } catch (e) {}
+    renderProgress(n);
+  }
+  function renderProgress(n) {
+    document.querySelectorAll('.progress-seg').forEach(function(seg) {
+      var idx = parseInt(seg.dataset.step, 10);
+      seg.classList.toggle('active', idx <= n);
+    });
+    if (n <= 0) current.textContent = 'Start';
+    else if (n >= TOTAL - 1) current.textContent = 'Complete';
+    else current.textContent = 'Step ' + n;
+  }
+  renderProgress(getCurrentStep());
+
+  // Advance on scroll past step sections
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          var m = /step-(\d+)/.exec(e.target.id);
+          if (m) {
+            var n = parseInt(m[1], 10);
+            if (n > getCurrentStep()) setCurrentStep(n);
+          }
+        }
+      });
+    }, { threshold: 0.3 });
+    document.querySelectorAll('section.step').forEach(function(s) { obs.observe(s); });
+  }
+})();
 </script>
 </body>
 </html>
