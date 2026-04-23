@@ -2,6 +2,8 @@
 
 How exercises are hosted and how they render inside the Circle community.
 
+> **Governance:** this doc is the operational playbook. For the architectural contract (what exercises are, why they're structured this way, what must stay locked) see [BLI-ADR-001](./BLI-ADR-001_Exercise_Deliverable_Architecture.md). Structural changes that alter the contract between hosting and architecture require an ADR amendment.
+
 ## Repository
 
 - **GitHub:** [`BigLeverVentures/bli-exercises`](https://github.com/BigLeverVentures/bli-exercises) (public)
