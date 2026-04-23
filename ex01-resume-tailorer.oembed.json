@@ -2,11 +2,11 @@
   "version": "1.0",
   "type": "rich",
   "provider_name": "Big Lever Institute",
-  "provider_url": "https://bigleverventures.github.io/bli-exercises/",
+  "provider_url": "https://exercises.bigleverinstitute.org/",
   "title": "Exercise 01 — Resume Tailorer",
   "author_name": "Big Lever Institute",
-  "author_url": "https://bigleverventures.github.io/bli-exercises/",
+  "author_url": "https://exercises.bigleverinstitute.org/",
   "width": 1080,
   "height": 5200,
-  "html": "<iframe src=\"https://bigleverventures.github.io/bli-exercises/ex01-resume-tailorer.html\" width=\"100%\" height=\"5200\" frameborder=\"0\" allow=\"clipboard-write\" style=\"border:none;display:block;max-width:100%\" title=\"Exercise 01 — Resume Tailorer\" loading=\"lazy\"></iframe>"
+  "html": "<iframe src=\"https://exercises.bigleverinstitute.org/ex01-resume-tailorer.html\" width=\"100%\" height=\"5200\" frameborder=\"0\" allow=\"clipboard-write\" style=\"border:none;display:block;max-width:100%\" title=\"Exercise 01 — Resume Tailorer\" loading=\"lazy\"></iframe>"
 }
