@@ -10,6 +10,8 @@ How exercises are hosted and how they render inside the Circle community.
 
 Every exercise HTML file in the repo root is automatically published at `https://exercises.bigleverinstitute.org/<filename>.html` within about a minute of pushing to `main`.
 
+The repo is the **single source of truth** for exercise content. Any draft or scratch copy that lives in a Claude Cowork workspace or elsewhere is not canonical and must not be edited after publishing — delete it or clearly mark it `-DRAFT` once the repo version is live. Two copies diverge silently; one copy cannot.
+
 ## File template per exercise
 
 Every exercise ships as **two paired files** at the repo root:
@@ -20,6 +22,9 @@ Every exercise ships as **two paired files** at the repo root:
 ### Required HTML `<head>` tags
 
 ```html
+<!-- Canonical URL (authoritative source for this page) -->
+<link rel="canonical" href="https://exercises.bigleverinstitute.org/exNN-<slug>.html">
+
 <!-- Open Graph (for link previews in any consumer) -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="Exercise NN — <Title>">
@@ -51,30 +56,55 @@ Every exercise ships as **two paired files** at the repo root:
   "author_name": "Big Lever Institute",
   "author_url": "https://exercises.bigleverinstitute.org/",
   "width": 1080,
-  "height": <measured pixel height of the exercise>,
+  "height": <filled in by npm run measure>,
   "html": "<iframe src=\"https://exercises.bigleverinstitute.org/exNN-<slug>.html\" width=\"100%\" height=\"<same height>\" frameborder=\"0\" allow=\"clipboard-write\" style=\"border:none;display:block;max-width:100%\" title=\"Exercise NN — <Title>\" loading=\"lazy\"></iframe>"
 }
 ```
 
-**Important:** Every URL in both files (og:url, oEmbed discovery link, provider_url, author_url, iframe src) MUST use `exercises.bigleverinstitute.org` — never `bigleverventures.github.io`. Iframely verifies the provider URL matches our claimed domain.
+**Every URL in both files MUST use `exercises.bigleverinstitute.org` — never `bigleverventures.github.io`.** Iframely verifies the provider URL matches our claimed domain before approving rich embeds.
 
-## Why this pipeline exists
+## Height measurement — automated
 
-Circle's Professional tier has **no custom HTML block**. Pasting raw iframe HTML renders as literal code, not as an embed. The only way to get inline interactive embeds in Circle is URL-based unfurling, which Circle delegates to a service called **Iframely**.
+Manual height guessing is unreliable (we initially set Exercise 01 to 5200px; the real rendered height at 720px viewport is 7474px — a 30% clip). Every exercise's `height` is measured by a headless browser and written into its companion JSON by:
 
-Iframely only returns rich iframe HTML to consumers (Circle) for **publisher-approved domains**. For unclaimed domains, Iframely returns metadata-only "link cards" — which Circle renders as a plain URL.
+```
+npm run measure
+```
 
-We got `bigleverinstitute.org` approved by Iframely as a publisher on **2026-04-23**. As a result, every page at `exercises.bigleverinstitute.org/*` with a valid self-hosted oEmbed file will render as an interactive iframe inside Circle automatically.
+This script (`scripts/measure.mjs`) walks every `exNN-*.html` at the repo root, launches Chromium at a 720px-wide viewport (narrower than our content's 760px `max-width`, so it's a conservative upper bound), waits for fonts and network idle, reads `document.documentElement.scrollHeight`, adds a 40px buffer, and patches both the top-level `height` field and the iframe's `height="..."` attribute inside the JSON's `html` string.
+
+Run `npm run measure` any time you edit exercise copy, before committing. The diff on the `.oembed.json` files shows exactly which heights changed.
+
+First-time setup on a new clone:
+
+```
+npm install
+npx playwright install chromium
+```
+
+## Post-edit cache invalidation
+
+Three cache layers sit between a commit and what learners see. When you push a correction, walk this checklist:
+
+1. **GitHub Pages** — serves with `Cache-Control: max-age=600`. Self-heals within 10 minutes. Non-issue for anything but time-critical fixes.
+2. **Iframely** — caches our metadata indefinitely until you tell them otherwise.
+   - Go to the Iframely dashboard → **Cache refresh** (left nav)
+   - Paste the exercise URL and submit
+   - Re-check via the Debug page; the "Last fetched" timestamp should reset
+3. **Circle** — caches the embed rendering per-URL. Two options:
+   - **Minor fixes (typos, small copy edits):** leave the existing embed in place; Circle will pick up the refreshed Iframely response within hours.
+   - **Material corrections (wrong instructions, broken prompts):** delete the embed in Circle and re-add it with a cache-busting query string, e.g. `https://exercises.bigleverinstitute.org/ex01-resume-tailorer.html?v=2`. Different URL → fresh fetch, no cached stale response.
 
 ## Posting a new exercise
 
 1. Copy Exercise 01 as a template: `ex01-resume-tailorer.html` and `ex01-resume-tailorer.oembed.json`
 2. Rename to `exNN-<slug>.html` and `exNN-<slug>.oembed.json`
-3. Update all URLs, titles, and descriptions
-4. Measure the rendered page height in a browser and update `height` in the JSON + the iframe HTML
-5. Commit and push to `main`
-6. Wait ~1 minute for GitHub Pages to publish
-7. Paste the new URL into Circle's `/embed` command — it renders as a full-height interactive iframe
+3. Update the HTML title, canonical URL, Open Graph tags, Twitter Card tags, and oEmbed discovery link
+4. Update the JSON's `title`, `html` iframe `src` and `title` attribute — leave `height` as a placeholder
+5. Run `npm run measure` — the script fills in the correct height in both places
+6. Commit and push to `main`
+7. Wait ~1 minute for GitHub Pages to publish
+8. Paste the new URL into Circle's `/embed` command — it renders as a full-height interactive iframe
 
 ## Verifying before publishing
 

@@ -1,0 +1,11 @@
+{
+  "name": "bli-exercises",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "measure": "node scripts/measure.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.48.0"
+  }
+}
