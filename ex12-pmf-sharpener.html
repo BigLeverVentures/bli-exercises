@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exercise 12 — Product-Market Fit Sharpener | Big Lever Institute</title>
+
+<!-- Embed metadata (Open Graph + oEmbed discovery) -->
+<link rel="canonical" href="https://exercises.bigleverinstitute.org/ex12-pmf-sharpener.html">
+<meta name="description" content="Interactive walkthrough for articulating and validating your Product-Market Fit statement using Claude. Part of the Big Lever Institute exercise series.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Exercise 12 — Product-Market Fit Sharpener">
+<meta property="og:description" content="Interactive walkthrough for articulating and validating your Product-Market Fit statement using Claude.">
+<meta property="og:url" content="https://exercises.bigleverinstitute.org/ex12-pmf-sharpener.html">
+<meta property="og:site_name" content="Big Lever Institute">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Exercise 12 — Product-Market Fit Sharpener">
+<meta name="twitter:description" content="Interactive walkthrough for articulating and validating your Product-Market Fit statement using Claude.">
+<link rel="alternate" type="application/json+oembed" href="https://exercises.bigleverinstitute.org/ex12-pmf-sharpener.oembed.json" title="Exercise 12 — Product-Market Fit Sharpener">
+
+<style>
+  :root {
+    --cream: #F7F4EE;
+    --surface: #FFFFFF;
+    --text: #2B2420;
+    --muted: #6B6560;
+    --border: #E8E0D4;
+    --gold: #B8924F;
+    --gold-bg: #F5EDD4;
+    --gold-border: #D9BE85;
+    --purple: #5D4E8B;
+    --purple-bg: #ECE8F2;
+    --purple-border: #C0B5D8;
+    --success: #3B7A3B;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--cream);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--purple); }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 24px 20px 80px; }
+
+  header.hero { padding: 16px 0 24px; border-bottom: 1px solid var(--border); margin-bottom: 32px; }
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 12px;
+    color: var(--muted);
+    margin: 0 0 8px;
+  }
+  h1 { font-size: 28px; line-height: 1.25; margin: 0 0 14px; font-weight: 700; }
+  .lede { font-size: 17px; color: var(--muted); margin: 0; }
+
+  section.step { margin: 40px 0; }
+  .step-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 4px;
+    flex-wrap: wrap;
+  }
+  .step-num {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .step h2 { font-size: 22px; margin: 6px 0 12px; line-height: 1.3; font-weight: 700; }
+  .step p { margin: 12px 0; }
+  .step ol, .step ul { padding-left: 22px; }
+  .step li { margin: 6px 0; }
+
+  .optional-badge {
+    display: inline-block;
+    background: var(--border);
+    color: var(--muted);
+    font-size: 11px;
+    padding: 2px 10px;
+    border-radius: 10px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  /* Purple prompt surface */
+  .prompt {
+    background: var(--purple-bg);
+    border: 1px solid var(--purple-border);
+    border-radius: 8px;
+    padding: 14px 16px 60px;
+    margin: 16px 0;
+    position: relative;
+  }
+  .prompt-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--purple);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+  }
+  .prompt pre {
+    margin: 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--text);
+    background: transparent;
+    border: none;
+    padding: 0;
+  }
+  .copy-btn {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    background: var(--purple);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s;
+  }
+  .copy-btn:hover { background: #4D4075; }
+  .copy-btn.copied { background: var(--success); }
+
+  /* Gold deliverable card */
+  .gold-card {
+    background: var(--gold-bg);
+    border: 1px solid var(--gold-border);
+    border-radius: 8px;
+    padding: 20px 22px;
+    margin: 18px 0;
+  }
+  .gold-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+  .gold-card h3 { margin: 4px 0 10px; font-size: 17px; font-weight: 700; }
+  .gold-card ol { padding-left: 22px; margin: 8px 0; }
+  .gold-card li { margin: 8px 0; }
+  .gold-card ul { padding-left: 22px; margin: 4px 0 8px; }
+  .gold-card p { margin: 8px 0; }
+  .gold-card p:last-child { margin-bottom: 0; }
+
+  /* PMF formula block */
+  .formula {
+    background: var(--gold-bg);
+    border: 1px solid var(--gold-border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 18px 0;
+  }
+  .formula-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+  }
+  .formula p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.6;
+    font-style: italic;
+  }
+  .formula strong { color: var(--text); font-style: normal; }
+
+  /* Reveal — 3-layer visual */
+  .reveal .layer {
+    border-left: 3px solid var(--gold);
+    padding: 4px 0 4px 14px;
+    margin: 14px 0;
+  }
+  .reveal .layer strong {
+    display: block;
+    font-size: 15px;
+    margin-bottom: 4px;
+    color: var(--text);
+  }
+
+  /* Callout */
+  .callout {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--muted);
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin: 14px 0;
+    font-size: 14.5px;
+    color: var(--muted);
+  }
+  .callout strong { color: var(--text); }
+
+  /* Next card */
+  .next-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 22px;
+    margin-top: 8px;
+  }
+  .next-card h3 { margin: 0 0 6px; font-size: 16px; font-weight: 700; }
+  .next-card h3:not(:first-child) { margin-top: 18px; }
+  .next-card p { margin: 4px 0 0; color: var(--muted); }
+
+  footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  @media (max-width: 480px) {
+    body { font-size: 15px; }
+    h1 { font-size: 22px; }
+    .lede { font-size: 15px; }
+    .step h2 { font-size: 19px; }
+    .wrap { padding: 20px 14px 60px; }
+    .prompt { padding: 12px 14px 56px; }
+    .prompt pre { font-size: 12.5px; }
+    .gold-card { padding: 16px 18px; }
+    .formula p { font-size: 15px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header class="hero">
+  <p class="eyebrow">Big Lever Institute · Exercise 12</p>
+  <h1>Product-Market Fit Sharpener — articulate and validate your venture before you build</h1>
+  <p class="lede">In the next 45 minutes you'll turn a rough venture idea into a pressure-tested Product-Market Fit statement — anchored to a specific customer archetype, grounded in real pains or real gains, and already validated against what AI-powered research can find in the market. By the end you'll have a persistent "PMF Sharpener" Project you can return to every time your idea evolves.</p>
+</header>
+
+<!-- STEP 0 -->
+<section class="step" id="step-0">
+  <div class="step-header"><span class="step-num">Step 0</span></div>
+  <h2>Before you start</h2>
+  <p>Have three things ready before you begin:</p>
+  <ol>
+    <li><strong>A rough venture idea.</strong> 2–3 sentences is enough. It doesn't have to be good yet — that's what this exercise is for.</li>
+    <li><strong>~45 minutes of uninterrupted time.</strong> The exercise runs best in one sitting because the Sharpener's interview builds momentum.</li>
+    <li><strong>A Claude account with Research available.</strong> The free tier works for most of this; Research/web-search capability is used in Step 3 to validate the idea.</li>
+  </ol>
+  <p>By the end, you'll be able to complete this sentence about your venture with specificity:</p>
+
+  <div class="formula">
+    <div class="formula-label">The PMF formulation you'll fill in</div>
+    <p>My new business <strong>[X]</strong> creates benefits <strong>[A]</strong>, <strong>[B]</strong>, <strong>[C]</strong>, and eliminates pains <strong>[D]</strong>, <strong>[E]</strong>, <strong>[F]</strong>, for customer <strong>[G]</strong> and customer <strong>[H]</strong>.</p>
+  </div>
+
+  <p>That's the fundamental PMF statement. Exactly what you do. Exactly who you do it for. (Pricing and how you charge for it come later — that's a different week of New Venture Planning.)</p>
+</section>
+
+<!-- STEP 1 -->
+<section class="step" id="step-1">
+  <div class="step-header"><span class="step-num">Step 1 · Setup</span></div>
+  <h2>Create your My Venture Project</h2>
+  <p>You're going to do everything for this exercise inside one Claude Project. Articulation, research, interpretation, and the installed coach you'll keep — all of it lives in the same place.</p>
+  <ol>
+    <li>Go to <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a>.</li>
+    <li>Click <strong>Projects</strong> in the sidebar, then <strong>New Project</strong>.</li>
+    <li>Name it <strong>My Venture</strong>.</li>
+    <li>Description (optional): <em>Where my idea lives, gets sharpened, and gets tested.</em></li>
+    <li>Don't set Custom Instructions yet — you'll generate them in Step 6.</li>
+    <li>Click <strong>New Chat</strong> inside the Project. Rename this chat to <strong>PMF Sharpener</strong>.</li>
+  </ol>
+  <p><strong>Check:</strong> You should be looking at an empty chat named "PMF Sharpener" inside a Project named "My Venture."</p>
+</section>
+
+<!-- STEP 2 -->
+<section class="step" id="step-2">
+  <div class="step-header"><span class="step-num">Step 2 · Articulate</span></div>
+  <h2>Interview with the Sharpener</h2>
+  <p>Paste this prompt into your PMF Sharpener chat and fill in the bracketed field. Go through the interview. Expect 6–10 exchanges before the Sharpener concludes your articulation is ready to validate. Some of what it surfaces may surprise you — stay with it.</p>
+
+  <div class="prompt">
+    <div class="prompt-label">Starter prompt — paste into your PMF Sharpener chat</div>
+    <pre id="p2">I'm working through BLI's PMF Sharpener exercise. I have a rough idea for a new venture, and I need you to help me sharpen my product-market fit before I build anything.
+
+By the end of this conversation, I should be able to complete this sentence with specificity:
+
+"My new business [X] creates benefits [A], [B], [C], and eliminates pains [D], [E], [F], for customer [G] and customer [H]."
+
+Your job is to interview me until every blank can be filled in concretely:
+
+1. **Benefits (gains) and pains.** Real ones, not a list of features. Not a conceptual abstraction. Benefits and pains can both be present — what we will NOT accept is just features.
+
+2. **Customer archetype(s).** Precise enough that we could google them. Not "small business owners" — "solo HVAC contractors in US metros with 3–15 employees who still do quoting by phone." Up to two archetypes is fine if I really serve two.
+
+3. **Must-have evidence.** What are they doing today to cope with these pains or go without these benefits? What does it cost them — in time, money, revenue, or stress? If they're doing nothing about it, it's probably not must-have.
+
+Rules for the interview:
+- If I describe a feature, reflect it back as the underlying benefit or pain and make me restate.
+- If my customer description is vague, push me until it's specific enough to find them.
+- If I can't articulate what they do today to cope, we haven't found must-have yet.
+- Ask one question at a time. Don't let me off the hook.
+
+My rough idea, in 2–3 sentences:
+[DESCRIBE YOUR IDEA HERE]
+
+When my articulation is ready, close the interview by doing two things:
+
+(a) Restate my completed PMF formulation back to me in a clean block using the exact sentence structure above.
+
+(b) Generate a deep research prompt I can paste into a fresh chat inside this same Project to validate the idea. The research prompt should ask for evidence that the customer archetype(s) exist and are actively seeking solutions (forums, Reddit threads, reviews, hiring ads, complaints, trade publications), a survey of existing products/services attempting to serve this archetype (including the unsexy ones and the dying ones), market-size proxies, and signals that the pain/gain is must-have (willingness to pay, revenue at stake, cost of workarounds). The research prompt MUST demand raw findings only — no interpretation, no recommendations, no "this seems like a good idea." Output the research prompt as a clean code block I can copy.
+
+Start the interview.</pre>
+    <button class="copy-btn" data-copy="p2" type="button">Copy</button>
+  </div>
+
+  <p><strong>Check:</strong> By the end of Step 2 you should have (a) your PMF formulation restated cleanly in the chat, and (b) a research prompt sitting in a code block, ready to copy.</p>
+</section>
+
+<!-- STEP 3 -->
+<section class="step" id="step-3">
+  <div class="step-header"><span class="step-num">Step 3 · Research</span></div>
+  <h2>Run the research in a second chat</h2>
+  <p>Copy the research prompt the Sharpener produced at the end of Step 2.</p>
+  <p>Inside the same <strong>My Venture</strong> Project, click <strong>New Chat</strong>. Rename this chat to <strong>Research Scratchpad</strong>. This is a different workspace for a different job — the Sharpener does articulation and interpretation; the Scratchpad runs the research.</p>
+  <p>In the new chat:</p>
+  <ol>
+    <li>Paste the research prompt.</li>
+    <li>Enable Research / web-search mode if your Claude UI offers a toggle for it (look in the chat composer).</li>
+    <li>Send the prompt. This may take 1–3 minutes — Claude is searching the web.</li>
+    <li>When the output arrives, review it: does it read like raw findings with sources, or like an essay with opinions?</li>
+  </ol>
+
+  <div class="callout">
+    <strong>If the output includes interpretation or recommendations,</strong> reply in the Research Scratchpad: <em>"Strip the interpretation. Give me findings only, with sources."</em> Repeat until the output is clean evidence.
+  </div>
+
+  <p>When the findings are clean, copy the full output. You'll paste it into the Sharpener chat in Step 4.</p>
+</section>
+
+<!-- STEP 4 -->
+<section class="step" id="step-4">
+  <div class="step-header"><span class="step-num">Step 4 · Interpret</span></div>
+  <h2>Back to the Sharpener</h2>
+  <p>Return to your <strong>PMF Sharpener</strong> chat inside the same Project. Paste this prompt, then paste your research findings where indicated.</p>
+
+  <div class="prompt">
+    <div class="prompt-label">Interpretation prompt — paste into your PMF Sharpener chat</div>
+    <pre id="p4">Here are the raw research findings from my Research Scratchpad chat. Interpret them honestly against my PMF formulation. I want:
+
+1. Does the evidence support that my customer archetype(s) exist and are actively seeking solutions? Where is that signal strongest? Where is it weakest or missing?
+
+2. Who are the existing solutions in this space? Competitors are VALIDATION — they prove a market exists. List the top 3–5 and describe how each one approaches the problem.
+
+3. If there are NO competitors and NO customer-seeking signals, call that out directly. No results usually means no market, not untapped Blue Ocean. True Blue Ocean is rare enough to be suspicious when it shows up.
+
+4. Is the evidence of must-have-ness (willingness to pay, cost of status quo, current workaround pain) strong, medium, or weak?
+
+5. What are the 3 riskiest assumptions I'm still making that the research couldn't validate — and that I'll need to test with real customers or real experiments?
+
+Raw findings:
+[PASTE RAW RESEARCH OUTPUT HERE]</pre>
+    <button class="copy-btn" data-copy="p4" type="button">Copy</button>
+  </div>
+
+  <p>Read the interpretation carefully. This is where a lot of ideas die — or get sharpened into something real. If the interpretation surfaces a reality check that changes your idea, that's the exercise working. Go back to Step 2, tighten the articulation, and rerun.</p>
+</section>
+
+<!-- STEP 5 -->
+<section class="step" id="step-5">
+  <div class="step-header"><span class="step-num">Step 5 · Synthesize</span></div>
+  <h2>Write your refined PMF Statement</h2>
+  <p>Still in the PMF Sharpener chat:</p>
+
+  <div class="prompt">
+    <div class="prompt-label">Synthesis prompt — paste into your PMF Sharpener chat</div>
+    <pre id="p5">Based on the full exercise so far — articulation, research, and interpretation — draft my refined Product-Market Fit Statement using this exact structure:
+
+**My new business [X] creates benefits [A], [B], [C], and eliminates pains [D], [E], [F], for customer [G] and customer [H].**
+
+Fill in every blank with concreteness. No hedging. No vague abstractions. No feature lists.
+
+Then, beneath the statement, include:
+
+- **Evidence of must-have:** what customers do today to cope, what it costs them, willingness-to-pay signals from the research
+- **Top 3 competitors and how I differentiate** — or a clear note if I can't differentiate yet and that's the next sharpen
+- **3 riskiest assumptions** I still need to validate next (the ones research couldn't answer)
+
+Output as a clean block I can save.</pre>
+    <button class="copy-btn" data-copy="p5" type="button">Copy</button>
+  </div>
+
+  <p><strong>Check:</strong> Every blank in the formulation is filled with something specific enough to google. If any element is thin — "small businesses," "various benefits" — push back in the chat: <em>"[X] is still vague — sharpen it."</em> This paragraph is your New Venture Planning Week 1 seed.</p>
+</section>
+
+<!-- STEP 6 -->
+<section class="step" id="step-6">
+  <div class="step-header"><span class="step-num">Step 6 · Encapsulate</span></div>
+  <h2>Generate your Custom Instructions</h2>
+  <p>Now turn everything you and the Sharpener just worked through into a reusable coach that lives in this Project permanently.</p>
+
+  <div class="prompt">
+    <div class="prompt-label">Encapsulation prompt — paste into your PMF Sharpener chat</div>
+    <pre id="p6">Encapsulate this entire conversation into a reusable set of Custom Instructions for my My Venture Project. The instructions should:
+
+- Define the role: PMF Sharpener — a venture coach grounded in Lean Startup and Blue Ocean thinking. Your job is to keep me honest about benefits, pains, archetype, and must-have evidence.
+
+- Always orient toward completing the PMF formulation: "My new business [X] creates benefits [A], [B], [C], and eliminates pains [D], [E], [F], for customer [G] and customer [H]." Every new idea or variant should be tested against this structure.
+
+- Refuse to engage with feature lists. Reflect features back as the underlying benefits or pains and make me restate.
+
+- Force archetype precision — push until the customer is specific enough to google.
+
+- Require must-have evidence — what do they do today to cope? What does it cost them?
+
+- Always recommend pre-build validation via deep research before I commit to building.
+
+- Interpret research results honestly, including calling out "no results usually means no market, not Blue Ocean. True Blue Ocean is rare."
+
+- Carry forward the PMF Statement we just locked as the starting reference point. When I bring a variant, compare it against what we locked today.
+
+Output the Custom Instructions as a clean code block I can paste into the Project's settings.</pre>
+    <button class="copy-btn" data-copy="p6" type="button">Copy</button>
+  </div>
+</section>
+
+<!-- STEP 7 -->
+<section class="step" id="step-7">
+  <div class="step-header"><span class="step-num">Step 7 · Install &amp; Invoke</span></div>
+  <h2>Install the coach and test it</h2>
+
+  <div class="gold-card">
+    <div class="gold-label">Deliverable — your permanent PMF Sharpener</div>
+    <ol>
+      <li><strong>Paste your Custom Instructions.</strong> Open the Project's <strong>Custom Instructions</strong> (in the My Venture Project's settings). Paste the full CI block from Step 6. Save.</li>
+      <li><strong>Invoke in a fresh chat.</strong> Inside the same My Venture Project, click <strong>New Chat</strong>. Rename it <strong>PMF Test</strong>. Paste the invoke prompt below.</li>
+    </ol>
+  </div>
+
+  <div class="prompt">
+    <div class="prompt-label">Invoke prompt — paste into a new "PMF Test" chat inside the same Project</div>
+    <pre id="p7">I want to test a variant of my idea.
+
+Variant: [DESCRIBE A VARIANT — e.g., same customer archetype, different solution approach; OR same benefits/pains, different customer archetype; OR narrower archetype with the same offering]
+
+Sharpen it. Compare against the PMF Statement we locked earlier in this Project.</pre>
+    <button class="copy-btn" data-copy="p7" type="button">Copy</button>
+  </div>
+
+  <p>If the installed Custom Instructions are working, the PMF Test chat will interview you with the same discipline as Step 2 — no onboarding required. It will also reference the PMF Statement you locked earlier, because your Custom Instructions told it to. <strong>That persistent, specific coach is what you keep.</strong></p>
+</section>
+
+<!-- STEP 8 -->
+<section class="step" id="step-8">
+  <div class="step-header"><span class="step-num">Step 8 · Extend</span><span class="optional-badge">Optional · ~15 min</span></div>
+  <h2>Turn your 3 riskiest assumptions into a validation plan</h2>
+  <p>The core deliverable is done — you have a working PMF Sharpener and a locked PMF Statement. You can come back to this step anytime. It turns the 3 riskiest assumptions from Step 5 into a week-long experiment plan, without writing any code.</p>
+  <p>Inside the same My Venture Project, return to your <strong>PMF Sharpener</strong> chat (it already has all the context) and paste:</p>
+
+  <div class="prompt">
+    <div class="prompt-label">Validation-plan prompt — paste into your PMF Sharpener chat</div>
+    <pre id="p8">Take the 3 riskiest assumptions from my PMF Statement and turn them into a pre-build validation plan. For each assumption, design one low-cost, fast experiment I can run this week without writing code. Consider:
+
+- 5 customer interviews with a target script
+- A landing page test with a specific CTA and a conversion signal
+- A manual "wizard of oz" concierge version (I do the service by hand for the first few customers)
+- A waitlist test with a tentative pricing tier
+- A cold outreach campaign where reply rate is the signal
+
+For each experiment: what I'll do, how long it takes, what signal tells me the assumption holds, what signal tells me it's broken.</pre>
+    <button class="copy-btn" data-copy="p8" type="button">Copy</button>
+  </div>
+
+  <div class="next-card">
+    <h3>Where to go next</h3>
+    <p>Bring your PMF Statement into New Venture Planning Week 1 as your starting seed. Come back to this Project every time your idea shifts — after customer interviews, after a landing page test, after a competitor moves — and rerun the PMF Test chat. The coach will tell you what got sharper and what got murkier.</p>
+    <h3>Adjacent exercises</h3>
+    <p>Exercise 07 (Industry Researcher) and Exercise 13 (Competitive Landscape Map) go deeper on the market side. Exercise 10 (Board of Advisors) gives you multi-persona critique on top of the single Sharpener coach.</p>
+    <h3>Remember</h3>
+    <p>Competitors aren't the threat. The real threat is a vague archetype and a feature list pretending to be a venture. You just built a tool that won't let you get away with either.</p>
+  </div>
+</section>
+
+<footer>
+  <p>© Big Lever Institute · Exercise 12 · v1.0 · 2026-04-24 · Governed by BLI-ADR-001</p>
+</footer>
+
+</div>
+
+<script>
+(function() {
+  // ----- Copy-to-clipboard with iframe-safe fallback -----
+  function copyText(text, btn) {
+    var done = function() {
+      var original = btn.dataset.original || btn.textContent;
+      btn.dataset.original = original;
+      btn.textContent = 'Copied ✓';
+      btn.classList.add('copied');
+      setTimeout(function() {
+        btn.textContent = original;
+        btn.classList.remove('copied');
+      }, 1800);
+    };
+    var fail = function() {
+      btn.textContent = 'Press Ctrl/⌘+C';
+      setTimeout(function() { btn.textContent = 'Copy'; }, 2500);
+    };
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(done).catch(function() { fallback(text, done, fail); });
+    } else {
+      fallback(text, done, fail);
+    }
+  }
+  function fallback(text, done, fail) {
+    try {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.top = '0';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, text.length);
+      var ok = document.execCommand('copy');
+      document.body.removeChild(ta);
+      if (ok) { done(); } else { fail(); }
+    } catch (e) { fail(); }
+  }
+
+  document.querySelectorAll('.copy-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var targetId = btn.getAttribute('data-copy');
+      var el = document.getElementById(targetId);
+      if (!el) return;
+      copyText(el.innerText, btn);
+    });
+  });
+})();
+</script>
+</body>
+</html>
