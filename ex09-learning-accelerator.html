@@ -46,34 +46,6 @@
   a { color: var(--purple); }
   .wrap { max-width: 760px; margin: 0 auto; padding: 24px 20px 80px; }
 
-  /* Sticky progress — direct child of <body> for reliable sticking */
-  .sticky-bar {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    background: var(--cream);
-    z-index: 100;
-    padding: 12px 20px 10px;
-    border-bottom: 1px solid var(--border);
-    width: 100%;
-  }
-  .sticky-inner { max-width: 760px; margin: 0 auto; }
-  .progress-track { display: flex; gap: 4px; height: 6px; }
-  .progress-seg {
-    flex: 1;
-    background: var(--border);
-    border-radius: 3px;
-    transition: background 0.2s;
-  }
-  .progress-seg.active { background: var(--gold); }
-  .progress-label {
-    font-size: 12px;
-    color: var(--muted);
-    margin-top: 6px;
-    display: flex;
-    justify-content: space-between;
-  }
-
   header.hero { padding: 16px 0 24px; border-bottom: 1px solid var(--border); margin-bottom: 32px; }
   .eyebrow {
     text-transform: uppercase;
@@ -239,7 +211,6 @@
     .lede { font-size: 15px; }
     .step h2 { font-size: 19px; }
     .wrap { padding: 20px 14px 60px; }
-    .sticky-bar { padding: 10px 14px 8px; }
     .prompt { padding: 12px 14px 56px; }
     .prompt pre { font-size: 12.5px; }
     .gold-card { padding: 16px 18px; }
@@ -247,13 +218,6 @@
 </style>
 </head>
 <body>
-
-<div class="sticky-bar" aria-hidden="true">
-  <div class="sticky-inner">
-    <div class="progress-track" id="progress"></div>
-    <div class="progress-label"><span id="step-current">Start</span><span id="step-total">9 steps</span></div>
-  </div>
-</div>
 
 <div class="wrap">
 
@@ -578,88 +542,8 @@ Ask me any clarifying questions first before drafting.</pre>
       var el = document.getElementById(targetId);
       if (!el) return;
       copyText(el.innerText, btn);
-      var stepSection = btn.closest('.step');
-      if (stepSection) {
-        var n = parseInt(stepSection.id.replace('step-', ''), 10);
-        if (!isNaN(n) && n > getCurrentStep()) setCurrentStep(n);
-      }
     });
   });
-
-  // ----- Progress indicator + step bookmark -----
-  var TOTAL = 9; // steps 0–8
-  var track = document.getElementById('progress');
-  var current = document.getElementById('step-current');
-  var totalEl = document.getElementById('step-total');
-  totalEl.textContent = TOTAL + ' steps';
-  for (var i = 0; i < TOTAL; i++) {
-    var seg = document.createElement('div');
-    seg.className = 'progress-seg';
-    seg.dataset.step = i;
-    track.appendChild(seg);
-  }
-  function getCurrentStep() {
-    try {
-      var v = localStorage.getItem('bli_ex09_step');
-      return v ? parseInt(v, 10) : 0;
-    } catch (e) { return 0; }
-  }
-  function setCurrentStep(n) {
-    try { localStorage.setItem('bli_ex09_step', String(n)); } catch (e) {}
-    renderProgress(n);
-  }
-  function renderProgress(n) {
-    document.querySelectorAll('.progress-seg').forEach(function(seg) {
-      var idx = parseInt(seg.dataset.step, 10);
-      seg.classList.toggle('active', idx <= n);
-    });
-    if (n <= 0) current.textContent = 'Start';
-    else if (n >= TOTAL - 1) current.textContent = 'Complete';
-    else current.textContent = 'Step ' + n;
-  }
-  renderProgress(getCurrentStep());
-
-  // Advance on scroll past step sections
-  if ('IntersectionObserver' in window) {
-    var obs = new IntersectionObserver(function(entries) {
-      entries.forEach(function(e) {
-        if (e.isIntersecting) {
-          var m = /step-(\d+)/.exec(e.target.id);
-          if (m) {
-            var n = parseInt(m[1], 10);
-            if (n > getCurrentStep()) setCurrentStep(n);
-          }
-        }
-      });
-    }, { threshold: 0.3 });
-    document.querySelectorAll('section.step').forEach(function(s) { obs.observe(s); });
-  }
-
-  // ----- Embed auto-resize: tell parent iframe our content height -----
-  var lastHeight = 0;
-  function reportHeight() {
-    try {
-      var h = Math.max(
-        document.body.scrollHeight,
-        document.documentElement.scrollHeight,
-        document.body.offsetHeight,
-        document.documentElement.offsetHeight
-      );
-      if (h && h !== lastHeight) {
-        lastHeight = h;
-        if (window.parent && window.parent !== window) {
-          window.parent.postMessage({ type: 'bli-embed-height', id: 'ex09', height: h }, '*');
-        }
-      }
-    } catch (e) {}
-  }
-  window.addEventListener('load', reportHeight);
-  window.addEventListener('resize', reportHeight);
-  if ('ResizeObserver' in window) {
-    try { new ResizeObserver(reportHeight).observe(document.body); } catch (e) {}
-  } else {
-    [100, 400, 1000, 2500].forEach(function(ms) { setTimeout(reportHeight, ms); });
-  }
 })();
 </script>
 </body>
