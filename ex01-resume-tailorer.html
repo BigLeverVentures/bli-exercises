@@ -44,7 +44,7 @@
     -webkit-font-smoothing: antialiased;
   }
   a { color: var(--purple); }
-  .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px 80px; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 24px 20px 80px; }
 
   header.hero { padding: 16px 0 24px; border-bottom: 1px solid var(--border); margin-bottom: 32px; }
   .eyebrow {
@@ -172,6 +172,19 @@
     color: var(--text);
   }
 
+  /* Callout */
+  .callout {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--muted);
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin: 14px 0;
+    font-size: 14.5px;
+    color: var(--muted);
+  }
+  .callout strong { color: var(--text); }
+
   /* Next card */
   .next-card {
     background: var(--surface);
@@ -197,7 +210,7 @@
     h1 { font-size: 22px; }
     .lede { font-size: 15px; }
     .step h2 { font-size: 19px; }
-    .wrap { padding: 0 14px 60px; }
+    .wrap { padding: 20px 14px 60px; }
     .prompt { padding: 12px 14px 56px; }
     .prompt pre { font-size: 12.5px; }
     .gold-card { padding: 16px 18px; }
@@ -205,6 +218,7 @@
 </style>
 </head>
 <body>
+
 <div class="wrap">
 
 <header class="hero">
@@ -219,7 +233,7 @@
   <h2>Before you start</h2>
   <p>Have two things ready:</p>
   <ol>
-    <li><strong>Your current resume</strong> — text or a document you can paste from.</li>
+    <li><strong>Your current resume</strong> — as a file you can upload (PDF, DOCX, or plain text) or text you can paste.</li>
     <li><strong>A target job description</strong> — ideally a role you'd actually apply for. The more real, the better the output.</li>
   </ol>
   <p>You'll also need a Claude account (free tier works). Other LLMs work, but we default to Claude for consistency. Estimated time: 25–45 minutes.</p>
@@ -227,21 +241,38 @@
 
 <!-- STEP 1 -->
 <section class="step" id="step-1">
-  <div class="step-header"><span class="step-num">Step 1 · Show</span></div>
+  <div class="step-header"><span class="step-num">Step 1 · Setup</span></div>
+  <h2>Create your Resume Writer Project first</h2>
+  <p>Everything else in this exercise happens inside a Claude Project. Build it first; build in it.</p>
+  <ol>
+    <li>Go to <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a>.</li>
+    <li>Click <strong>Projects</strong> in the sidebar, then <strong>New Project</strong>.</li>
+    <li>Name the Project <strong>Resume Writer</strong>.</li>
+    <li>Open the Project's file library and <strong>upload your master resume</strong>. If you have a short narrative or voice document (bio, cover-letter archive, anything that captures how you actually write about yourself), upload that too. These are your <em>source files</em> — facts Claude will cite.</li>
+    <li><strong>Don't set Custom Instructions yet.</strong> You'll generate them in Step 4.</li>
+    <li>Click <strong>New Chat</strong> inside the Project. Every prompt in this exercise runs in this chat until you're told to start a fresh one.</li>
+  </ol>
+  <div class="callout">
+    <strong>Why build inside the Project:</strong> Anything you do outside a Project is stranded — the output can't be reused, your iterations aren't searchable, and you'll end up copy-pasting later. Start inside the Project and the work becomes the system.
+  </div>
+</section>
+
+<!-- STEP 2 -->
+<section class="step" id="step-2">
+  <div class="step-header"><span class="step-num">Step 2 · Show</span></div>
   <h2>Produce your first tailored output</h2>
-  <p>Open <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a> in a new tab and start a new chat. Copy the prompt below, paste it into Claude, replace the two bracketed sections with your resume and the target JD, then send.</p>
+  <p>In the new chat inside your Resume Writer Project, paste the starter prompt below, then paste your target JD where indicated. Claude will use the resume (and voice doc, if uploaded) from the Project's files as the source of your career history.</p>
 
   <div class="prompt">
-    <div class="prompt-label">Starter prompt — copy, paste, fill in brackets, send</div>
-    <pre id="p1">I'm building a personalized resume-tailoring system, starting with a first real tailored output for a specific job.
+    <div class="prompt-label">Starter prompt — copy, paste, fill in the JD, send</div>
+    <pre id="p2">I'm building a personalized resume-tailoring system, starting with a first real tailored output for a specific job.
 
-**My current resume:**
-[PASTE YOUR RESUME HERE]
+**My master resume is uploaded to this Project's files — use it as the source of my career history. If I also uploaded a narrative/voice document, use it to match my natural diction.**
 
 **The target job description:**
 [PASTE THE JD HERE]
 
-Using my resume above and the JD above, produce two outputs — a tailored resume (1–2 pages) and a matching cover letter (≤350 words). Apply all of the following rules.
+Using my resume (and voice doc if present) and the JD above, produce two outputs — a tailored resume (1–2 pages) and a matching cover letter (≤350 words). Apply all of the following rules.
 
 **General principles**
 
@@ -276,47 +307,47 @@ Using my resume above and the JD above, produce two outputs — a tailored resum
 6. **Verify before delivering:** every bullet follows Action + Context + Quantified Impact; ≥70% of bullets include a quantified metric; no pronouns; no filler phrases; bullets ≤2 lines; resume ≤2 pages; cover letter ≤350 words; tone matches the JD; JD keywords appear verbatim where credible.
 
 Present the tailored resume first, then the cover letter. Label each clearly.</pre>
-    <button class="copy-btn" data-copy="p1" type="button">Copy</button>
+    <button class="copy-btn" data-copy="p2" type="button">Copy</button>
   </div>
 
-  <p>Wait for the output. Read the resume and cover letter end-to-end. The first pass should be close to something you could actually send — if it's not, Step 2 will sharpen it.</p>
+  <p>Wait for the output. Read the resume and cover letter end-to-end. The first pass should be close to something you could actually send — if it's not, Step 3 will sharpen it.</p>
 </section>
 
-<!-- STEP 2 -->
-<section class="step" id="step-2">
-  <div class="step-header"><span class="step-num">Step 2 · Show (refine)</span></div>
+<!-- STEP 3 -->
+<section class="step" id="step-3">
+  <div class="step-header"><span class="step-num">Step 3 · Show (refine)</span></div>
   <h2>Sharpen the first pass</h2>
-  <p>Most first passes need one round of sharpening. Pick whichever of these two most closely matches what's off, copy it, and run it in the same Claude chat.</p>
+  <p>Most first passes need one round of sharpening. Pick whichever of these two most closely matches what's off, copy it, and run it <strong>in the same Project chat</strong>.</p>
 
   <div class="prompt">
     <div class="prompt-label">Option A — Sharpen themes &amp; keyword alignment</div>
-    <pre id="p2a">Looking at the JD again, what are the top 3 themes the employer emphasizes? For each theme, tell me which of my bullets best proves it, and flag which JD keywords appear verbatim in my resume and which don't. Then rewrite the resume to foreground those bullets first and trim lower-relevance items. Adjust the cover letter's middle paragraphs to mirror the same three themes.</pre>
-    <button class="copy-btn" data-copy="p2a" type="button">Copy</button>
+    <pre id="p3a">Looking at the JD again, what are the top 3 themes the employer emphasizes? For each theme, tell me which of my bullets best proves it, and flag which JD keywords appear verbatim in my resume and which don't. Then rewrite the resume to foreground those bullets first and trim lower-relevance items. Adjust the cover letter's middle paragraphs to mirror the same three themes.</pre>
+    <button class="copy-btn" data-copy="p3a" type="button">Copy</button>
   </div>
 
   <div class="prompt">
     <div class="prompt-label">Option B — Adjust the voice register</div>
-    <pre id="p2b">The current resume and letter read [too formal / too casual / too generic — pick the one that applies]. Rewrite both to sound as if written from inside a [startup / corporate / academic / hybrid] organization — using their diction, verbs, and framing — without adding any claims I can't substantiate from the material I gave you.</pre>
-    <button class="copy-btn" data-copy="p2b" type="button">Copy</button>
+    <pre id="p3b">The current resume and letter read [too formal / too casual / too generic — pick the one that applies]. Rewrite both to sound as if written from inside a [startup / corporate / academic / hybrid] organization — using their diction, verbs, and framing — without adding any claims I can't substantiate from the material I gave you.</pre>
+    <button class="copy-btn" data-copy="p3b" type="button">Copy</button>
   </div>
 
   <p>Iterate once — twice if needed. When you have a version you're satisfied with, continue.</p>
 </section>
 
-<!-- STEP 3 -->
-<section class="step" id="step-3">
-  <div class="step-header"><span class="step-num">Step 3 · Give (encapsulate)</span></div>
+<!-- STEP 4 -->
+<section class="step" id="step-4">
+  <div class="step-header"><span class="step-num">Step 4 · Give (encapsulate)</span></div>
   <h2>Convert what worked into a reusable Protocol</h2>
-  <p>In the same Claude chat, run the prompt below. Claude will write the Custom Instructions you'll install in the next step.</p>
+  <p>Still in the same Project chat, run the prompt below. Claude will write the Custom Instructions you'll install in the next step. Because this chat has the full iteration history, Claude is better positioned here than in any fresh conversation to produce a Protocol that reflects what worked.</p>
 
   <div class="prompt">
     <div class="prompt-label">Encapsulation prompt — copy, paste, send</div>
-    <pre id="p3">Now let's convert what we just did into a reusable system.
+    <pre id="p4">Now let's convert what we just did into a reusable system inside this same Project.
 
-Draft a complete set of **Custom Instructions** I can paste into a new Claude Project. The Project will be named "Resume Writer." The Custom Instructions should encode:
+Draft a complete set of **Custom Instructions** I can paste into this Project's Custom Instructions field. The Custom Instructions should encode:
 
 1. **Purpose** — for every new JD I provide, generate a tailored resume (1–2 pages) + cover letter (≤350 words) as if written from inside the organization.
-2. **Source files** — reference two files uploaded to the Project: my master resume, and an optional narrative/voice document.
+2. **Source files** — reference the files uploaded to this Project: my master resume, and any optional narrative/voice document.
 3. **Five principles** —
    (a) match the employer's tone, keywords, and phrasing;
    (b) proof-driven bullets in Action + Context + Quantified Impact format;
@@ -328,50 +359,43 @@ Draft a complete set of **Custom Instructions** I can paste into a new Claude Pr
 6. **Per-instance process** — six steps: (i) identify top 3–5 JD keywords/themes; (ii) determine target persona; (iii) select proof points from source docs; (iv) rewrite phrasing to match employer diction; (v) produce resume + cover letter; (vi) verify Action→Result and quantified bullets.
 7. **Style checklist** — resume 1–2 pages; cover letter ≤350 words; proof-driven verbs (built, led, scaled, negotiated, architected, reduced, increased); no filler ("responsible for," "helped with").
 
-Format the output as **one continuous block of Custom Instructions text, ready to paste directly** into a Claude Project's Custom Instructions field. Do not include commentary before or after the block.</pre>
-    <button class="copy-btn" data-copy="p3" type="button">Copy</button>
+Format the output as **one continuous block of Custom Instructions text, ready to paste directly** into this Project's Custom Instructions field. Do not include commentary before or after the block.</pre>
+    <button class="copy-btn" data-copy="p4" type="button">Copy</button>
   </div>
 
   <p>Claude will produce a block of text. Keep it visible — you'll paste it in the next step.</p>
 </section>
 
-<!-- STEP 4 -->
-<section class="step" id="step-4">
-  <div class="step-header"><span class="step-num">Step 4 · Give (install)</span></div>
-  <h2>Install your Protocol as a Claude Project</h2>
-  <p>You now have a reusable Protocol. Install it so you never have to repeat Steps 1–3 again.</p>
+<!-- STEP 5 -->
+<section class="step" id="step-5">
+  <div class="step-header"><span class="step-num">Step 5 · Give (install)</span></div>
+  <h2>Install your Protocol and invoke it</h2>
+  <p>Your Project already exists. Your source files are already uploaded. All that's left is to install the Custom Instructions and start using the Protocol on real JDs.</p>
 
   <div class="gold-card">
     <div class="gold-label">Deliverable — your permanent Resume Writer</div>
     <ol>
-      <li>Go to <strong>claude.ai → Projects → New Project</strong>.</li>
-      <li>Name it <strong>Resume Writer</strong>.</li>
-      <li>Under <strong>Custom Instructions</strong>, paste the block Claude just produced. Save.</li>
-      <li>Under <strong>Project Knowledge</strong>, upload:
-        <ul>
-          <li>Your master resume (text file or document)</li>
-          <li>Any narrative/voice document you want Claude to draw from (optional)</li>
-        </ul>
-      </li>
-      <li>Start a <strong>new chat inside the Project</strong>.</li>
+      <li><strong>Open Custom Instructions</strong> in your Resume Writer Project (in the Project's settings).</li>
+      <li><strong>Paste the block</strong> Claude just produced. <strong>Save.</strong></li>
+      <li><strong>Start a fresh new chat</strong> inside this same Project. (You can leave the iteration chat in place as a record, or delete it — your call.)</li>
       <li>Paste the invoking prompt below, then paste any JD beneath it.</li>
     </ol>
   </div>
 
   <div class="prompt">
     <div class="prompt-label">Invoking prompt — your new one-sentence command</div>
-    <pre id="p4">Using my Resume Writer Protocol, generate a tailored resume and cover letter for the job description below:
+    <pre id="p5">Using my Resume Writer Protocol, generate a tailored resume and cover letter for the job description below:
 
 [PASTE JD]</pre>
-    <button class="copy-btn" data-copy="p4" type="button">Copy</button>
+    <button class="copy-btn" data-copy="p5" type="button">Copy</button>
   </div>
 
-  <p>Test it on a real JD now. Compare this output to the one you got in Step 1. What changed — and what's the same? That's the signal that the pattern works.</p>
+  <p>Test it on a real JD now. Compare this output to the one you got in Step 2. What changed — and what's the same? That's the signal that the pattern works.</p>
 </section>
 
-<!-- STEP 5 -->
-<section class="step reveal" id="step-5">
-  <div class="step-header"><span class="step-num">Step 5 · Tell</span></div>
+<!-- STEP 6 -->
+<section class="step reveal" id="step-6">
+  <div class="step-header"><span class="step-num">Step 6 · Tell</span></div>
   <h2>How this actually works</h2>
   <p>What you just built follows a simple architecture. It works for any task where you repeat similar work with varying inputs.</p>
 
@@ -397,11 +421,11 @@ Format the output as **one continuous block of Custom Instructions text, ready t
   </ul>
 </section>
 
-<!-- STEP 6 -->
-<section class="step" id="step-6">
-  <div class="step-header"><span class="step-num">Step 6 · Extend</span><span class="optional-badge">Optional · ~15 min</span></div>
+<!-- STEP 7 -->
+<section class="step" id="step-7">
+  <div class="step-header"><span class="step-num">Step 7 · Extend</span><span class="optional-badge">Optional · ~15 min</span></div>
   <h2>Apply this to one more task</h2>
-  <p>Let's prove the pattern by applying it somewhere else. Here's a worked example, then a prompt you can run to build your own second Protocol.</p>
+  <p>Let's prove the pattern by applying it somewhere else. Here's a worked example, then a prompt you can run — inside your existing Resume Writer Project — to design your second Protocol.</p>
 
   <div class="gold-card">
     <div class="gold-label">Worked example — Outreach Tailor</div>
@@ -415,26 +439,26 @@ Format the output as **one continuous block of Custom Instructions text, ready t
     <p>Same three layers, different domain. Once installed, sending 20 well-tailored outreach messages takes about as long as sending 3 generic ones — and pulls far better reply rates.</p>
   </div>
 
-  <p>Now pick a task of your own — investor updates, weekly team updates, thank-you notes, proposals — and run this prompt in a fresh Claude chat.</p>
+  <p>Pick a task of your own — investor updates, weekly team updates, thank-you notes, proposals — and run this prompt <strong>in your existing Resume Writer Project chat</strong>. That chat has the full 3-layer context from what you just built, which makes it the best place to design a new Protocol. Once Claude produces the Custom Instructions for the new task, you'll create a <em>new</em> Project for it and install them there.</p>
 
   <div class="prompt">
-    <div class="prompt-label">Generator prompt — build your second Protocol</div>
-    <pre id="p6">I'd like to build a reusable Protocol like my Resume Writer, but for a different task. Here's the task: [describe one repetitive task you do that varies case-by-case — for example, networking outreach, weekly team updates, thank-you notes after interviews, proposals, investor updates].
+    <div class="prompt-label">Generator prompt — design your second Protocol</div>
+    <pre id="p7">I'd like to build a reusable Protocol like my Resume Writer, but for a different task. Here's the task: [describe one repetitive task you do that varies case-by-case — for example, networking outreach, weekly team updates, thank-you notes after interviews, proposals, investor updates].
 
-Using the same 3-layer architecture (stable rules, stable context, volatile input), propose a full set of Custom Instructions I could paste into a new Claude Project.
+Using the same 3-layer architecture (stable rules, stable context, volatile input), propose a full set of Custom Instructions I could paste into a new Claude Project I'll create for this task.
 
 **Ask me any clarifying questions first** — about the audience, output format, tone, length, must-include elements, things to avoid. Do not guess; ask.
 
-After I answer, produce the Custom Instructions as one continuous block ready to paste directly into a Claude Project. Also suggest what I should upload as source docs and propose a name for the Project.</pre>
-    <button class="copy-btn" data-copy="p6" type="button">Copy</button>
+After I answer, produce the Custom Instructions as one continuous block ready to paste directly into the new Project's Custom Instructions field. Also suggest what I should upload to that new Project as source docs, and propose a name for the Project.</pre>
+    <button class="copy-btn" data-copy="p7" type="button">Copy</button>
   </div>
 
-  <p>This is what prompt engineering actually is — writing stable rules that turn a variable input into a consistent, high-quality output. Every Custom Instructions document you build is added leverage.</p>
+  <p>Once Claude produces the block, create a new Project named what it suggests, upload the recommended source files, paste the Custom Instructions into the new Project's settings, and start a fresh chat there to invoke your second Protocol. Every Custom Instructions document you build is added leverage.</p>
 </section>
 
-<!-- STEP 7 -->
-<section class="step" id="step-7">
-  <div class="step-header"><span class="step-num">Step 7</span></div>
+<!-- STEP 8 -->
+<section class="step" id="step-8">
+  <div class="step-header"><span class="step-num">Step 8</span></div>
   <h2>Where to go next</h2>
   <div class="next-card">
     <h3>Go deeper on prompt architecture</h3>
@@ -445,7 +469,7 @@ After I answer, produce the Custom Instructions as one continuous block ready to
 </section>
 
 <footer>
-  <p>© Big Lever Institute · Exercise 01 · v2.1 · 2026-04-23 · Governed by BLI-ADR-001</p>
+  <p>© Big Lever Institute · Exercise 01 · v3.0 · 2026-04-24 · Governed by BLI-ADR-001</p>
 </footer>
 
 </div>
