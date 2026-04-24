@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exercise 09 — Learning Accelerator | Big Lever Institute</title>
+
+<!-- Embed metadata (Open Graph + oEmbed discovery) -->
+<link rel="canonical" href="https://exercises.bigleverinstitute.org/ex09-learning-accelerator.html">
+<meta name="description" content="Interactive walkthrough for building a persistent AI tutor on any topic using Claude. Part of the Big Lever Institute exercise series.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Exercise 09 — Learning Accelerator">
+<meta property="og:description" content="Interactive walkthrough for building a persistent AI tutor on any topic using Claude.">
+<meta property="og:url" content="https://exercises.bigleverinstitute.org/ex09-learning-accelerator.html">
+<meta property="og:site_name" content="Big Lever Institute">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Exercise 09 — Learning Accelerator">
+<meta name="twitter:description" content="Interactive walkthrough for building a persistent AI tutor on any topic using Claude.">
+<link rel="alternate" type="application/json+oembed" href="https://exercises.bigleverinstitute.org/ex09-learning-accelerator.oembed.json" title="Exercise 09 — Learning Accelerator">
+
+<style>
+  :root {
+    --cream: #F7F4EE;
+    --surface: #FFFFFF;
+    --text: #2B2420;
+    --muted: #6B6560;
+    --border: #E8E0D4;
+    --gold: #B8924F;
+    --gold-bg: #F5EDD4;
+    --gold-border: #D9BE85;
+    --purple: #5D4E8B;
+    --purple-bg: #ECE8F2;
+    --purple-border: #C0B5D8;
+    --success: #3B7A3B;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--cream);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--purple); }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 24px 20px 80px; }
+
+  /* Sticky progress — direct child of <body> for reliable sticking */
+  .sticky-bar {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    background: var(--cream);
+    z-index: 100;
+    padding: 12px 20px 10px;
+    border-bottom: 1px solid var(--border);
+    width: 100%;
+  }
+  .sticky-inner { max-width: 760px; margin: 0 auto; }
+  .progress-track { display: flex; gap: 4px; height: 6px; }
+  .progress-seg {
+    flex: 1;
+    background: var(--border);
+    border-radius: 3px;
+    transition: background 0.2s;
+  }
+  .progress-seg.active { background: var(--gold); }
+  .progress-label {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 6px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  header.hero { padding: 16px 0 24px; border-bottom: 1px solid var(--border); margin-bottom: 32px; }
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 12px;
+    color: var(--muted);
+    margin: 0 0 8px;
+  }
+  h1 { font-size: 28px; line-height: 1.25; margin: 0 0 14px; font-weight: 700; }
+  .lede { font-size: 17px; color: var(--muted); margin: 0; }
+
+  section.step { margin: 40px 0; }
+  .step-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 4px;
+    flex-wrap: wrap;
+  }
+  .step-num {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .step h2 { font-size: 22px; margin: 6px 0 12px; line-height: 1.3; font-weight: 700; }
+  .step p { margin: 12px 0; }
+  .step ol, .step ul { padding-left: 22px; }
+  .step li { margin: 6px 0; }
+
+  .optional-badge {
+    display: inline-block;
+    background: var(--border);
+    color: var(--muted);
+    font-size: 11px;
+    padding: 2px 10px;
+    border-radius: 10px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  /* Purple prompt surface */
+  .prompt {
+    background: var(--purple-bg);
+    border: 1px solid var(--purple-border);
+    border-radius: 8px;
+    padding: 14px 16px 60px;
+    margin: 16px 0;
+    position: relative;
+  }
+  .prompt-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--purple);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+  }
+  .prompt pre {
+    margin: 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--text);
+    background: transparent;
+    border: none;
+    padding: 0;
+  }
+  .copy-btn {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    background: var(--purple);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s;
+  }
+  .copy-btn:hover { background: #4D4075; }
+  .copy-btn.copied { background: var(--success); }
+
+  /* Gold deliverable card */
+  .gold-card {
+    background: var(--gold-bg);
+    border: 1px solid var(--gold-border);
+    border-radius: 8px;
+    padding: 20px 22px;
+    margin: 18px 0;
+  }
+  .gold-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+  .gold-card h3 { margin: 4px 0 10px; font-size: 17px; font-weight: 700; }
+  .gold-card ol { padding-left: 22px; margin: 8px 0; }
+  .gold-card li { margin: 8px 0; }
+  .gold-card ul { padding-left: 22px; margin: 4px 0 8px; }
+  .gold-card p { margin: 8px 0; }
+  .gold-card p:last-child { margin-bottom: 0; }
+
+  /* Reveal — 3-layer visual */
+  .reveal .layer {
+    border-left: 3px solid var(--gold);
+    padding: 4px 0 4px 14px;
+    margin: 14px 0;
+  }
+  .reveal .layer strong {
+    display: block;
+    font-size: 15px;
+    margin-bottom: 4px;
+    color: var(--text);
+  }
+
+  /* Callout (e.g. memory fallback) */
+  .callout {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--muted);
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin: 14px 0;
+    font-size: 14.5px;
+    color: var(--muted);
+  }
+  .callout strong { color: var(--text); }
+
+  /* Next card */
+  .next-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 22px;
+    margin-top: 8px;
+  }
+  .next-card h3 { margin: 0 0 6px; font-size: 16px; font-weight: 700; }
+  .next-card h3:not(:first-child) { margin-top: 18px; }
+  .next-card p { margin: 4px 0 0; color: var(--muted); }
+
+  footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  @media (max-width: 480px) {
+    body { font-size: 15px; }
+    h1 { font-size: 22px; }
+    .lede { font-size: 15px; }
+    .step h2 { font-size: 19px; }
+    .wrap { padding: 20px 14px 60px; }
+    .sticky-bar { padding: 10px 14px 8px; }
+    .prompt { padding: 12px 14px 56px; }
+    .prompt pre { font-size: 12.5px; }
+    .gold-card { padding: 16px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sticky-bar" aria-hidden="true">
+  <div class="sticky-inner">
+    <div class="progress-track" id="progress"></div>
+    <div class="progress-label"><span id="step-current">Start</span><span id="step-total">9 steps</span></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<header class="hero">
+  <p class="eyebrow">Big Lever Institute · Exercise 09</p>
+  <h1>Learning Accelerator — build a persistent AI tutor on any topic</h1>
+  <p class="lede">In the next two hours you'll turn raw source material into a persistent, adaptive AI tutor on a topic you actually want to master. You'll build it once and return to it every day for four weeks. Then you'll learn the pattern underneath — so you can spin one up for any future topic in about 20 minutes.</p>
+</header>
+
+<!-- STEP 0 -->
+<section class="step" id="step-0">
+  <div class="step-header"><span class="step-num">Step 0</span></div>
+  <h2>Before you start</h2>
+  <p>Have three things ready before the 2-hour timer starts:</p>
+  <ol>
+    <li><strong>A topic you want to master.</strong> Be specific. Not "supply chain." Try <em>"Supply Chain Risk,"</em> <em>"Kubernetes Multi-Region Architecture,"</em> or <em>"Massachusetts Nonprofit Fundraising Law."</em></li>
+    <li><strong>3–8 source documents.</strong> PDFs, article links, blog posts, YouTube transcripts, whitepapers, course notes. Quality over quantity. If the pool is thin, pad with depth, not breadth.</li>
+    <li><strong>Your North Star sentence.</strong> Finish this stem: <em>"In 4 weeks, I want to be able to _____."</em> Write it down. You'll paste it directly into the prompt in Step 4; your tutor will be anchored to it from the start.</li>
+  </ol>
+  <p>You'll also need a free Google account (for NotebookLM) and a Claude account (free tier works, though Claude memory — enabled in Step 3 — is typically a paid-tier feature). Estimated time: about 2 hours, with an optional 30 minutes for Step 7.</p>
+</section>
+
+<!-- STEP 1 -->
+<section class="step" id="step-1">
+  <div class="step-header"><span class="step-num">Step 1 · Show</span></div>
+  <h2>Build your artifact library in NotebookLM</h2>
+  <p>Open <a href="https://notebooklm.google.com" target="_blank" rel="noopener">notebooklm.google.com</a> in a new tab. Click <strong>Create new notebook</strong> and name it after your topic (e.g., <em>"Supply Chain Risk"</em>). Click <strong>Add source</strong> and upload your PDFs, paste article text, or drop YouTube links — one source at a time. Wait 30–60 seconds for processing to finish.</p>
+  <p>Now generate four artifacts. These are deterministic — you run them <strong>once</strong> and never return to NotebookLM. If NotebookLM has built-in buttons for Study Guide, Q&amp;A, or Briefing, click those directly. Otherwise, paste the prompts below into NotebookLM's chat pane one at a time.</p>
+
+  <div class="prompt">
+    <div class="prompt-label">Artifact 1 · Study Guide</div>
+    <pre id="p1a">Create a comprehensive study guide for this topic with 3–4 major sections. For each section, include:
+- A 2–3 sentence summary of the core idea
+- 3–5 key concepts or takeaways
+- 2–3 quiz-style questions with answers
+
+Format as markdown. Aim for 2,000–3,000 words total.</pre>
+    <button class="copy-btn" data-copy="p1a" type="button">Copy</button>
+  </div>
+
+  <div class="prompt">
+    <div class="prompt-label">Artifact 2 · FAQ</div>
+    <pre id="p1b">Create a 50–100 item FAQ answering the most important questions someone learning this topic would ask. Order by:
+1. Foundational (what is X, why does it matter)
+2. Applied (how do I use this, best practices)
+3. Pitfalls (common mistakes, how to avoid them)
+
+Format: **Q:** [question] **A:** [1–3 sentence answer]. One per line. No markdown headers.</pre>
+    <button class="copy-btn" data-copy="p1b" type="button">Copy</button>
+  </div>
+
+  <div class="prompt">
+    <div class="prompt-label">Artifact 3 · Briefing</div>
+    <pre id="p1c">Create a 500-word executive briefing for someone who has 10 minutes to understand this topic at a strategic level. Include:
+- What this topic is and why it matters
+- Top 3–5 strategic implications or applications
+- Key metrics or success factors
+- 2–3 critical questions to evaluate this in practice
+
+Write in clear, non-technical language. Audience: senior manager or board member.</pre>
+    <button class="copy-btn" data-copy="p1c" type="button">Copy</button>
+  </div>
+
+  <div class="prompt">
+    <div class="prompt-label">Artifact 4 · Timeline / Roadmap <em>(skip if your topic has no sequence)</em></div>
+    <pre id="p1d">Create a 5–7 phase learning or implementation roadmap. For each phase:
+- Name the phase
+- 3–4 key milestones or topics to master
+- Estimated time to completion
+- Prerequisite phases
+
+Format as a markdown outline.</pre>
+    <button class="copy-btn" data-copy="p1d" type="button">Copy</button>
+  </div>
+
+  <p>When all four artifacts are generated, export each one to your computer. Select all (Ctrl/Cmd+A), copy (Ctrl/Cmd+C), and paste into plain-text files named: <code>study-guide.txt</code>, <code>faq.txt</code>, <code>briefing.txt</code>, and <code>timeline.txt</code>. Keep them somewhere you can find them — you'll upload them to Claude in Step 5.</p>
+
+  <div class="callout">
+    <strong>Bonus for commute listening:</strong> NotebookLM also has an <strong>Audio Overview</strong> button. Click it if you want a 10–15 min podcast-style walkthrough you can listen to while driving or walking. It's not part of the tutor — just an optional consumption channel.
+  </div>
+</section>
+
+<!-- STEP 2 -->
+<section class="step reveal" id="step-2">
+  <div class="step-header"><span class="step-num">Step 2 · Tell</span></div>
+  <h2>How this actually works</h2>
+  <p>You just built the input side of a two-tool learning system. Here's the architecture you're about to complete.</p>
+
+  <div class="layer">
+    <strong>Tool A — NotebookLM (the artifact generator).</strong>
+    Takes raw source material, produces structured study artifacts. Deterministic. Runs once. The four files you just exported are now <em>stable context</em>.
+  </div>
+  <div class="layer">
+    <strong>Tool B — Claude Projects (the active tutor).</strong>
+    Lives in a Project. Shaped by <strong>Custom Instructions</strong> you'll install in Step 5. Reads the four artifacts as ground truth. Quizzes, scaffolds, and adapts to your pace across sessions.
+  </div>
+  <div class="layer">
+    <strong>The pipeline — Tool A's output becomes Tool B's stable context.</strong>
+    This is the skill being transferred. You're not using NotebookLM in isolation or Claude in isolation. You're chaining them and shaping Tool B's behavior with a persistent system prompt.
+  </div>
+
+  <p>This is the prompt engineering skeleton underneath: <strong>Stable System</strong> (Custom Instructions) × <strong>Stable Context</strong> (Project files) × <strong>Volatile Input</strong> (what you type today). You just built the first two. The third is every tutoring conversation you'll have for the next four weeks.</p>
+
+  <p><strong>Why this beats ChatGPT-ing your way through a topic:</strong></p>
+  <ul>
+    <li><strong>No context-switching.</strong> Everything pinned in one place.</li>
+    <li><strong>Stateful.</strong> The tutor remembers where you got stuck, what you know cold, what's still fuzzy.</li>
+    <li><strong>Retrieval practice is enforced.</strong> No lecture-mode. Every session is diagnostic → quiz → scaffold → apply.</li>
+    <li><strong>The pattern generalizes.</strong> You'll use it again in Step 7.</li>
+  </ul>
+</section>
+
+<!-- STEP 3 -->
+<section class="step" id="step-3">
+  <div class="step-header"><span class="step-num">Step 3 · Give</span></div>
+  <h2>Turn on Claude memory</h2>
+  <p>This is the difference between a tutor that grows with you and one that starts over every time.</p>
+  <p><strong>Without memory enabled, your tutor resets at the start of every new session.</strong> Every conversation is a blank slate — no recollection of what you struggled with last Tuesday, what you've already mastered, or where you left off. <strong>With memory on, the tutor actually gets smarter every time you come back.</strong></p>
+  <p>Turn it on:</p>
+  <ol>
+    <li>Go to <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a>.</li>
+    <li>Click your profile icon (bottom-left), then <strong>Settings</strong> → <strong>Profile</strong> (or <strong>Personalization</strong>).</li>
+    <li>Find <strong>Memory</strong> (sometimes labeled <em>Remember context from past chats</em>) and <strong>turn it on</strong>.</li>
+  </ol>
+  <div class="callout">
+    <strong>If memory isn't available on your plan:</strong> You can still run this exercise. The Custom Instructions you generate in Step 4 will tell Claude to maintain a <code>learner_knowledge_map.md</code> file as a fallback. It still works — it's just not as seamless.
+  </div>
+</section>
+
+<!-- STEP 4 -->
+<section class="step" id="step-4">
+  <div class="step-header"><span class="step-num">Step 4 · Give (generate)</span></div>
+  <h2>Create your Project and generate your Custom Instructions</h2>
+  <p>At <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a>, click <strong>Projects</strong> in the sidebar, then <strong>New Project</strong>. Name it <strong>Study Partner — [Your Topic]</strong> (e.g., <em>"Study Partner — Supply Chain Risk"</em>).</p>
+  <p>Click <strong>New Chat</strong> inside the Project. Paste the prompt below. Claude will ask you five questions; answer them in the same chat. Claude will then produce two things: your 3-milestone learning plan and a complete block of Custom Instructions.</p>
+
+  <div class="prompt">
+    <div class="prompt-label">Encapsulation prompt — paste into a new chat inside your Project</div>
+    <pre id="p4">Context: I'm setting up this Claude Project as a persistent tutor to teach me a topic I want to master. Before I install my Custom Instructions, I need them tailored to my learning context, along with a 3-milestone plan.
+
+Ask me the five questions below. Once I've answered all five, produce:
+(a) A 3-milestone learning plan for the next 4 weeks
+(b) A complete block of Custom Instructions I can paste directly into this Project's Custom Instructions field
+
+Do not generate either until I've answered all five questions.
+
+**Ask me these questions:**
+
+1. **Topic & domain.** What are you teaching me? What field is it in?
+   (e.g., "Supply Chain Risk, in operations management")
+
+2. **Prior knowledge.** Rate yourself 1–5 (1 = never heard of it; 5 = expert). What adjacent knowledge do you already have that might help?
+
+3. **North Star — Learning outcome.** What do you want to be able to teach, decide, or do after 4 weeks? Finish this sentence: "In 4 weeks, I want to be able to ___." Be specific. This is my north star — keep it front and center in every session.
+
+4. **Study pace.** How much time per week can you commit? (e.g., "5 hours," "20 min daily," "2 hr Saturdays")
+
+5. **Learning style.** Pick one or two:
+   - Quiz-first — test me immediately so I know what I don't know
+   - Example-driven — show me how concepts apply in real situations
+   - Conceptual — explain the "why" and architecture before application
+   - Scenario-based — walk me through realistic problems to solve
+
+**When you generate my Custom Instructions, they must:**
+- Anchor every session to my North Star (question 3). Surface it explicitly at the start of each session.
+- Enforce Socratic, retrieval-first posture — quiz before explaining.
+- Adapt pacing to my knowledge level and available time.
+- Reference my Project files (Study Guide, FAQ, Briefing, Timeline) as ground truth.
+- Maintain a running "learner knowledge map" — if Claude memory is enabled, use that; if not, maintain it as a file called learner_knowledge_map.md in Project files, updated at the end of each session.
+- Structure every session as: diagnostic → quiz → scaffold → deepen → close.
+- Prohibit multi-paragraph lecture-mode explanations.</pre>
+    <button class="copy-btn" data-copy="p4" type="button">Copy</button>
+  </div>
+
+  <p>Read the 3-milestone plan Claude produces. If it matches your North Star, move on. If not, ask Claude for one adjustment in the same chat. Keep the Custom Instructions block visible — you're about to paste it.</p>
+</section>
+
+<!-- STEP 5 -->
+<section class="step" id="step-5">
+  <div class="step-header"><span class="step-num">Step 5 · Give (install)</span></div>
+  <h2>Install the system and invoke your tutor</h2>
+  <p>You have the ingredients. Install them.</p>
+
+  <div class="gold-card">
+    <div class="gold-label">Deliverable — your permanent Study Partner</div>
+    <ol>
+      <li><strong>Paste your Custom Instructions.</strong> Open <strong>Custom Instructions</strong> in your Project (gear icon or Settings link at the top of the Project). Paste the block Claude just produced. Save.</li>
+      <li><strong>Upload your four artifacts.</strong> Find the Project's file library (folder icon; often labeled <em>Project knowledge</em> or <em>Project documents</em> — it's where the Project stores reference files the tutor can read). Click <strong>Add files</strong> and upload:
+        <ul>
+          <li><code>study-guide.txt</code></li>
+          <li><code>faq.txt</code></li>
+          <li><code>briefing.txt</code></li>
+          <li><code>timeline.txt</code> <em>(if you created one)</em></li>
+        </ul>
+        Wait for all uploads to complete.
+      </li>
+      <li><strong>Invoke your tutor.</strong> Click <strong>New Chat</strong> inside the Project and paste the invoking prompt below.</li>
+    </ol>
+  </div>
+
+  <div class="prompt">
+    <div class="prompt-label">Invoking prompt — your opener, for this session and every future one</div>
+    <pre id="p5">Let's start. I'm ready to begin learning. Run your diagnostic first — find out where I'm starting from. Then we'll pick the first milestone.</pre>
+    <button class="copy-btn" data-copy="p5" type="button">Copy</button>
+  </div>
+
+  <p>Claude will run a diagnostic, ask 2–3 clarifying questions, reference your North Star, surface your 3-milestone plan, and open the first tutoring conversation. From here, your Custom Instructions shape every response — Socratic, adaptive, retrieval-focused.</p>
+</section>
+
+<!-- STEP 6 -->
+<section class="step" id="step-6">
+  <div class="step-header"><span class="step-num">Step 6 · Give (use)</span></div>
+  <h2>Work with your tutor — now and for the next four weeks</h2>
+  <p>Use the rest of your 2-hour window to run your first 1–2 tutoring conversations. Let the tutor quiz you, scaffold where you struggle, and close with a recall check. Then come back every day. Here's how to get the most out of it over four weeks:</p>
+  <ul>
+    <li><strong>Stay in the chat</strong> for the duration of a study session. Let the tutor's diagnostic → quiz → scaffold → deepen → close loop run its course.</li>
+    <li><strong>Deepen on any topic.</strong> If a quiz surfaces a gap, ask the tutor to go deeper on that specific concept. It will scaffold, not lecture.</li>
+    <li><strong>Branch into a new chat</strong> when you want to explore a subtopic without cluttering your main thread. Your Custom Instructions and files come with you — every chat in this Project is shaped the same way.</li>
+    <li><strong>Resume anytime.</strong> Come back tomorrow, next week, or next month. Open the Project, start a new chat (or continue the existing one), and type <em>"Let's pick up where we left off."</em> With memory on, the tutor recalls where you were. Without memory, it reads the knowledge-map file it maintains.</li>
+    <li><strong>Iterate on the tutor itself.</strong> If pacing is off or the quizzing is too easy or too hard, tell it — or edit the Custom Instructions directly in Project settings. You designed this system; you can redesign it.</li>
+  </ul>
+  <p><strong>This Project is yours now.</strong> Return to it every day for the next four weeks. That's how you master the topic.</p>
+</section>
+
+<!-- STEP 7 -->
+<section class="step" id="step-7">
+  <div class="step-header"><span class="step-num">Step 7 · Extend</span><span class="optional-badge">Optional · ~30 min</span></div>
+  <h2>Build your Learning System Generator</h2>
+  <p>The core deliverable is done — you have a working Study Partner. You can come back to this step anytime. It turns today's one-off build into a reusable system you can invoke whenever you decide to master a new topic.</p>
+  <p><strong>Stay in your existing Study Partner Project.</strong> The current chat already has your full context: the Custom Instructions you generated, the four artifacts, your North Star, your learning profile. That makes it the best-positioned instance of Claude to help you design a generator for <em>other</em> topics.</p>
+  <p>In the same chat (or a new chat inside the same Project), paste this:</p>
+
+  <div class="prompt">
+    <div class="prompt-label">Generator prompt — build your reusable learning system</div>
+    <pre id="p7">Now that my Study Partner Project is set up, I want to turn the pattern we used into a reusable Learning System Generator — something I can invoke any time I want to master a new topic in the future.
+
+Using the context of what we just built together (the Custom Instructions, the NotebookLM artifact pipeline, the North Star framing, the knowledge map, the session structure), produce:
+
+1. **A master prompt I can paste into a new Claude chat any time** I start a new topic. The prompt should:
+   - Ask me 3–5 clarifying questions (topic, North Star, pace, prior knowledge, style)
+   - Generate custom NotebookLM prompts tailored to the topic (some topics need different artifacts — a case-based topic might need a case library; a technical topic might need a glossary)
+   - Produce an Encapsulation prompt for that topic's Custom Instructions
+   - Give me a step-by-step install checklist
+
+2. **A decision guide:** when to use this full system vs. when a raw Claude chat or search is fine. I don't want to over-engineer every learning task.
+
+3. **A maintenance protocol:** how do I check in on any Study Partner after 2 weeks and adjust its Custom Instructions if pacing is off?
+
+Output the master prompt as a clean, self-contained block I can save. If helpful, also offer to output everything as a single markdown file (learning-system-generator.md) I can download and save for later reuse.
+
+Ask me any clarifying questions first before drafting.</pre>
+    <button class="copy-btn" data-copy="p7" type="button">Copy</button>
+  </div>
+
+  <p>Save the output somewhere you can find it — a notes app, a password manager, or a markdown file on your computer. Next topic you want to master, you're about 20 minutes from a working tutor.</p>
+</section>
+
+<!-- STEP 8 -->
+<section class="step" id="step-8">
+  <div class="step-header"><span class="step-num">Step 8</span></div>
+  <h2>Where to go next</h2>
+  <div class="next-card">
+    <h3>Go deeper on prompt architecture</h3>
+    <p>MC6 — Prompt Engineering Mastery (libraries, chaining, multi-agent orchestration, meta-prompting).</p>
+    <h3>Adjacent exercises</h3>
+    <p><em>[TBD: pointers to Ex07 / Ex12 / Ex14 once specified]</em></p>
+    <h3>Remember</h3>
+    <p>This exercise wasn't about the topic you picked. It was about the system you built — and the pattern you can now instantiate for anything you want to master next.</p>
+  </div>
+</section>
+
+<footer>
+  <p>© Big Lever Institute · Exercise 09 · v1.0 · 2026-04-24 · Governed by BLI-ADR-001</p>
+</footer>
+
+</div>
+
+<script>
+(function() {
+  // ----- Copy-to-clipboard with iframe-safe fallback -----
+  function copyText(text, btn) {
+    var done = function() {
+      var original = btn.dataset.original || btn.textContent;
+      btn.dataset.original = original;
+      btn.textContent = 'Copied ✓';
+      btn.classList.add('copied');
+      setTimeout(function() {
+        btn.textContent = original;
+        btn.classList.remove('copied');
+      }, 1800);
+    };
+    var fail = function() {
+      btn.textContent = 'Press Ctrl/⌘+C';
+      setTimeout(function() { btn.textContent = 'Copy'; }, 2500);
+    };
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(done).catch(function() { fallback(text, done, fail); });
+    } else {
+      fallback(text, done, fail);
+    }
+  }
+  function fallback(text, done, fail) {
+    try {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.top = '0';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, text.length);
+      var ok = document.execCommand('copy');
+      document.body.removeChild(ta);
+      if (ok) { done(); } else { fail(); }
+    } catch (e) { fail(); }
+  }
+
+  document.querySelectorAll('.copy-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var targetId = btn.getAttribute('data-copy');
+      var el = document.getElementById(targetId);
+      if (!el) return;
+      copyText(el.innerText, btn);
+      var stepSection = btn.closest('.step');
+      if (stepSection) {
+        var n = parseInt(stepSection.id.replace('step-', ''), 10);
+        if (!isNaN(n) && n > getCurrentStep()) setCurrentStep(n);
+      }
+    });
+  });
+
+  // ----- Progress indicator + step bookmark -----
+  var TOTAL = 9; // steps 0–8
+  var track = document.getElementById('progress');
+  var current = document.getElementById('step-current');
+  var totalEl = document.getElementById('step-total');
+  totalEl.textContent = TOTAL + ' steps';
+  for (var i = 0; i < TOTAL; i++) {
+    var seg = document.createElement('div');
+    seg.className = 'progress-seg';
+    seg.dataset.step = i;
+    track.appendChild(seg);
+  }
+  function getCurrentStep() {
+    try {
+      var v = localStorage.getItem('bli_ex09_step');
+      return v ? parseInt(v, 10) : 0;
+    } catch (e) { return 0; }
+  }
+  function setCurrentStep(n) {
+    try { localStorage.setItem('bli_ex09_step', String(n)); } catch (e) {}
+    renderProgress(n);
+  }
+  function renderProgress(n) {
+    document.querySelectorAll('.progress-seg').forEach(function(seg) {
+      var idx = parseInt(seg.dataset.step, 10);
+      seg.classList.toggle('active', idx <= n);
+    });
+    if (n <= 0) current.textContent = 'Start';
+    else if (n >= TOTAL - 1) current.textContent = 'Complete';
+    else current.textContent = 'Step ' + n;
+  }
+  renderProgress(getCurrentStep());
+
+  // Advance on scroll past step sections
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          var m = /step-(\d+)/.exec(e.target.id);
+          if (m) {
+            var n = parseInt(m[1], 10);
+            if (n > getCurrentStep()) setCurrentStep(n);
+          }
+        }
+      });
+    }, { threshold: 0.3 });
+    document.querySelectorAll('section.step').forEach(function(s) { obs.observe(s); });
+  }
+
+  // ----- Embed auto-resize: tell parent iframe our content height -----
+  var lastHeight = 0;
+  function reportHeight() {
+    try {
+      var h = Math.max(
+        document.body.scrollHeight,
+        document.documentElement.scrollHeight,
+        document.body.offsetHeight,
+        document.documentElement.offsetHeight
+      );
+      if (h && h !== lastHeight) {
+        lastHeight = h;
+        if (window.parent && window.parent !== window) {
+          window.parent.postMessage({ type: 'bli-embed-height', id: 'ex09', height: h }, '*');
+        }
+      }
+    } catch (e) {}
+  }
+  window.addEventListener('load', reportHeight);
+  window.addEventListener('resize', reportHeight);
+  if ('ResizeObserver' in window) {
+    try { new ResizeObserver(reportHeight).observe(document.body); } catch (e) {}
+  } else {
+    [100, 400, 1000, 2500].forEach(function(ms) { setTimeout(reportHeight, ms); });
+  }
+})();
+</script>
+</body>
+</html>
