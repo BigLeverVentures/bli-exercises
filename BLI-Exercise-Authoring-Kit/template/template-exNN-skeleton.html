@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ============================================================ -->
+<!-- AUTHOR: Replace NN with zero-padded number, <slug> with kebab-case slug, -->
+<!-- <Title> with the human-readable exercise title, and <short description> -->
+<!-- with a one-sentence description (used for link previews). -->
+<!-- DO NOT change the URL stem (exercises.bigleverinstitute.org). -->
+<!-- ============================================================ -->
+
+<title>Exercise NN — <Title> | Big Lever Institute</title>
+
+<!-- Canonical URL -->
+<link rel="canonical" href="https://exercises.bigleverinstitute.org/exNN-<slug>.html">
+
+<!-- Open Graph -->
+<meta name="description" content="<short description>">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Exercise NN — <Title>">
+<meta property="og:description" content="<short description>">
+<meta property="og:url" content="https://exercises.bigleverinstitute.org/exNN-<slug>.html">
+<meta property="og:site_name" content="Big Lever Institute">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Exercise NN — <Title>">
+<meta name="twitter:description" content="<short description>">
+
+<!-- oEmbed discovery -->
+<link rel="alternate" type="application/json+oembed" href="https://exercises.bigleverinstitute.org/exNN-<slug>.oembed.json" title="Exercise NN — <Title>">
+
+<!-- ============================================================ -->
+<!-- LOCKED CSS — do not edit unless cleared with Chris. -->
+<!-- ============================================================ -->
+<style>
+  :root {
+    --cream: #F7F4EE;
+    --surface: #FFFFFF;
+    --text: #2B2420;
+    --muted: #6B6560;
+    --border: #E8E0D4;
+    --gold: #B8924F;
+    --gold-bg: #F5EDD4;
+    --gold-border: #D9BE85;
+    --purple: #5D4E8B;
+    --purple-bg: #ECE8F2;
+    --purple-border: #C0B5D8;
+    --success: #3B7A3B;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--cream);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--purple); }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 24px 20px 80px; }
+
+  header.hero { padding: 16px 0 24px; border-bottom: 1px solid var(--border); margin-bottom: 32px; }
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 12px;
+    color: var(--muted);
+    margin: 0 0 8px;
+  }
+  h1 { font-size: 28px; line-height: 1.25; margin: 0 0 14px; font-weight: 700; }
+  .lede { font-size: 17px; color: var(--muted); margin: 0; }
+
+  section.step { margin: 40px 0; }
+  .step-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 4px;
+    flex-wrap: wrap;
+  }
+  .step-num {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .step h2 { font-size: 22px; margin: 6px 0 12px; line-height: 1.3; font-weight: 700; }
+  .step p { margin: 12px 0; }
+  .step ol, .step ul { padding-left: 22px; }
+  .step li { margin: 6px 0; }
+
+  .optional-badge {
+    display: inline-block;
+    background: var(--border);
+    color: var(--muted);
+    font-size: 11px;
+    padding: 2px 10px;
+    border-radius: 10px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  /* Purple prompt surface */
+  .prompt {
+    background: var(--purple-bg);
+    border: 1px solid var(--purple-border);
+    border-radius: 8px;
+    padding: 14px 16px 60px;
+    margin: 16px 0;
+    position: relative;
+  }
+  .prompt-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--purple);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+  }
+  .prompt pre {
+    margin: 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--text);
+    background: transparent;
+    border: none;
+    padding: 0;
+  }
+  .copy-btn {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    background: var(--purple);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s;
+  }
+  .copy-btn:hover { background: #4D4075; }
+  .copy-btn.copied { background: var(--success); }
+
+  /* Gold deliverable card */
+  .gold-card {
+    background: var(--gold-bg);
+    border: 1px solid var(--gold-border);
+    border-radius: 8px;
+    padding: 20px 22px;
+    margin: 18px 0;
+  }
+  .gold-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+  .gold-card h3 { margin: 4px 0 10px; font-size: 17px; font-weight: 700; }
+  .gold-card ol { padding-left: 22px; margin: 8px 0; }
+  .gold-card li { margin: 8px 0; }
+  .gold-card ul { padding-left: 22px; margin: 4px 0 8px; }
+  .gold-card p { margin: 8px 0; }
+  .gold-card p:last-child { margin-bottom: 0; }
+
+  /* Reveal — 3-layer visual */
+  .reveal .layer {
+    border-left: 3px solid var(--gold);
+    padding: 4px 0 4px 14px;
+    margin: 14px 0;
+  }
+  .reveal .layer strong {
+    display: block;
+    font-size: 15px;
+    margin-bottom: 4px;
+    color: var(--text);
+  }
+
+  /* Callout */
+  .callout {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--muted);
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin: 14px 0;
+    font-size: 14.5px;
+    color: var(--muted);
+  }
+  .callout strong { color: var(--text); }
+
+  /* Next card */
+  .next-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 22px;
+    margin-top: 8px;
+  }
+  .next-card h3 { margin: 0 0 6px; font-size: 16px; font-weight: 700; }
+  .next-card h3:not(:first-child) { margin-top: 18px; }
+  .next-card p { margin: 4px 0 0; color: var(--muted); }
+
+  footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  @media (max-width: 480px) {
+    body { font-size: 15px; }
+    h1 { font-size: 22px; }
+    .lede { font-size: 15px; }
+    .step h2 { font-size: 19px; }
+    .wrap { padding: 20px 14px 60px; }
+    .prompt { padding: 12px 14px 56px; }
+    .prompt pre { font-size: 12.5px; }
+    .gold-card { padding: 16px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<!-- ============================================================ -->
+<!-- HERO — exercise number, title, and a 2–3 sentence lede that  -->
+<!-- names what the learner will produce and what skill they'll learn. -->
+<!-- ============================================================ -->
+<header class="hero">
+  <p class="eyebrow">Big Lever Institute · Exercise NN</p>
+  <h1><Title — verb-led, names the deliverable></h1>
+  <p class="lede"><2–3 sentence lede. Sentence 1: what the learner will build in the next [N] minutes. Sentence 2: the underlying skill or pattern. Optional sentence 3: why it generalizes.></p>
+</header>
+
+<!-- ============================================================ -->
+<!-- STEP 0 — Before you start (always required) -->
+<!-- Prereqs, time estimate, account requirements. -->
+<!-- ============================================================ -->
+<section class="step" id="step-0">
+  <div class="step-header"><span class="step-num">Step 0</span></div>
+  <h2>Before you start</h2>
+  <p><Frame what they need to gather.></p>
+  <ol>
+    <li><strong><Item 1 — required input></strong> — <one-line description></li>
+    <li><strong><Item 2 — required input></strong> — <one-line description></li>
+    <li><strong><Item 3 if applicable></strong> — <one-line description></li>
+  </ol>
+  <p><Account requirements (Claude account, free tier, web research enabled if needed) and estimated time.></p>
+</section>
+
+<!-- ============================================================ -->
+<!-- STEP 1 — Setup (always required, v2.0) -->
+<!-- Create the per-exercise Project. Name it. -->
+<!-- DO NOT instruct the learner to "not set Custom Instructions yet." -->
+<!-- Under v2.0 the CI is installed at Step 2 from a pre-compiled block. -->
+<!-- ============================================================ -->
+<section class="step" id="step-1">
+  <div class="step-header"><span class="step-num">Step 1 · Setup</span></div>
+  <h2>Create your <Project Name> Project</h2>
+  <p>You'll do everything for this exercise inside one Claude Project — its own dedicated Project, not shared with any other BLI exercise.</p>
+  <ol>
+    <li>Go to <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a>.</li>
+    <li>Click <strong>Projects</strong> in the sidebar, then <strong>New Project</strong>.</li>
+    <li>Name it <strong><Project Name></strong>.</li>
+    <li>Description (optional): <em><One-line description of what this Project does for the learner.></em></li>
+  </ol>
+  <div class="callout">
+    <strong>Heads-up:</strong> Each BLI exercise has its own dedicated Project. If you have a Project from another exercise, don't reuse it — Custom Instructions are exercise-specific.
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- STEP 2 — Install the Coach (Give-install, v2.0) -->
+<!-- Gold-card with install checklist. Purple block with full compiled CI. -->
+<!-- The CI is pre-compiled from BLI Coach Base + Track Coach + Per-Exercise Coach Role. -->
+<!-- See ADR-001 §5.8 (CI authoring architecture) and Appendices A + B. -->
+<!-- ============================================================ -->
+<section class="step" id="step-2">
+  <div class="step-header"><span class="step-num">Step 2 · Install</span></div>
+  <h2>Install the <Coach Name> Coach</h2>
+  <p><One-paragraph framing: this block is what makes Claude behave as the specialized Coach for this exercise — operating principles, structural frameworks, and any per-exercise role logic.></p>
+
+  <div class="gold-card">
+    <div class="gold-label">Deliverable — your permanent <Coach Name> Coach</div>
+    <ol>
+      <li>Inside your <strong><Project Name></strong> Project, open <strong>Project settings</strong> (gear or settings icon, usually top-right of the Project page).</li>
+      <li>Open <strong>Custom Instructions</strong>.</li>
+      <li>Copy the entire block below. Paste it into Custom Instructions. <strong>Save.</strong></li>
+    </ol>
+  </div>
+
+  <div class="prompt">
+    <div class="prompt-label">Custom Instructions — copy, paste into Project settings, save</div>
+    <pre id="ci"><THE FULL COMPILED CI BLOCK.
+
+Concatenate, in order:
+
+1. BLI Coach Base v1.0+ (verbatim from ADR-001 Appendix A)
+2. Track Coach v1.0+ (verbatim from ADR-001 Appendix B for NVP, or future PM/Vibe appendices)
+3. Per-Exercise Coach Role: a short section (~100–200 tokens) that:
+   - Names the specialized Coach role for this Project
+   - Names any chat-structure expectations (single-chat default; multi-chat with documented justification)
+   - States any phase-specific behavior unique to this exercise
+
+Author the Per-Exercise Coach Role block as part of the spec.
+Do not include layered headers (Base / Track / Role) in the user-facing block — concatenate as one continuous CI.
+
+Total target: ~1500–2500 tokens.></pre>
+    <button class="copy-btn" data-copy="ci" type="button">Copy</button>
+  </div>
+
+  <p><strong>Check:</strong> When you return to the Project, the Custom Instructions field should be filled. The Coach is now installed.</p>
+</section>
+
+<!-- ============================================================ -->
+<!-- STEP 3 — Open chat (and any per-chat settings the exercise needs) -->
+<!-- Click New Chat. If the exercise needs web research enabled, instruct here. -->
+<!-- ============================================================ -->
+<section class="step" id="step-3">
+  <div class="step-header"><span class="step-num">Step 3 · Open chat</span></div>
+  <h2>Start your conversation<and turn on web research if needed></h2>
+  <ol>
+    <li>Inside the Project, click <strong>New Chat</strong>.</li>
+    <li><If web research is needed:> <strong>Enable web research mode for this chat.</strong> Look in the chat composer (the area around the message input box) for a <strong>Research</strong> toggle, or a tools menu that includes <strong>Web search</strong> or <strong>Research</strong>.</li>
+  </ol>
+  <div class="callout">
+    <strong>Check:</strong> <Per-exercise check — e.g., that web research is on; or that the chat is named appropriately.>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- STEP 4 — Show: produce the first real output -->
+<!-- The starter prompt. The learner pastes, fills in their input, sends. -->
+<!-- Single-chat default — no instructions to switch chats unless multi-chat is justified in spec. -->
+<!-- ============================================================ -->
+<section class="step" id="step-4">
+  <div class="step-header"><span class="step-num">Step 4 · Show</span></div>
+  <h2><Step heading — verb-led></h2>
+  <p><Plain-prose intro that frames what's about to happen. Not a callout.></p>
+
+  <div class="prompt">
+    <div class="prompt-label">Starter prompt — copy, paste, fill in [PLACEHOLDER], send</div>
+    <pre id="p4"><THE FULL PROMPT THE LEARNER PASTES.
+
+Coach role is already established by the CI installed at Step 2 — do NOT re-assert it here.
+Focus this prompt on phase logic for this exercise.
+
+Include explicit insertion points like:
+[PASTE THE JD HERE]
+[DESCRIBE YOUR IDEA HERE]
+[PASTE YOUR DRAFT HERE]
+
+The prompt should:
+- Name the source files in the Project to use (if any)
+- State the rules / criteria / constraints SPECIFIC TO THIS PHASE (general principles are in the CI)
+- Specify the output format
+- Specify a verification step before delivery if relevant
+
+Author every word. No ad-lib gaps.></pre>
+    <button class="copy-btn" data-copy="p4" type="button">Copy</button>
+  </div>
+
+  <p><What the learner does with the output. Often: read end-to-end, decide if Step 5 (refine) is needed.></p>
+</section>
+
+<!-- ============================================================ -->
+<!-- STEP 5 — Show (refine) — OPTIONAL -->
+<!-- One or more sharpening prompts the learner picks from. -->
+<!-- DELETE this entire section if your exercise doesn't need refinement. -->
+<!-- ============================================================ -->
+<section class="step" id="step-5">
+  <div class="step-header"><span class="step-num">Step 5 · Show (refine)</span></div>
+  <h2>Sharpen the first pass</h2>
+  <p><Frame the refine choice — typically two or three optional sharpening prompts.></p>
+
+  <div class="prompt">
+    <div class="prompt-label">Option A — <what it sharpens></div>
+    <pre id="p5a"><Refine prompt A.></pre>
+    <button class="copy-btn" data-copy="p5a" type="button">Copy</button>
+  </div>
+
+  <div class="prompt">
+    <div class="prompt-label">Option B — <what it sharpens></div>
+    <pre id="p5b"><Refine prompt B.></pre>
+    <button class="copy-btn" data-copy="p5b" type="button">Copy</button>
+  </div>
+
+  <p>Iterate once — twice if needed. When you have a version you're satisfied with, continue.</p>
+</section>
+
+<!-- ============================================================ -->
+<!-- STEP 6 — Tell -->
+<!-- The 3-layer reveal. Class="reveal" enables the layer styling. -->
+<!-- Reframes what just happened in terms of the transferable architecture. -->
+<!-- ============================================================ -->
+<section class="step reveal" id="step-6">
+  <div class="step-header"><span class="step-num">Step 6 · Reveal</span></div>
+  <h2>How this actually works</h2>
+  <p>Notice the architecture you just used. It works for any task where you repeat similar work with varying inputs.</p>
+
+  <div class="layer">
+    <strong>Layer 1 — Stable System: <your-system-name>.</strong>
+    <One paragraph. The Custom Instructions installed at Step 2 — operating principles, structural frameworks, and the specialized Coach role. This system rarely changes; edit the Project's Custom Instructions if you want to tune behavior.>
+  </div>
+  <div class="layer">
+    <strong>Layer 2 — Stable Context: <your-context-name>.</strong>
+    <One paragraph. The facts Claude can cite — the source docs uploaded to the Project, if any. Change only when the underlying facts change.>
+  </div>
+  <div class="layer">
+    <strong>Layer 3 — Volatile Input: <your-input-name>.</strong>
+    <One paragraph. The only thing that varies per run. The learner pastes it; the system does the rest.>
+  </div>
+
+  <p><One paragraph naming the implication — typically: this is why one paste produces a tailored output reliably across hundreds of cohort members.></p>
+</section>
+
+<!-- ============================================================ -->
+<!-- STEP 7 — Give (reveal): the persistent Coach is theirs -->
+<!-- Names what the learner permanently has. Re-run instructions. -->
+<!-- Gold card with re-run checklist. -->
+<!-- ============================================================ -->
+<section class="step" id="step-7">
+  <div class="step-header"><span class="step-num">Step 7 · Give</span></div>
+  <h2>Your <Coach Name> is yours to keep</h2>
+  <p>The Coach you just used is permanent. As long as you keep the <strong><Project Name></strong> Project in your Claude account, it's there.</p>
+
+  <div class="gold-card">
+    <div class="gold-label">How to re-run with new inputs</div>
+    <ol>
+      <li>Open your <strong><Project Name></strong> Project.</li>
+      <li>Click <strong>New Chat</strong>.</li>
+      <li><If applicable:> Enable web research mode on the new chat.</li>
+      <li>Paste the starter prompt (Step 4) again with updated inputs.</li>
+      <li><Continue with any other re-paste prompts the exercise uses.></li>
+    </ol>
+    <p><One-line note about the Coach re-running cleanly each time, by design — no memorization of prior runs.></p>
+  </div>
+
+  <p>Use the <Coach Name> Coach whenever:</p>
+  <ul>
+    <li><Trigger 1 — a typical moment when the inputs change in the learner's life></li>
+    <li><Trigger 2></li>
+    <li><Trigger 3></li>
+  </ul>
+  <p><One-line motivation about keeping the Project for the long haul.></p>
+</section>
+
+<!-- ============================================================ -->
+<!-- STEP 8 — Extend (OPTIONAL) -->
+<!-- Worked example in a gold card + generator prompt. -->
+<!-- DELETE this entire section if your exercise doesn't extend. -->
+<!-- ============================================================ -->
+<section class="step" id="step-8">
+  <div class="step-header"><span class="step-num">Step 8 · Extend</span><span class="optional-badge">Optional · ~<N> min</span></div>
+  <h2>Apply this to one more task</h2>
+  <p><Plain-prose intro: prove the pattern by applying it elsewhere.></p>
+
+  <div class="gold-card">
+    <div class="gold-label">Worked example — <Other Project Name></div>
+    <h3><One-line description of the analogous task.></h3>
+    <ul>
+      <li><strong>Stable system (rules):</strong> <rules for the analogous task></li>
+      <li><strong>Stable context (about you / your domain):</strong> <what would go in the Project's file library></li>
+      <li><strong>Volatile input (per run):</strong> <what varies per use></li>
+      <li><strong>Output:</strong> <what the analogous task produces></li>
+    </ul>
+    <p><Closing line that names why the pattern transfers.></p>
+  </div>
+
+  <p><One-paragraph framing for the generator prompt.></p>
+
+  <div class="prompt">
+    <div class="prompt-label">Generator prompt — design your second compiled CI</div>
+    <pre id="p8"><THE GENERATOR PROMPT.
+
+Should ask Claude to:
+- Take a task description from the learner
+- Apply the 3-layer architecture
+- Ask clarifying questions before generating
+- Produce a paste-ready compiled CI block (Base + Track + Coach Role concatenated for the new Project)
+- Suggest source docs for the new Project
+- Propose a Project name></pre>
+    <button class="copy-btn" data-copy="p8" type="button">Copy</button>
+  </div>
+
+  <p><One-line motivation for follow-through.></p>
+</section>
+
+<!-- ============================================================ -->
+<!-- STEP 9 — Where to go next (always required) -->
+<!-- next-card with deeper Master Class + adjacent exercises. -->
+<!-- ============================================================ -->
+<section class="step" id="step-9">
+  <div class="step-header"><span class="step-num">Step 9</span></div>
+  <h2>Where to go next</h2>
+  <div class="next-card">
+    <h3>Go deeper on prompt architecture</h3>
+    <p>MC6 — Prompt Engineering Mastery (libraries, chaining, multi-agent orchestration, meta-prompting).</p>
+    <h3>Adjacent exercises</h3>
+    <p><em>[TBD: pointers to adjacent exercises once specified]</em></p>
+    <h3>Remember</h3>
+    <p><One-paragraph reminder that frames the takeaway in the learner's vocabulary.></p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- FOOTER — update version and date on every meaningful copy change. -->
+<!-- ============================================================ -->
+<footer>
+  <p>© Big Lever Institute · Exercise NN · v1.0 · YYYY-MM-DD · Governed by BLI-ADR-001 v2.0</p>
+</footer>
+
+</div>
+
+<!-- ============================================================ -->
+<!-- LOCKED COPY-BUTTON SCRIPT — do not edit. -->
+<!-- ============================================================ -->
+<script>
+(function() {
+  // ----- Copy-to-clipboard with iframe-safe fallback -----
+  function copyText(text, btn) {
+    var done = function() {
+      var original = btn.dataset.original || btn.textContent;
+      btn.dataset.original = original;
+      btn.textContent = 'Copied ✓';
+      btn.classList.add('copied');
+      setTimeout(function() {
+        btn.textContent = original;
+        btn.classList.remove('copied');
+      }, 1800);
+    };
+    var fail = function() {
+      btn.textContent = 'Press Ctrl/⌘+C';
+      setTimeout(function() { btn.textContent = 'Copy'; }, 2500);
+    };
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(done).catch(function() { fallback(text, done, fail); });
+    } else {
+      fallback(text, done, fail);
+    }
+  }
+  function fallback(text, done, fail) {
+    try {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.top = '0';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, text.length);
+      var ok = document.execCommand('copy');
+      document.body.removeChild(ta);
+      if (ok) { done(); } else { fail(); }
+    } catch (e) { fail(); }
+  }
+
+  document.querySelectorAll('.copy-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var targetId = btn.getAttribute('data-copy');
+      var el = document.getElementById(targetId);
+      if (!el) return;
+      copyText(el.innerText, btn);
+    });
+  });
+})();
+</script>
+</body>
+</html>

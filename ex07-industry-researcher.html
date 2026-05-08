@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exercise 07 — Industry Researcher | Big Lever Institute</title>
+
+<link rel="canonical" href="https://exercises.bigleverinstitute.org/ex07-industry-researcher.html">
+
+<meta name="description" content="Turn a rough venture idea into a region-bound, evidence-backed industry research memo with verdict and named alternatives. Part of the Big Lever Institute exercise series.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Exercise 07 — Industry Researcher">
+<meta property="og:description" content="Turn a rough venture idea into a region-bound, evidence-backed industry research memo with verdict and named alternatives.">
+<meta property="og:url" content="https://exercises.bigleverinstitute.org/ex07-industry-researcher.html">
+<meta property="og:site_name" content="Big Lever Institute">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Exercise 07 — Industry Researcher">
+<meta name="twitter:description" content="Turn a rough venture idea into a region-bound, evidence-backed industry research memo with verdict and named alternatives.">
+
+<link rel="alternate" type="application/json+oembed" href="https://exercises.bigleverinstitute.org/ex07-industry-researcher.oembed.json" title="Exercise 07 — Industry Researcher">
+
+<style>
+  :root {
+    --cream: #F7F4EE;
+    --surface: #FFFFFF;
+    --text: #2B2420;
+    --muted: #6B6560;
+    --border: #E8E0D4;
+    --gold: #B8924F;
+    --gold-bg: #F5EDD4;
+    --gold-border: #D9BE85;
+    --purple: #5D4E8B;
+    --purple-bg: #ECE8F2;
+    --purple-border: #C0B5D8;
+    --success: #3B7A3B;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--cream);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--purple); }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 24px 20px 80px; }
+
+  header.hero { padding: 16px 0 24px; border-bottom: 1px solid var(--border); margin-bottom: 32px; }
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 12px;
+    color: var(--muted);
+    margin: 0 0 8px;
+  }
+  h1 { font-size: 28px; line-height: 1.25; margin: 0 0 14px; font-weight: 700; }
+  .lede { font-size: 17px; color: var(--muted); margin: 0; }
+
+  section.step { margin: 40px 0; }
+  .step-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 4px;
+    flex-wrap: wrap;
+  }
+  .step-num {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .step h2 { font-size: 22px; margin: 6px 0 12px; line-height: 1.3; font-weight: 700; }
+  .step p { margin: 12px 0; }
+  .step ol, .step ul { padding-left: 22px; }
+  .step li { margin: 6px 0; }
+
+  .prompt {
+    background: var(--purple-bg);
+    border: 1px solid var(--purple-border);
+    border-radius: 8px;
+    padding: 14px 16px 60px;
+    margin: 16px 0;
+    position: relative;
+  }
+  .prompt-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--purple);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+  }
+  .prompt pre {
+    margin: 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--text);
+    background: transparent;
+    border: none;
+    padding: 0;
+  }
+  .copy-btn {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    background: var(--purple);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s;
+  }
+  .copy-btn:hover { background: #4D4075; }
+  .copy-btn.copied { background: var(--success); }
+
+  .gold-card {
+    background: var(--gold-bg);
+    border: 1px solid var(--gold-border);
+    border-radius: 8px;
+    padding: 20px 22px;
+    margin: 18px 0;
+  }
+  .gold-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+  .gold-card h3 { margin: 4px 0 10px; font-size: 17px; font-weight: 700; }
+  .gold-card ol { padding-left: 22px; margin: 8px 0; }
+  .gold-card li { margin: 8px 0; }
+  .gold-card ul { padding-left: 22px; margin: 4px 0 8px; }
+  .gold-card p { margin: 8px 0; }
+  .gold-card p:last-child { margin-bottom: 0; }
+
+  .reveal .layer {
+    border-left: 3px solid var(--gold);
+    padding: 4px 0 4px 14px;
+    margin: 14px 0;
+  }
+  .reveal .layer strong {
+    display: block;
+    font-size: 15px;
+    margin-bottom: 4px;
+    color: var(--text);
+  }
+
+  .callout {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--muted);
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin: 14px 0;
+    font-size: 14.5px;
+    color: var(--muted);
+  }
+  .callout strong { color: var(--text); }
+
+  .next-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 22px;
+    margin-top: 8px;
+  }
+  .next-card h3 { margin: 0 0 6px; font-size: 16px; font-weight: 700; }
+  .next-card h3:not(:first-child) { margin-top: 18px; }
+  .next-card p { margin: 4px 0 0; color: var(--muted); }
+
+  footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  @media (max-width: 480px) {
+    body { font-size: 15px; }
+    h1 { font-size: 22px; }
+    .lede { font-size: 15px; }
+    .step h2 { font-size: 19px; }
+    .wrap { padding: 20px 14px 60px; }
+    .prompt { padding: 12px 14px 56px; }
+    .prompt pre { font-size: 12.5px; }
+    .gold-card { padding: 16px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header class="hero">
+  <p class="eyebrow">Big Lever Institute · Exercise 07</p>
+  <h1>Industry Researcher — size your market and stress-test your venture</h1>
+  <p class="lede">In the next 60–90 minutes you'll turn a rough venture idea into a market-research memo — sized to a specific region, grounded in real incumbents and live web data, and tested against the structural patterns that determine whether early-stage ventures actually survive. By the end you'll have a brief verdict on viability, named alternatives if your venture is mismatched, and a persistent "Industry Researcher" Project you can re-run any time your inputs change.</p>
+</header>
+
+<section class="step" id="intro">
+  <p>This is a market research document, not a pitch deck. It's too early for that. The job here is to find out whether the market is real, whether the economics line up, and where the soft spots are — before you spend more building.</p>
+</section>
+
+<!-- STEP 0 -->
+<section class="step" id="step-0">
+  <div class="step-header"><span class="step-num">Step 0</span></div>
+  <h2>Before you start</h2>
+  <p>Have these ready:</p>
+  <ol>
+    <li><strong>A PMF Statement (or a rough one-sentence version of your venture).</strong> A <em>Product-Market Fit (PMF) Statement</em> names what specific value you sell and to whom. If you completed Exercise 12 (PMF Sharpener), use the statement you produced there. If you haven't, write a one-sentence version now — for example: <em>"I help solo HVAC contractors in mid-sized US metros stop losing leads by automating their quote follow-ups."</em> Vague is fine for a first pass; the Coach will sharpen it during the interview.</li>
+    <li><strong>60–90 minutes of uninterrupted time.</strong> The exercise runs best in one sitting because the Coach builds context as you go.</li>
+    <li><strong>A Claude account with web research available.</strong> This is used in Phase 2 for live market research. Free-tier accounts may not have web research; if yours doesn't, you'll hit a wall at Phase 2.</li>
+    <li><strong>A region you're willing to commit to.</strong> City, state, or country. "Global" doesn't work for sizing — you'll have to pick.</li>
+  </ol>
+  <p>By the end, you'll be able to answer for your venture:</p>
+  <ul>
+    <li>What's the realistic obtainable market in my region (in dollars)?</li>
+    <li>Are there incumbents proving this approach works — or am I alone in a way that's actually a warning?</li>
+    <li>Does my segment × price × channel triangle hold together, or is one corner mismatched?</li>
+    <li>What 3–5 specific changes would strengthen the venture?</li>
+  </ul>
+</section>
+
+<!-- STEP 1 -->
+<section class="step" id="step-1">
+  <div class="step-header"><span class="step-num">Step 1 · Setup</span></div>
+  <h2>Create your Industry Researcher Project</h2>
+  <p>You'll do everything for this exercise inside one Claude Project. The Project's Custom Instructions hold the Coach personality; the chats inside it do the work.</p>
+  <ol>
+    <li>Go to <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a>.</li>
+    <li>Click <strong>Projects</strong> in the sidebar, then <strong>New Project</strong>.</li>
+    <li>Name it <strong>Industry Researcher</strong>.</li>
+    <li>Description (optional): <em>Where I size markets, test triangle coherence, and decide whether to keep building.</em></li>
+  </ol>
+  <div class="callout">
+    <strong>Heads-up:</strong> If you have a Project from another BLI exercise (e.g., "My Venture" from Exercise 12), don't reuse it. Each BLI exercise has its own dedicated Project so the right Coach personality loads cleanly.
+  </div>
+</section>
+
+<!-- STEP 2 -->
+<section class="step" id="step-2">
+  <div class="step-header"><span class="step-num">Step 2 · Install</span></div>
+  <h2>Install the Industry Researcher Coach</h2>
+  <p>You're going to paste a block of Custom Instructions into your Project. This is what makes Claude behave as the Industry Researcher Coach instead of generic Claude — operating principles, structural frameworks, the exact eight queries the Coach runs every time.</p>
+
+  <div class="gold-card">
+    <div class="gold-label">Deliverable — your permanent Industry Researcher Coach</div>
+    <ol>
+      <li>Inside your <strong>Industry Researcher</strong> Project, open <strong>Project settings</strong> (gear or settings icon, usually top-right of the Project page).</li>
+      <li>Open <strong>Custom Instructions</strong>.</li>
+      <li>Copy the entire block below. Paste it into Custom Instructions. <strong>Save.</strong></li>
+    </ol>
+  </div>
+
+  <div class="prompt">
+    <div class="prompt-label">Custom Instructions — copy, paste into Project settings, save</div>
+    <pre id="ci">You are coaching a learner inside Big Lever Institute (BLI), an AI-first learning institution for founders, builders, and operators. Your specialized role for this Project is the Industry Researcher Coach.
+
+OPERATING PRINCIPLES
+
+Candor. First-principles analysis. No flattery. If something won't work, say so and pair the verdict with named alternatives.
+
+Hypothesis-oriented. Treat learner ideas as hypotheses. Surface disconfirming evidence. Most early-stage problems are misalignments between elements (segment × price × channel; product × team × timing) — test combinations, not just inputs.
+
+Brevity. Output is brief and actionable. Drill-down via dialogue — the learner pulls "tell me why" if they want more.
+
+Evidence-validated. When research is in scope, run it fresh on every input change. Cite sources with URLs and credibility tiers (Tier 1 = primary / government; Tier 2 = analyst / trade body; Tier 3 = press; Tier 4 = blogs). Sub-Tier-2 sources alone are not enough for a verdict.
+
+Honest epistemics. Distinguish facts (cited) from inferences (label "Inference") from opinions (label "Opinion"). Never invent sources. If you don't know, say so.
+
+Language. Neutral and precise. No hype. Use the learner's vocabulary (e.g., "PMF Statement," not "value proposition statement"). Absolute dates.
+
+Format. Structured, scannable output (lists, tables, numbered phases) for multi-part content. Prose for short answers and dialogue.
+
+Learners are doing real work, not academic exercises. Treat them as builders.
+
+NVP TRACK CONTEXT
+
+Learners are early-stage entrepreneurs — beginners making educated guesses, not seasoned operators. Bring sophisticated judgment they don't yet have, applied through the structural toolkit below.
+
+Default assumptions:
+- Market is fine; one or more triangle corners is mismatched. Probe before declaring market failure.
+- Skew toward genuinely interesting markets. Tens of $M minimum, hundreds of $M ideal. Sub-$10M regional addressable is a kill flag unless premium economics support it.
+- Hypothesis-grounded throughout — including incumbents, sizing assumptions, defensibility claims, demand signals.
+
+STRUCTURAL TOOLKIT
+
+Apply each lens when relevant. Surface flags only when triggered.
+
+1. Segment × Price × Channel triangle. Most early-stage ventures have at least one corner wrong.
+- Premium price + in-person sales + casual-consumer segment → channel can't support price
+- Low price + enterprise segment + direct sales → CAC will eat margin
+- Mid-price + online channel + high-trust segment (e.g., medical) → channel doesn't match buyer's risk tolerance
+Probe all three corners as a system.
+
+2. Complex vs Transactional Sales gradient. Internally-coherent profiles.
+- Complex: months cycle, multi-stakeholder, high-cost customized, consultative, direct sales teams.
+- Transactional: minutes-to-days, single decision-maker, lower-cost standardized, price-focused, retail / eCommerce / self-service.
+- Anti-patterns: high-cost customized + self-serve channel; low-cost standardized + dedicated AE; high risk/ROI + impulse-buy channel.
+
+3. Bits × Physical 2×2 (Steve Blank). Iteration velocity and capital intensity by Product axis × Channel axis.
+- Bits + Bits: days, low capital. (Web SaaS, search, social.)
+- Bits + Physical: weeks-months, medium capital. (Books on Amazon, shoes on Zappos.)
+- Physical + Bits: months, medium-high capital. (Insurance, financial products, enterprise software sold online.)
+- Physical + Physical: quarters-years, high capital. (Food, autos, hardware.)
+Surface mismatched founder behavior — Bits/Bits venture acting like Physical/Physical wastes its only advantage. Categories from ~2012; treat as approximate.
+
+4. 4D Startup Forces (Demand–Distribution–Differentiation–Defensibility). Narrative analysis, not a score.
+- Demand: painful, urgent, repeated customer pull?
+- Distribution: reach customers cheaply and repeatedly?
+- Differentiation: why over status quo?
+- Defensibility: why won't others copy or outspend us?
+Defensibility is hypothesis-only at the early stage.
+
+5. No-Incumbents Prior. Default: no incumbents ≠ genius. No incumbents usually means (a) the approach doesn't work, (b) the buyer doesn't exist, or (c) someone tried and quietly failed. State the prior, force the founder to make a specific case for being the exception.
+
+6. Standard Research Queryset. When running industry research, answer all eight, with sources:
+1. Are there incumbents doing roughly this approach?
+2. Are there incumbents serving this segment with different approaches?
+3. What price points do incumbents charge?
+4. What channels do incumbents use?
+5. What is the segment's size in the founder's stated region?
+6. Recent funding / new entrants?
+7. Recent failures / shutdowns?
+8. Regulatory shifts in flight?
+Region must be locked before running queries — no global handwave.
+
+OUTPUT DEFAULTS
+
+Memos brief: 1-2 pages target. Compress if longer.
+Strengthening moves come as named alternatives ("not at this price → could work as premium"), not abstract advice.
+Kill flags only when warranted.
+
+CHAT STRUCTURE
+
+Single chat for the entire exercise. The learner enables web research mode on the chat at setup. Exercise progresses through phases driven by per-chat prompts:
+
+Phase 1 — Founder Interview (extract 6 inputs)
+Phase 2 — Industry Research (run the 8-query queryset; return raw findings only — no interpretation, no recommendations, no "this seems promising")
+Phase 3 — Diagnose &amp; Memo (apply structural toolkit; write the brief memo)
+Phase 4 — Drill-down (unlimited dialogue follow-ups)
+
+During Phase 2, your role is research execution — raw findings with sources and tiers, nothing else. Judgment kicks in at Phase 3.</pre>
+    <button class="copy-btn" data-copy="ci" type="button">Copy</button>
+  </div>
+
+  <p><strong>Check:</strong> When you return to the Project, the Custom Instructions field should be filled. The Coach is now installed.</p>
+</section>
+
+<!-- STEP 3 -->
+<section class="step" id="step-3">
+  <div class="step-header"><span class="step-num">Step 3 · Open chat</span></div>
+  <h2>Start your conversation and turn on web research</h2>
+  <ol>
+    <li>Inside the Project, click <strong>New Chat</strong>.</li>
+    <li><strong>Enable web research mode for this chat.</strong> Look in the chat composer (the area around the message input box) for a <strong>Research</strong> toggle, or a tools menu that includes <strong>Web search</strong> or <strong>Research</strong>. Enable it. The exact location and label varies slightly across Claude UI versions; if you can't find it, hover over the icons near the send button — they usually label on hover.</li>
+  </ol>
+  <div class="callout">
+    <strong>Check:</strong> Your chat composer should indicate web research is on (often a colored icon or a "Research mode" label). If you skip this step, the Coach will hit a wall at Phase 2.
+  </div>
+</section>
+
+<!-- STEP 4 -->
+<section class="step" id="step-4">
+  <div class="step-header"><span class="step-num">Step 4 · Phase 1</span></div>
+  <h2>Founder Interview</h2>
+  <p>The Coach is going to interview you until it has six specific things tight enough to drive credible market research. Don't expect to type a paragraph and be done. Expect 6–10 exchanges. The Coach will push back on vagueness — that's the point.</p>
+  <p>The first thing it asks for is your <strong>PMF Statement</strong> (defined in Step 0). Have it ready.</p>
+  <p>Paste this prompt into your chat:</p>
+
+  <div class="prompt">
+    <div class="prompt-label">Founder Interview prompt — paste, fill in [PASTE YOUR PMF STATEMENT HERE], send</div>
+    <pre id="p4">I'm running BLI Exercise 07 — Industry Researcher. Begin Phase 1: Founder Interview.
+
+My PMF Statement (from Ex12 or comparable articulation work):
+[PASTE YOUR PMF STATEMENT HERE]
+
+Interview me until you have all six inputs below tight enough to drive credible market research. Don't accept handwaves. If I can't answer credibly, surface the gap and tell me what to fix before continuing.
+
+Required inputs:
+1. Product/service in one sentence
+2. Specific buyer (segment + role) — verify against my PMF Statement
+3. Region — city, state, or country. Locked.
+4. Buyer-count proxy — what unit do I count? (Businesses of size X? Households of type Y? Professionals in role Z?)
+5. Price point — $/unit, $/month, one-time. Force a working assumption if I haven't picked one.
+6. Channel + trigger event
+
+Apply the triangle and the market-size threshold as we go. Flag mismatches in real time.
+
+Ask one question at a time.
+
+WHEN ALL SIX INPUTS ARE TIGHT
+
+Restate the locked inputs in a clean numbered block. Then stop. Tell me to confirm web research mode is enabled, then say "run research" to start Phase 2.
+
+Start with your first question.</pre>
+    <button class="copy-btn" data-copy="p4" type="button">Copy</button>
+  </div>
+
+  <p><strong>Check:</strong> By the end of Step 4 the Coach has restated your six inputs in a numbered block and stopped, waiting for you.</p>
+</section>
+
+<!-- STEP 5 -->
+<section class="step" id="step-5">
+  <div class="step-header"><span class="step-num">Step 5 · Phase 2</span></div>
+  <h2>Run the research</h2>
+  <p>The Coach now goes to the open web and runs eight specific queries against your locked inputs — looking for incumbents, price points, channel patterns, recent funding, recent failures, segment size in your region, and regulatory shifts. It returns raw findings only at this stage. No verdict yet.</p>
+  <p>Make sure web research mode is still on, then type into the chat:</p>
+
+  <div class="prompt">
+    <div class="prompt-label">Trigger — type into chat</div>
+    <pre id="p5">run research</pre>
+    <button class="copy-btn" data-copy="p5" type="button">Copy</button>
+  </div>
+
+  <p>The Coach's response may take 1–3 minutes — it's hitting the web. When findings come back, scan them but don't act yet. The diagnosis happens next.</p>
+
+  <div class="callout">
+    <strong>If the Coach refuses or says it can't access the web,</strong> research mode isn't enabled. Go back to Step 3, turn it on, and type <code>run research</code> again.
+  </div>
+</section>
+
+<!-- STEP 6 -->
+<section class="step" id="step-6">
+  <div class="step-header"><span class="step-num">Step 6 · Phase 3</span></div>
+  <h2>Diagnose &amp; Memo</h2>
+  <p>The Coach now turns those raw findings into a verdict on whether your venture is viable as configured — and if not, what specific changes would make it viable. Expect a brief memo (1–2 pages).</p>
+  <p>The memo will mention some terms you may not know:</p>
+  <ul>
+    <li><strong>TAM / SAM / SOM</strong> — the <em>total</em> market, the <em>serviceable</em> subset (your region + segment), and the <em>share</em> you could realistically obtain. The Coach quantifies all three.</li>
+    <li><strong>Triangle</strong> — your customer segment × price × channel coherence; most beginning ventures have at least one corner mismatched.</li>
+    <li><strong>4D Startup Forces</strong> — Demand, Distribution, Differentiation, Defensibility.</li>
+  </ul>
+  <p>You don't need to memorize these — the Coach explains them in plain English in the memo.</p>
+  <p>Paste this into the same chat:</p>
+
+  <div class="prompt">
+    <div class="prompt-label">Diagnose &amp; Memo prompt — paste into chat, send</div>
+    <pre id="p6">The research findings are above. Run Phase 3: Diagnose &amp; Memo.
+
+DIAGNOSE FIRST
+
+Apply your structural toolkit. Surface flags only when triggered:
+- Segment × Price × Channel triangle — coherence check
+- Complex vs Transactional Sales gradient — sales motion match?
+- Bits × Physical 2×2 — quadrant + behavior match?
+- No-Incumbents Prior — if research found no incumbents, force my exception case
+- 4D Startup Forces — narrative analysis
+
+THEN WRITE THE MEMO
+
+Brief — 1-2 pages. Drill-down via dialogue. Structure:
+
+VERDICT (1-2 sentences) — Go / No-go / Conditional, condition named.
+
+SIZED OPPORTUNITY (1 paragraph + table) — TAM / SAM / SOM, region-bound, sourced. Bottom-up is the headline; top-down is calibration only.
+
+TRIANGLE DIAGNOSIS (3-4 sentences) — Which corner is or isn't coherent.
+
+STRUCTURAL FLAGS (bullets, only when triggered).
+
+4D SUMMARY (4 short paragraphs) — Demand, Distribution, Differentiation, Defensibility.
+
+STRENGTHENING MOVES (3-5 specific changes) — Named alternatives, not abstract advice. Format: "Shift to premium pricing tier — current price + in-person channel won't yield margin."
+
+KILL FLAGS — Only if applicable.
+
+CONFIDENCE MAP (short table) — Low-confidence assumptions ranked by impact.
+
+SOURCES — Every external claim, URL + tier.</pre>
+    <button class="copy-btn" data-copy="p6" type="button">Copy</button>
+  </div>
+
+  <p><strong>Check:</strong> You now have a brief memo with a verdict, sized opportunity, named strengthening moves, and sources.</p>
+</section>
+
+<!-- STEP 7 -->
+<section class="step" id="step-7">
+  <div class="step-header"><span class="step-num">Step 7 · Drill-down</span></div>
+  <h2>Drill into anything that surprised you</h2>
+  <p>Read the memo carefully. Almost certainly something surfaces that you didn't expect — a flagged corner of your triangle, a confidence rating that's lower than you'd like, a strengthening move that reframes the venture entirely. That's the exercise working.</p>
+  <p>You can drill into any section by asking follow-up questions in the same chat:</p>
+  <ul>
+    <li>"Explain the triangle diagnosis in more detail."</li>
+    <li>"Show me the data behind your incumbent pricing claim."</li>
+    <li>"What would change if I went premium pricing?"</li>
+    <li>"What would change if I shifted to online distribution?"</li>
+    <li>"What's my riskiest assumption — and how do I test it next?"</li>
+    <li>"Run a sensitivity check: if my buyer-count proxy is half what I claimed, what happens to SOM?"</li>
+  </ul>
+  <p>Drill-down is unlimited. The Coach has the full conversation in context.</p>
+</section>
+
+<!-- STEP 8 — Tell -->
+<section class="step reveal" id="step-8">
+  <div class="step-header"><span class="step-num">Step 8 · Reveal</span></div>
+  <h2>How this actually works</h2>
+  <p>Notice the architecture you just used. It works for any task where you repeat similar work with varying inputs.</p>
+
+  <div class="layer">
+    <strong>Layer 1 — Stable System: the Industry Researcher Coach.</strong>
+    The Custom Instructions you installed at Step 2 — operating principles, structural frameworks, the exact eight queries the Coach runs every time. That system never changes between runs. Edit it directly in your Project's Custom Instructions if you want to tune behavior.
+  </div>
+  <div class="layer">
+    <strong>Layer 2 — Stable Context: your venture's persistent facts.</strong>
+    Optional for this exercise — but if you upload your PMF Statement or other working venture docs into the Project's file library, the Coach can cite them across runs. Change only when the underlying facts change.
+  </div>
+  <div class="layer">
+    <strong>Layer 3 — Volatile Input: your six interview answers.</strong>
+    The only thing that varies per run. Different region? Different price point? Different segment? You re-run the interview and the Coach re-researches against the new inputs.
+  </div>
+
+  <p>Stable system + volatile input → repeatable result. This is the pattern. It works for any analytical task you'd want to re-run with different inputs — a market researcher today, a meeting prep coach tomorrow, a portfolio reviewer next month. Every BLI exercise teaches one concrete instance of this pattern.</p>
+</section>
+
+<!-- STEP 9 — Give -->
+<section class="step" id="step-9">
+  <div class="step-header"><span class="step-num">Step 9 · Give</span></div>
+  <h2>Your Industry Researcher is yours to keep</h2>
+  <p>The Coach you just used is permanent. As long as you keep the <strong>Industry Researcher</strong> Project in your Claude account, it's there.</p>
+
+  <div class="gold-card">
+    <div class="gold-label">How to re-run with new inputs</div>
+    <ol>
+      <li>Open your <strong>Industry Researcher</strong> Project.</li>
+      <li>Click <strong>New Chat</strong>.</li>
+      <li>Enable web research mode on the new chat.</li>
+      <li>Paste the Founder Interview prompt (Step 4) again with updated inputs.</li>
+      <li>Type <code>run research</code> when the Coach is ready.</li>
+      <li>Paste the Diagnose &amp; Memo prompt (Step 6) when findings are back.</li>
+    </ol>
+    <p>The Coach runs fresh research every time — by design. Don't ask it to remember prior runs; that's not what you want.</p>
+  </div>
+
+  <p>Use the Industry Researcher Coach whenever:</p>
+  <ul>
+    <li>You change region (e.g., expanding from Austin to NYC)</li>
+    <li>You change pricing tier (e.g., considering premium positioning)</li>
+    <li>A competitor moves and you want updated incumbent data</li>
+    <li>A regulation shifts and you want to know what it means for your segment</li>
+    <li>You're prepping for an investor conversation and want updated sizing</li>
+  </ul>
+  <p>Keep this Project for the life of your venture. Re-running it is the lowest-friction way to stay calibrated as you learn.</p>
+</section>
+
+<!-- STEP 10 — Where to go next -->
+<section class="step" id="step-10">
+  <div class="step-header"><span class="step-num">Step 10</span></div>
+  <h2>Where to go next</h2>
+  <div class="next-card">
+    <h3>Hand off to your venture planning</h3>
+    <p>The memo, the sized opportunity table, and the strengthening moves are direct inputs to the Business Model Canvas's market-side cells and to your New Venture Planning Week 7/8 submissions. Bring them.</p>
+    <h3>Adjacent exercises</h3>
+    <p>Exercise 12 (PMF Sharpener) sharpens <em>who</em> + <em>value prop</em> before sizing. Exercise 13 (Competitive Landscape Map) goes deeper on the competitive side once incumbents are identified. Exercise 09 (Learning Accelerator) is the meta-exercise on AI-augmented learning if you want to step up a level.</p>
+    <h3>Remember</h3>
+    <p>Most early-stage ventures don't fail because the market is too small. They fail because the segment, price, and channel don't fit together — and nobody told the founder. You just built a tool that won't let that be you.</p>
+  </div>
+</section>
+
+<footer>
+  <p>© Big Lever Institute · Exercise 07 · v1.0 · 2026-05-07 · Governed by BLI-ADR-001 v2.0</p>
+</footer>
+
+</div>
+
+<script>
+(function() {
+  function copyText(text, btn) {
+    var done = function() {
+      var original = btn.dataset.original || btn.textContent;
+      btn.dataset.original = original;
+      btn.textContent = 'Copied ✓';
+      btn.classList.add('copied');
+      setTimeout(function() {
+        btn.textContent = original;
+        btn.classList.remove('copied');
+      }, 1800);
+    };
+    var fail = function() {
+      btn.textContent = 'Press Ctrl/⌘+C';
+      setTimeout(function() { btn.textContent = 'Copy'; }, 2500);
+    };
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(done).catch(function() { fallback(text, done, fail); });
+    } else {
+      fallback(text, done, fail);
+    }
+  }
+  function fallback(text, done, fail) {
+    try {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.top = '0';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, text.length);
+      var ok = document.execCommand('copy');
+      document.body.removeChild(ta);
+      if (ok) { done(); } else { fail(); }
+    } catch (e) { fail(); }
+  }
+
+  document.querySelectorAll('.copy-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var targetId = btn.getAttribute('data-copy');
+      var el = document.getElementById(targetId);
+      if (!el) return;
+      copyText(el.innerText, btn);
+    });
+  });
+})();
+</script>
+</body>
+</html>

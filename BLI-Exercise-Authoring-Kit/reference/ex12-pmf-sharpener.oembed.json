@@ -1,0 +1,12 @@
+{
+  "version": "1.0",
+  "type": "rich",
+  "provider_name": "Big Lever Institute",
+  "provider_url": "https://exercises.bigleverinstitute.org/",
+  "title": "Exercise 12 — Product-Market Fit Sharpener",
+  "author_name": "Big Lever Institute",
+  "author_url": "https://exercises.bigleverinstitute.org/",
+  "width": 1080,
+  "height": 8012,
+  "html": "<iframe src=\"https://exercises.bigleverinstitute.org/ex12-pmf-sharpener.html\" width=\"100%\" height=\"8012\" frameborder=\"0\" allow=\"clipboard-write\" style=\"border:none;display:block;max-width:100%\" title=\"Exercise 12 — Product-Market Fit Sharpener\" loading=\"lazy\"></iframe>"
+}
